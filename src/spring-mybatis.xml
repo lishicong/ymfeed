@@ -29,6 +29,7 @@
 		<property name="maxIdle" value="${jdbc.maxIdle}" />
 		<property name="minIdle" value="${jdbc.minIdle}" />
 		<property name="maxWait" value="${jdbc.maxWait}" />
+		<property name="connectionInitSqls" value="${jdbc.connectionInitSqls}" />
 	</bean>
 
 	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->

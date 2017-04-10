@@ -1,0 +1,194 @@
+/*!
+ * YmFeed - User Home (http://www.ymfeed.com/)
+ * Copyright 2017 YmFeed
+ */
+/* Feed流布局 */
+.ym-home-row {
+	width: 100%;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.ym-home-row .feed-item {
+	padding-top: 24px;
+}
+
+.ym-home-row .feed-img {
+	width: 140px;
+	height: 110px;
+	float: right;
+	margin-top: 36px;
+	margin-left: 12px;
+}
+
+.ym-home-row .feed-user-header {
+	width: 36px;
+	height: 36px;
+	margin-left: 8px;
+}
+
+.ym-home-row .feed-user-name {
+	font-size: 0.9rem;
+	color: #333333;
+	margin-left: 12px;
+}
+
+.ym-home-row .feed-datetime {
+	font-size: 0.8rem;
+	color: #999999;
+	margin-left: 12px;
+}
+
+.ym-home-row .feed-title {
+	font-size: 1.2rem;
+	font-family: inherit;
+	font-weight: 500;
+	line-height: 1.2;
+	color: #333333;
+}
+
+.ym-home-row .feed-content {
+	font-size: 0.9rem;
+	color: #333333;
+	margin-top: 8px;
+}
+
+.ym-home-row .feed-tools {
+	font-size: 0.9rem;
+	color: #999999;
+	margin-top: 0.8rem;
+}
+
+.ym-home-row .feed-content-img {
+	width: 16px;
+	height: 16px;
+	margin-left: 8px;
+	margin-bottom: 3px;
+}
+
+/***************************************************************************/
+.ym-home-row .ym-home-row-item {
+	position: relative;
+}
+
+.ym-home-row .ym-home-row-l {
+	float: left;
+}
+
+.ym-home-row .ym-home-row-l img {
+	width: 140px;
+	height: 140px;
+	margin-right: 16px;
+}
+
+@media ( max-width : 767px) {
+	.ym-home-row .ym-home-row-l img {
+		width: 100px;
+		height: 100px;
+		margin-right: 8px;
+	}
+}
+
+.ym-home-row .ym-home-row-r {
+	margin-top: 16px;
+}
+
+@media ( max-width : 767px) {
+	.ym-home-row .ym-home-row-r {
+		margin-top: 8px;
+	}
+}
+
+.ym-home-row .ym-home-row-r-title {
+	cursor: pointer;
+	font-size: 1.2em;
+	color: #333333;
+	padding-top: 2px;
+}
+
+@media ( max-width : 767px) {
+	.ym-home-row .ym-home-row-r-title {
+		font-size: 0.9em;
+	}
+}
+
+.ym-home-row .ym-home-row-r-hot {
+	font-size: 1.0em;
+	color: #d62222;
+	margin-left: 8px;
+}
+
+@media ( max-width : 767px) {
+	.ym-home-row .ym-home-row-r-hot {
+		font-size: 0.8em;
+	}
+}
+
+@media ( max-width : 767px) {
+	.ym-home-row .ym-home-row-r-hot-mobile {
+		position: absolute;
+		font-size: 0.8em;
+		color: #d62222;
+		top: 50px;
+		left: 108px;
+	}
+}
+
+.ym-home-row .ym-home-row-r-outline {
+	position: absolute;
+	top: 70px;
+	left: 156px;
+	font-size: 0.9em;
+	color: #666666;
+}
+
+.ym-home-row .ym-home-row-r-b {
+	position: absolute;
+	top: 120px;
+	left: 156px;
+	right: 0px;
+	font-size: 0.8em;
+	color: #999999;
+}
+
+@media ( max-width : 767px) {
+	.ym-home-row .ym-home-row-r-b {
+		top: 84px;
+		left: 108px;
+		font-size: 0.7em;
+	}
+}
+
+.ym-home-row .ym-home-row-b-l {
+	cursor: pointer;
+}
+
+.ym-home-row .ym-home-row-b-r {
+	cursor: pointer;
+	margin-right: 8px;
+	float: right;
+}
+
+.ym-home-row .ym-home-row-b-comment {
+	cursor: pointer;
+	margin-left: 16px;
+}
+
+.ym-home-row .ym-home-row-b-comment-img {
+	width: 12px;
+	height: 12px;
+	margin-bottom: 2px;
+}
+
+@media ( max-width : 767px) {
+	.ym-home-row .ym-home-row-b-comment-img {
+		width: 10px;
+		height: 10px;
+		margin-bottom: 3px;
+	}
+}
+
+.ym-home-row .ym-home-row-b-like {
+	cursor: pointer;
+	margin-left: 12px;
+}

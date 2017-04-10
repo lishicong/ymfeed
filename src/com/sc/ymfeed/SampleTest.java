@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.sc.ymfeed.mybatis.dto.Archivedate;
+import com.sc.ymfeed.mybatis.dto.Info;
 import com.sc.ymfeed.service.SampleService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,8 +36,8 @@ public class SampleTest {
 	@Test
 	public void test() {
 
-		List<Archivedate> user = testService.getSampleData();
-		logger.info("user:" + user.get(0).getArchivedatearticlecount());
+		List<Info> user = testService.getSampleData();
+		logger.info("user:" + user.get(0).getTitle());
 	}
 
 }

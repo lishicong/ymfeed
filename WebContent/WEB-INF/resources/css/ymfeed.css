@@ -1,0 +1,101 @@
+/*!
+ * YmFeed - Base (http://www.ymfeed.com/)
+ * Copyright 2017 YmFeed
+ */
+
+/** Generic configuration begin **/
+body {
+	padding-top: 54px;
+}
+
+@media ( max-width : 767px) {
+	body {
+		padding-top: 56px;
+	}
+}
+
+/* 重写bootstrap样式 */
+hr {
+	margin-top: 0.7rem;
+	margin-bottom: 0.7rem;
+	border: 0;
+	border-top: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+.ym-title-big {
+	
+}
+
+.ym-title-middle {
+	color: #333333;
+	font-size: 1.3rem;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+@media ( max-width : 767px) {
+	.ym-title-middle {
+		color: #333333;
+		font-size: 1.0rem;
+		font-weight: 600;
+		line-height: 1.4;
+	}
+}
+
+.ym-title-small {
+	
+}
+
+.ym-text {
+	font-size: 0.95rem;
+	color: #333333;
+	line-height: 1.6;
+}
+
+@media ( max-width : 767px) {
+	.ym-text {
+		font-size: 0.85rem;
+	}
+}
+
+.ym-text-minor {
+	font-size: 0.95rem;
+	color: #b4b4b4;
+}
+
+@media ( max-width : 767px) {
+	.ym-text-minor {
+		font-size: 0.85rem;
+	}
+}
+
+.ym-text-minor-small {
+	font-size: 0.8rem;
+	color: #b4b4b4;
+}
+
+@media ( max-width : 767px) {
+	.ym-text-minor-small {
+		font-size: 0.7rem;
+	}
+}
+
+/* 按钮样式 */
+.ym-button-generic {
+	cursor: pointer;
+	color: #ffffff;
+	background: #f05858;
+	text-align: center;
+	font-size: 1.0rem;
+	border-radius: 0px;
+}
+
+/* 标签样式 */
+.ym-label-generic {
+	cursor: pointer;
+	border: 0.07rem solid;
+	color: #f05858;
+	border-color: #f05858;
+	border-radius: 3px;
+	font-size: 1.0rem;
+}

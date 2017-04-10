@@ -2,7 +2,7 @@ package com.sc.ymfeed.service;
 
 import java.util.List;
 
-import com.sc.ymfeed.mybatis.dto.Archivedate;
+import com.sc.ymfeed.mybatis.dto.Info;
 
 /**
  * spring service interface demo.
@@ -11,5 +11,5 @@ import com.sc.ymfeed.mybatis.dto.Archivedate;
  */
 public interface SampleService {
 
-	public List<Archivedate> getSampleData();
+	public List<Info> getSampleData();
 }

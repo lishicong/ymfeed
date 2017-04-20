@@ -1,121 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<title>CSDN | 错误 jsp</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<style type="text/css">
-html, body {
-	margin: 0;
-	text-align: center;
-	background: #fff;
-}
+<base href="<%=basePath%>">
+<jsp:include page="../jsp/home.meta.jsp" flush="true" />
+<title>薅羊毛 | 404</title>
 
-body {
-	font-size: 12px;
-}
-
-#wrap {
-	width: 500px;
-	margin: auto;
-	text-align: left;
-	padding: 20px;
-	padding-top: 50px;
-}
-
-#logo {
-	position: relative;
-	width: 90px;
-	padding: 65px 0 65px 0;
-}
-
-#content {
-	position: absolute;
-	padding: 20px;
-	margin-left: 110px;
-	margin-top: -180px;
-	height: 140px;
-	border-left: solid 1px #999;
-}
-
-h2 {
-	font-size: 16px;
-}
-
-a:link, a:visited, a:hover, a:active {
-	text-decoration: none;
-	color: #900;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-li {
-	line-height: 22px;
-}
-</style>
+<!-- Common CSS/JS -->
+<script type="text/javascript" src="js/raptor-basic.js"></script>
+<script type="text/javascript">
+	var sec = 5; // 停留时间，单位秒
+</script>
 </head>
 <body>
-	<div id="wrap">
 
-		<script type="text/javascript">
-			var sec = 3;
-		</script>
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
 
-		<div id="logo">
-			<img src="http://c.csdn.net/bbs/t/5/i/pic_logo.gif"
-				style="border: 0;" width="90" height="50" alt="CSDN Logo" />
+			<div class="col-sm-4">
+				<!-- 左侧占位 -->
+			</div>
+
+			<!-- Post Content Column -->
+			<div class="col-sm-4">
+
+				<!-- Title -->
+				<h3 class="mt-4 ">您要找的页面不存在</h3>
+				<hr>
+
+				<blockquote class="blockquote">
+					<p>&nbsp;</p>
+					<p class="mb-0">可能是因为您的链接地址有误、该文章已经被作者删除或转为私密状态。</p>
+					<p>&nbsp;</p>
+					<footer class="blockquote-footer">
+						<sapn id="second"> <script type="text/javascript">
+							document.write(sec)
+						</script></sapn>
+						<cite title="Source Title">秒后将会跳转到首页</cite>
+					</footer>
+				</blockquote>
+			</div>
 		</div>
-		<div id="content">
-			<h2>噢！在你访问时发生了错误 ！</h2>
-			<p>可能是你要访问的页面不存在，请确认再重试。</p>
-			<p>你还可以…</p>
-			<ul>
-				<li><a href="http://www.csdn.net/"
-					onclick="history.back();return false;">返回上一页</a></li>
-				<li><a id="second" href="http://www.csdn.net/"> <script
-							type="text/javascript">
-					document.write(sec)
-				</script> 秒钟后将返回首页
-				</a></li>
-			</ul>
-		</div>
+		<!-- /.row -->
 	</div>
+	<!-- /.container -->
+
 	<script type="text/javascript">
-		function jump() {
-			location.href = getYmFeedRootPath();
+		function goHome() {
+			location.href = "index";
 		}
 		var s = 0;
-		function show() {
+		function showTime() {
 			s = s + 1;
 			if (s > sec)
 				return;
 			o = document.getElementById('second');
-			o.innerHTML = (sec - s) + '秒钟后将会跳转到首页';
+			o.innerHTML = (sec - s);
 		}
-		setTimeout('jump()', sec * 1000);
-		setInterval('show()', 1000);
-
-		/**
-		 * 获取系统根路径
-		 */
-		function getYmFeedRootPath() {
-			// 获取当前网址，如： http://localhost:8080/xxx/xx/x.jsp
-			var curWwwPath = window.document.location.href;
-			// 获取主机地址之后的目录，如： xxx/xx/x.jsp
-			var pathName = window.document.location.pathname;
-			var pos = curWwwPath.indexOf(pathName);
-			// 获取主机地址，如： http://localhost:8080
-			var localhostPaht = curWwwPath.substring(0, pos);
-			// 获取带"/"的项目名，如：/xxx
-			var projectName = pathName.substring(0, pathName.substr(1).indexOf(
-					'/') + 1);
-			return (localhostPaht + projectName);
-		}
+		setTimeout('goHome()', sec * 1000);
+		setInterval('showTime()', 1000);
 	</script>
-
 </body>
 </html>

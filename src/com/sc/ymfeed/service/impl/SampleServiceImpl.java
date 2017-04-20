@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.sc.ymfeed.mybatis.dao.InfoMapper;
-import com.sc.ymfeed.mybatis.dto.Info;
-import com.sc.ymfeed.mybatis.dto.InfoExample;
+import com.sc.ymfeed.mybatis.dao.FeedInfoMapper;
+import com.sc.ymfeed.mybatis.dto.FeedInfo;
+import com.sc.ymfeed.mybatis.dto.FeedInfoExample;
 import com.sc.ymfeed.service.SampleService;
 
 /**
@@ -20,11 +20,11 @@ import com.sc.ymfeed.service.SampleService;
 public class SampleServiceImpl implements SampleService {
 
 	@Resource
-	private InfoMapper mapper;
+	private FeedInfoMapper mapper;
 
 	@Override
-	public List<Info> getSampleData() {
-		InfoExample example = new InfoExample();
+	public List<FeedInfo> getSampleData() {
+		FeedInfoExample example = new FeedInfoExample();
 		return mapper.selectByExample(example);
 	}
 }

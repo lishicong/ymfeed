@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sc.ymfeed.mybatis.dto.Info;
+import com.sc.ymfeed.mybatis.dto.FeedInfo;
 import com.sc.ymfeed.service.SampleService;
 
 /**
@@ -27,7 +27,7 @@ public class SampleController {
 	@RequestMapping("/getSampleData")
 	public String toIndex(HttpServletRequest request, Model model) {
 		int userId = Integer.parseInt(request.getParameter("id"));
-		List<Info> archivedate = this.testService.getSampleData();
+		List<FeedInfo> archivedate = this.testService.getSampleData();
 		model.addAttribute("archivedate", archivedate.get(0));
 		return "user.home2";
 	}

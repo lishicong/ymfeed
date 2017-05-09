@@ -12,13 +12,14 @@ public class MAPPING {
 		public static final String DIRECT_HOME = "/index"; // 主页面
 		public static final String DIRECT_SIGN_IN = "/signin"; // 登录页面
 		public static final String DIRECT_SIGN_UP = "/signup"; // 注册页面
-		public static final String DIRECT_SIGN_ACTIVE = "/active"; // 注册页面
+		public static final String DIRECT_SIGN_ACTIVE = "/active"; // 激活页面
+		public static final String DIRECT_SIGN_ACTIVED = "/actived"; // 已激活页面
 
 		public static final String DATA_FEED_LIST = "/data/feed/list"; // feed流
-
 		public static final String DATA_SIGN_IN = "/data/sign/in"; // 登录数据
 		public static final String DATA_SIGN_OUT = "/data/sign/out"; // 登出数据
 		public static final String DATA_SIGN_UP = "/data/sign/up"; // 注册数据
+		public static final String DATA_SIGN_REACTIVE = "/data/sign/reactive"; // 重复发送激活页面
 	}
 
 	/**

@@ -56,7 +56,7 @@ public class ValidUtil {
 
 	public static final boolean isPasswordLength(String password) {
 
-		return (password != null && password.length() >= 8 && password.length() <= 16);
+		return (password != null && password.length() >= 6 && password.length() <= 16);
 	}
 
 	public static final boolean isNicknameLength(String nickname) {

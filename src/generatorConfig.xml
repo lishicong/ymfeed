@@ -26,6 +26,12 @@
 		<table schema="user_account" tableName="user_account"
 			domainObjectName="UserAccount">
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+			<columnOverride column="GAG" property="gag" javaType="Boolean"
+				jdbcType="TINYINT" />
+			<columnOverride column="BLOCKED" property="blocked"
+				javaType="Boolean" jdbcType="TINYINT" />
+			<columnOverride column="ACTIVE" property="active"
+				javaType="Boolean" jdbcType="TINYINT" />
 		</table>
 		<table schema="user_persistent" tableName="user_persistent"
 			domainObjectName="UserPersistent">

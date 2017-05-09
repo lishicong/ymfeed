@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sc.ymfeed.mybatis.dto.UserAccount;
-import com.sc.ymfeed.mybatis.dto.UserInfo;
 import com.sc.ymfeed.mybatis.dto.UserPersistent;
 
 /**
@@ -38,7 +37,7 @@ public interface AuthService {
 	 * @param nickname
 	 * @return
 	 */
-	public UserInfo getUserInfoByNickname(String nickname);
+	public UserAccount getUserAccountByNickname(String nickname);
 
 	/**
 	 * 添加用户帐号信息
@@ -46,7 +45,7 @@ public interface AuthService {
 	 * @param userAccount
 	 * @return
 	 */
-	public int addUserAccount(String nickname, String email, String password);
+	public UserAccount addUserAccount(UserAccount userAccount);
 
 	/**
 	 * 根据ID修改自动登录信息
@@ -63,6 +62,23 @@ public interface AuthService {
 	 * @return
 	 */
 	public int removeUserPersistentById(Long id);
+
+	/**
+	 * 发送激活邮件
+	 * 
+	 * @param userAccount
+	 * @param activeUrl
+	 * @return
+	 */
+	public int sendActiveEmail(String nickname, String email, String activeUrl);
+
+	/**
+	 * 激活帐号
+	 * 
+	 * @param activeCode
+	 * @return
+	 */
+	public int activeUserAccount(String activeCode);
 
 	/**
 	 * 记住我

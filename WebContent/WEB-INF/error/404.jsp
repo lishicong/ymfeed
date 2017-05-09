@@ -16,7 +16,7 @@
 <!-- Common CSS/JS -->
 <script type="text/javascript" src="js/raptor-basic.js"></script>
 <script type="text/javascript">
-	var sec = 5; // 停留时间，单位秒
+	var sec = 50; // 停留时间，单位秒
 </script>
 </head>
 <body>

@@ -28,8 +28,6 @@ function $importcss(_path) {
 $importcss('css/bootstrap.css');
 $importjs('js/jquery-3.2.0.min.js');
 $importjs('js/bootstrap.js');
-$importcss('css/lobibox.css');
-$importjs('js/lobibox.js');
 $importcss('css/showLoading.css');
 $importjs('js/jquery.showLoading.js');
 $importcss('css/ymfeed.css');

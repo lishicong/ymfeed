@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qiniu.util.Auth;
+import com.sc.ymfeed.common.util.GsonUtil;
 import com.sc.ymfeed.controller.MAPPING;
 
 @Controller
@@ -20,7 +21,7 @@ public class QiniuController {
 
 		Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
 		String token = auth.uploadToken(BUCKET);
-		return "{\"uptoken\":\"" + token + "\"}";
+		return GsonUtil.toJSONStr("uptoken", token);
 	}
 
 }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="css/jquery.validate.css" type="text/css"
-	charset="utf-8">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style type="text/css">
 .sign .sign-up-msg {
@@ -28,25 +27,28 @@
 			<h3 class="panel-title">注册</h3>
 		</div>
 		<div class="panel-body">
-			<form role="form" id="sign-up-form">
+			<form role="form" action="data/sign/up" method="post">
 				<fieldset>
 					<div class="form-group">
-						<input class="form-control" placeholder="你的昵称" id="nickname"
-							name="nickname" minlength="2" autofocus>
+						<input class="form-control" placeholder="你的昵称" name="nickname"
+							value="${nickname}" minlength="2" maxlength="16" required
+							autofocus>
 					</div>
 					<div class="form-group">
-						<input class="form-control" placeholder="邮箱地址" id="email"
-							title="请填写邮箱地址" name="email" type="email">
+						<input class="form-control" placeholder="邮箱地址" type="email"
+							name="email" value="${email}" required>
 					</div>
 					<div class="form-group">
-						<input class="form-control" placeholder="设置密码" id="password"
-							title="请填写密码" name="password" type="password">
+						<input class="form-control" placeholder="设置密码" type="password"
+							name="password" value="${password}" minlength="6" maxlength="16"
+							required>
 					</div>
-					<div id="error-msg" class="alert alert-danger"
-						style="display: none;"></div>
+					<c:if test="${code == 1002}">
+						<div id="error-msg" class="alert alert-danger">${message}</div>
+					</c:if>
 					<!-- Change this to a button or input when using this as a form -->
 					<input type="submit" class="btn btn-lg btn-success btn-block"
-						onclick="javascritp:ajaxSignUp();return;" value="注册" />
+						value="注册" />
 					<div class="sign">
 						<p class="sign-up-msg">
 							点击 “注册” 即表示您同意并愿意遵守<br> <a target="_blank" href="#">用户协议</a>
@@ -58,46 +60,3 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="js/jquery.validate.js"></script>
-<script type="text/javascript">
-	function ajaxSignUp() {
-
-		var nickname = $("#nickname").val();
-		if (!checkNicknameLen(nickname)) {
-			$("#nickname").rzAlertTips({
-				flagInfo : '昵称长度2~16'
-			});
-			return;
-		}
-
-		jQuery('#sign-body').showLoading();
-		$.ajax({
-			type : "post",
-			url : "data/sign/up",
-			data : {
-				"nickname" : $("#nickname").val(),
-				"email" : $("#email").val(),
-				"password" : $("#password").val()
-			},
-			dataType : "json",
-			success : function(data) {
-				jQuery('#sign-body').hideLoading();
-				if (data.code == 1001) {
-					// success
-					openSelf("active");
-				} else if (data.code == 1002) {
-					$("#error-msg").text(data.message);
-					$("#error-msg").show();
-				}
-			},
-			error : function(XMLHttpRequest, textStatus, errorThrown) {
-				jQuery('#sign-body').hideLoading();
-				Lobibox.notify('info', {
-					size : 'mini',
-					//delay : 3000,
-					msg : textStatus
-				});
-			}
-		});
-	}
-</script>

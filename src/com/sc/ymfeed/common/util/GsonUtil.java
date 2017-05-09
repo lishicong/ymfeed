@@ -8,9 +8,17 @@ public class GsonUtil {
 	private GsonUtil() {
 	}
 
-	public static final String toJSON(BaseModel model) {
+	public static final String toJSONObject(BaseModel model) {
 		Gson gson = new Gson();
 		return gson.toJson(model);
+	}
+
+	public static final String toJSONSimple(int code, String msg) {
+		return "{\"code\": " + code + ",\"msg\": \"" + msg + "\"}";
+	}
+
+	public static final String toJSONStr(String key, String value) {
+		return "{\"" + key + "\":\"" + value + "\"}";
 	}
 
 }

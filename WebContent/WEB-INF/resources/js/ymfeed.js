@@ -20,76 +20,6 @@ function isPC() {
 	}
 	return flag;
 }
-
-// --------------------------------------------------------------------------------
-/**
- * 邮箱
- * 
- * @param str
- * @returns
- */
-function checkEmail(str) {
-	var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
-	if (re.test(str)) {
-		return true;
-	}
-	return false;
-}
-
-/**
- * 手机号
- * 
- * @param str
- * @returns
- */
-function checkMobile(str) {
-	var re = /^1(3|4|5|7|8)\d{9}$/
-	if (re.test(str)) {
-		return true;
-	}
-	return false;
-}
-/**
- * 用户名 (验证规则：字母、数字、下划线组成，字母开头，2-16位)
- * 
- * @param str
- * @returns
- */
-function checkUser(str) {
-	var re = /^[a-zA-z]\w{1,15}$/;
-	if (re.test(str)) {
-		return true;
-	}
-	return false;
-}
-
-/**
- * 昵称长度2~16
- * 
- * @param str
- * @returns
- */
-function checkNicknameLen(str) {
-	var re = /^\S{1,15}$/;
-	if (re.test(str)) {
-		return true;
-	}
-	return false;
-}
-
-/**
- * 密码长度8~16
- * 
- * @param str
- * @returns
- */
-function checkPasswordLen(str) {
-	var re = /^\S{7,15}$/;
-	if (re.test(str)) {
-		return true;
-	}
-	return false;
-}
 // --------------------------------------------------------------------------------
 /**
  * 以指定方式打开链接
@@ -107,6 +37,33 @@ function openHyperlink(url, target) {
 }
 
 /**
+ * 以指定方式打开链接(post)
+ * 
+ * @param url
+ * @param target
+ * @returns
+ */
+function openHyperlinkPost(url, target) {
+	var temp = document.createElement("form"); // 创建form表单
+	temp.action = url;
+	temp.method = "post";
+	temp.style.display = "none";// 表单样式为隐藏
+	for ( var item in params) {// 初始化表单内部的控件
+		// 根据实际情况创建不同的标签元素
+		var opt = document.createElement("input"); // 添加input标签
+		opt.type = "text"; // 类型为text
+		opt.id = item; // 设置id属性
+		opt.name = item; // 设置name属性
+		opt.value = params[item]; // 设置value属性
+		temp.appendChild(opt);
+	}
+
+	document.body.appendChild(temp);
+	temp.submit();
+	return temp;
+}
+
+/**
  * 以新窗口打开链接
  * 
  * @param url
@@ -114,6 +71,10 @@ function openHyperlink(url, target) {
  */
 function openWin(url) {
 	openHyperlink(url, '_blank');
+}
+
+function openWinPost(url) {
+	openHyperlinkPost(url, '_bland');
 }
 
 /**

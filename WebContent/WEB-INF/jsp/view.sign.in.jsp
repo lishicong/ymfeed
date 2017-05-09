@@ -90,15 +90,15 @@
 				<fieldset>
 					<div class="form-group">
 						<input class="form-control" placeholder="邮箱" name="email"
-							type="email" autofocus>
+							type="email" value="${email}" required autofocus>
 					</div>
 					<div class="form-group">
 						<input class="form-control" placeholder="密码" name="password"
-							type="password">
+							type="password" value="${password}" required>
 					</div>
 					<div class="checkbox">
 						<label> <input class="form-remember" name="remember"
-							type="checkbox">记住我
+							type="checkbox" <c:if test="${remember==true}">checked</c:if>>记住我
 						</label><a href="#" style="float: right;">忘记密码？</a>
 					</div>
 					<c:if test="${code == 1002}">

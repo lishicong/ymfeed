@@ -1,6 +1,5 @@
 package com.sc.ymfeed.controller.auth;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,13 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.ymfeed.controller.MAPPING;
-import com.sc.ymfeed.service.AuthService;
 
+/**
+ * 注销
+ * 
+ * @author lishicong
+ *
+ */
 @Controller
-public class SignOutController {
-
-	@Resource
-	private AuthService authService;
+public class SignOutController extends SignController {
 
 	@RequestMapping(value = MAPPING.NP.DATA_SIGN_OUT, method = { RequestMethod.POST })
 	public @ResponseBody String logout(HttpServletRequest request, HttpServletResponse response) {

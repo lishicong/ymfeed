@@ -21,6 +21,12 @@ import com.sc.ymfeed.mybatis.dto.UserAccount;
 import com.sc.ymfeed.mybatis.dto.UserPersistent;
 import com.sc.ymfeed.service.AuthService;
 
+/**
+ * 拦截器
+ * 
+ * @author lishicong
+ *
+ */
 public class AuthorizedInterceptor implements HandlerInterceptor {
 
 	@Resource

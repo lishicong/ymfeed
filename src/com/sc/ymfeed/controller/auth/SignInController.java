@@ -2,7 +2,6 @@ package com.sc.ymfeed.controller.auth;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,13 +19,15 @@ import com.sc.ymfeed.common.cookie.CookieConstant;
 import com.sc.ymfeed.controller.MAPPING;
 import com.sc.ymfeed.controller.Messages;
 import com.sc.ymfeed.mybatis.dto.UserAccount;
-import com.sc.ymfeed.service.AuthService;
 
+/**
+ * 登录
+ * 
+ * @author lishicong
+ *
+ */
 @Controller
-public class SignInController {
-
-	@Resource
-	private AuthService authService;
+public class SignInController extends SignController {
 
 	@RequestMapping(value = MAPPING.NP.DIRECT_SIGN_IN, method = { RequestMethod.GET })
 	public String signin(HttpServletRequest request, Model model) {
@@ -40,7 +41,7 @@ public class SignInController {
 			model.addAttribute(Messages.PARAM_PASSWORD, map.get(Messages.PARAM_PASSWORD));
 			model.addAttribute(Messages.PARAM_REMEMBER, map.get(Messages.PARAM_REMEMBER));
 		}
-		
+
 		return "view.sign.in" + MAPPING.TEMPLATE.TEMPLATE_B;
 	}
 

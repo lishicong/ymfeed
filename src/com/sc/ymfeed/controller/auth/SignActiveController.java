@@ -1,6 +1,5 @@
 package com.sc.ymfeed.controller.auth;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,13 +18,15 @@ import com.sc.ymfeed.common.util.GsonUtil;
 import com.sc.ymfeed.controller.MAPPING;
 import com.sc.ymfeed.controller.Messages;
 import com.sc.ymfeed.mybatis.dto.UserAccount;
-import com.sc.ymfeed.service.AuthService;
 
+/**
+ * 激活
+ * 
+ * @author lishicong
+ *
+ */
 @Controller
-public class SignActiveController {
-
-	@Resource
-	private AuthService authService;
+public class SignActiveController extends SignController {
 
 	@RequestMapping(value = MAPPING.NP.DIRECT_SIGN_ACTIVE, method = { RequestMethod.GET })
 	public String signactive(HttpServletRequest request, Model model) {

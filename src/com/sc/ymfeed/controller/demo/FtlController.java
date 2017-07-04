@@ -23,6 +23,13 @@ public class FtlController {
 	@Resource
 	private SampleService testService;
 
+	@RequestMapping(value = "/tt", method = { RequestMethod.GET })
+	public @ResponseBody String getTT(HttpServletRequest request) {
+		System.out.println("ok");
+		System.out.println("ok:"+request.getParameter("channelId"));
+		return "{'errno':1001}";
+	}
+
 	@RequestMapping(value = "/welcome", method = { RequestMethod.GET })
 	public ModelAndView getWelcome(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("welcome");

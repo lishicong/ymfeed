@@ -2,7 +2,6 @@ package com.sc.ymfeed.controller.auth;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,13 +18,15 @@ import com.sc.ymfeed.common.util.ValidUtil;
 import com.sc.ymfeed.controller.MAPPING;
 import com.sc.ymfeed.controller.Messages;
 import com.sc.ymfeed.mybatis.dto.UserAccount;
-import com.sc.ymfeed.service.AuthService;
 
+/**
+ * 注册
+ * 
+ * @author lishicong
+ *
+ */
 @Controller
-public class SignUpController {
-
-	@Resource
-	private AuthService authService;
+public class SignUpController extends SignController {
 
 	@RequestMapping(value = MAPPING.NP.DIRECT_SIGN_UP, method = { RequestMethod.GET })
 	public String signup(HttpServletRequest request, Model model) {

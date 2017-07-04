@@ -61,7 +61,7 @@ public interface AuthService {
 	 * @param id
 	 * @return
 	 */
-	public int removeUserPersistentById(Long id);
+	public int removeUserPersistentById(String id);
 
 	/**
 	 * 发送激活邮件

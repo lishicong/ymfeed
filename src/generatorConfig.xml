@@ -25,7 +25,6 @@
 		<!-- tables -->
 		<table schema="user_account" tableName="user_account"
 			domainObjectName="UserAccount">
-			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 			<columnOverride column="GAG" property="gag" javaType="Boolean"
 				jdbcType="TINYINT" />
 			<columnOverride column="BLOCKED" property="blocked"
@@ -35,16 +34,13 @@
 		</table>
 		<table schema="user_persistent" tableName="user_persistent"
 			domainObjectName="UserPersistent">
-			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
 		<table schema="user_info" tableName="user_info"
 			domainObjectName="UserInfo">
-			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
 
 		<table schema="feed_info" tableName="feed_info"
 			domainObjectName="FeedInfo">
-			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
 
 	</context>

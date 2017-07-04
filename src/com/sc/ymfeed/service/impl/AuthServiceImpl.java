@@ -21,6 +21,7 @@ import com.sc.ymfeed.common.email.MailFactory;
 import com.sc.ymfeed.common.email.MailType;
 import com.sc.ymfeed.common.email.Mailer;
 import com.sc.ymfeed.common.util.DateUtil;
+import com.sc.ymfeed.common.util.UUIDUtil;
 import com.sc.ymfeed.mybatis.dao.UserAccountMapper;
 import com.sc.ymfeed.mybatis.dao.UserInfoMapper;
 import com.sc.ymfeed.mybatis.dao.UserPersistentMapper;
@@ -92,7 +93,7 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public int removeUserPersistentById(Long id) {
+	public int removeUserPersistentById(String id) {
 		return userPersistentMapper.deleteByPrimaryKey(id);
 	}
 
@@ -183,17 +184,19 @@ public class AuthServiceImpl implements AuthService {
 
 		if (userPersistent == null) {
 			userPersistent = new UserPersistent();
-			userPersistent.setId(0L); // @TODO modify id auto
+			userPersistent.setId(UUIDUtil.getUUID());
 			userPersistent.setUserAccountId(userAccount.getId());
 			userPersistent.setEmail(userAccount.getEmail());
 			userPersistent.setSeries(cookieInfo.getSeries());
 			userPersistent.setToken(cookieInfo.getToken());
 			userPersistent.setValidTime(cookieInfo.getValidTime());
+			userPersistent.setCreateTime(new Date());
 			result = userPersistentMapper.insertSelective(userPersistent);
 		} else {
 			userPersistent.setSeries(cookieInfo.getSeries());
 			userPersistent.setToken(cookieInfo.getToken());
 			userPersistent.setValidTime(cookieInfo.getValidTime());
+			userPersistent.setUpdateTime(new Date());
 			result = userPersistentMapper.updateByPrimaryKeySelective(userPersistent);
 		}
 

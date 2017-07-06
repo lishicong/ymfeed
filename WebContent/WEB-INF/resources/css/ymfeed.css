@@ -209,3 +209,23 @@ a, a:hover {
 .form-control::-webkit-input-placeholder {
 	color: #999;
 }
+
+/** All Hyperlink **/
+a.example-link:link {
+	text-decoration: none;
+	color: #000000;
+}
+
+a.example-link:focus, a.example-link:hover {
+	text-decoration: underline;
+	color: #000000;
+}
+
+a.example-link:active {
+	text-decoration: blink;
+	color: #000000;
+}
+
+a.example-link:visited {
+	color: #969696;
+}

@@ -80,6 +80,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public UserAccount addUserAccount(UserAccount userAccount) {
 
+		userAccount.setId(UUIDUtil.getUUID());
 		int result = userAccountMapper.insertSelective(userAccount);
 		if (result == 1) {
 			userAccount = getUserAccountByEmail(userAccount.getEmail());

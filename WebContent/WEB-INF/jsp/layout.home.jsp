@@ -29,6 +29,16 @@
 			<div class="col-sm-1">
 				<!-- 左侧占位 -->
 			</div>
+			<!-- 广告 -->
+			<tiles:insertAttribute name="advert" />
+			<div class="col-sm-1">
+				<!-- 右侧占位 -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-1">
+				<!-- 左侧占位 -->
+			</div>
 
 			<!-- body -->
 			<tiles:insertAttribute name="body" />

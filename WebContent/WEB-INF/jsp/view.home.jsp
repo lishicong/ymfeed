@@ -119,7 +119,7 @@
 
 <script type="text/javascript">
 	/**
-	 * 
+	 * 每行点击事件
 	 */
 	function feedItemClick(id) {
 		if (!isPC()) {
@@ -159,7 +159,8 @@
 			var info = data[i];
 			var item = '<div class="mb-4" onclick="feedItemClick(' + info.id + ');">';
 			item += createFeedPreviewImage(info.previewImg);
-			item += createFeedHeaderImage(info.header);
+			//item += createFeedHeaderImage(info.header);
+			item += createFeedHeaderImage("http://img5.imgtn.bdimg.com/it/u=1160111643,2794362200&fm=26&gp=0.jpg");
 			item += createFeedAuthorName(info.authorId);
 			item += createFeedCreateTime(info.createTime);
 			item += createFeedTitle(info.id, info.title);

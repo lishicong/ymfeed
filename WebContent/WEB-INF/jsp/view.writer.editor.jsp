@@ -16,7 +16,12 @@
 	margin-top: 24px;
 }
 
+.form-control {
+	height: 36px;
+}
+
 .input-group-addon {
+	height: 36px;
 	cursor: pointer;
 	background: #f05858;
 	color: #ffffff;
@@ -46,7 +51,7 @@
 
 		$.ajax({
 			type : "post",
-			url : "data/feed/add",
+			url : "p/data/feed/add",
 			data : {
 				"title" : title,
 				"content" : content

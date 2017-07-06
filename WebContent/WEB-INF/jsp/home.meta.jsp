@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <script>
-	var _cookie = '${sessionScope["ymfeed-cookie"]}';
+	var _cookie = '${sessionScope["ymfeed-cookie"].email}';
 	function _hasCookie() {
-		var _email = _cookie.email;
-		return !(typeof (_email) == "undefined");
+		return !(typeof (_cookie) == "undefined");
 	}
 </script>
 <meta name="save" content="history">

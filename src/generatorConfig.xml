@@ -41,6 +41,8 @@
 
 		<table schema="feed_info" tableName="feed_info"
 			domainObjectName="FeedInfo">
+			<columnOverride column="CONTENT" property="content"
+				javaType="String" jdbcType="VARCHAR" />
 		</table>
 
 	</context>

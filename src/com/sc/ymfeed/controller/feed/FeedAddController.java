@@ -2,6 +2,7 @@ package com.sc.ymfeed.controller.feed;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import com.sc.ymfeed.controller.MAPPING;
  * @author lishicong
  *
  */
+@Controller
 public class FeedAddController extends FeedController {
 
 	@RequestMapping(value = MAPPING.P.DATA_FEED_ADD, method = { RequestMethod.POST })

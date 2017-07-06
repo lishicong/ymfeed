@@ -17,19 +17,31 @@
 	<!-- 引入配置文件 -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:jdbc.properties" />
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:task.properties</value>
+				<value>classpath:redis.properties</value>
+			</list>
+		</property>
 	</bean>
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
+
 		<property name="driverClassName" value="${jdbc.driver}" />
+
+		<!-- 基本属性 url、user、password -->
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
 		<property name="initialSize" value="${jdbc.initialSize}" />
-		<property name="maxActive" value="${jdbc.maxActive}" />
-		<property name="maxIdle" value="${jdbc.maxIdle}" />
 		<property name="minIdle" value="${jdbc.minIdle}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+
+		<!-- 配置获取连接等待超时的时间 -->
 		<property name="maxWait" value="${jdbc.maxWait}" />
 		<property name="connectionInitSqls" value="${jdbc.connectionInitSqls}" />
 	</bean>
@@ -37,6 +49,8 @@
 	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="classpath:com/sc/ymfeed/mybatis/mybatis-configuration.xml" />
 		<!-- 自动扫描mapping.xml文件 -->
 		<property name="mapperLocations"
 			value="classpath:com/sc/ymfeed/mybatis/dto/sql/*.xml"></property>
@@ -52,18 +66,6 @@
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
-	</bean>
-
-	<bean id="taskExecutor"
-		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-		<!-- 核心线程数 -->
-		<property name="corePoolSize" value="${task.core_pool_size}" />
-		<!-- 最大线程数 -->
-		<property name="maxPoolSize" value="${task.max_pool_size}" />
-		<!-- 队列最大长度 -->
-		<property name="queueCapacity" value="${task.queue_capacity}" />
-		<!-- 线程池维护线程所允许的空闲时间，默认为60s -->
-		<property name="keepAliveSeconds" value="${task.keep_alive_seconds}" />
 	</bean>
 
 	<!-- 事务注解驱动，标注@Transactional的类和方法将具有事务性 -->

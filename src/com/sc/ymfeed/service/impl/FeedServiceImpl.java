@@ -23,6 +23,7 @@ public class FeedServiceImpl implements FeedService {
 
 	@Override
 	public List<FeedInfo> getFeedInfos() {
+
 		FeedInfoExample example = new FeedInfoExample();
 		return mapper.selectByExample(example);
 	}

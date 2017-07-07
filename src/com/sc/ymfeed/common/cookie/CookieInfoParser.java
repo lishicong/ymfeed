@@ -4,6 +4,10 @@ import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.Cookie;
 
+import com.sc.ymfeed.common.util.AESUtil;
+import com.sc.ymfeed.common.util.MD5Util;
+import com.sc.ymfeed.mybatis.dto.UserAccount;
+
 public class CookieInfoParser {
 
 	private CookieInfo cookieInfo;
@@ -28,6 +32,72 @@ public class CookieInfoParser {
 			cookieInfo.setSeries(cookieValues[1]);
 			isParseSuccess = true;
 		}
+	}
+
+	/**
+	 * Cookie加密
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public static String cookieEncrypt(UserAccount userAccount) {
+		String userAccountId = userAccount.getId();
+		String email = userAccount.getEmail();
+		String source = userAccountId + CookieConstant.COOKIE_DIVIDER + email + CookieConstant.COOKIE_DIVIDER
+				+ MD5Util.GetMD5Code(CookieConstant.COOKIE_SECRET_CODE);
+		String cookie = source;
+		try {
+			System.out.println("cookie d:" + source);
+			cookie = AESUtil.encrypt(source, CookieConstant.AES_KEY_COOKIE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cookie;
+	}
+
+	/**
+	 * Cookie解密
+	 * 
+	 * @param cookie
+	 * @return
+	 */
+	public static UserAccount cookieDecrypt(String cookie) {
+		UserAccount userAccount = new UserAccount();
+		try {
+			String source = AESUtil.decrypt(cookie, CookieConstant.AES_KEY_COOKIE);
+			System.out.println("cookie d:" + source);
+			String[] s = source.split(CookieConstant.COOKIE_REGULAR);
+			if (s != null && s.length == 3) {
+				userAccount.setId(s[0]);
+				userAccount.setEmail(s[1]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userAccount;
+	}
+
+	/**
+	 * 检查Cookie是否合法
+	 * 
+	 * @param cookie
+	 * @return
+	 */
+	public static boolean isRightCookie(String cookie) {
+		if (cookie != null && cookie.length() > 0) {
+			System.out.println(cookie);
+			String[] source = cookie.split(CookieConstant.COOKIE_REGULAR);
+			System.out.println(source.length);
+			if (source != null && source.length == 3) {
+				String secret = source[2];
+				System.out.println(secret);
+				System.out.println(MD5Util.GetMD5Code(CookieConstant.COOKIE_SECRET_CODE));
+				if (secret.equals(MD5Util.GetMD5Code(CookieConstant.COOKIE_SECRET_CODE))) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

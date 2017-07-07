@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +30,8 @@ import com.sc.ymfeed.service.AuthService;
  */
 public class AuthorizedInterceptor implements HandlerInterceptor {
 
+	private static Logger logger = Logger.getLogger(AuthorizedInterceptor.class);
+
 	@Resource
 	private AuthService authService;
 
@@ -47,21 +50,19 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 
-		if (!isNeedValid(request)) {
-			return true;
-		}
-
 		HttpSession session = request.getSession();
-		UserAccount userAccountByCookie = (UserAccount) session.getAttribute(CookieConstant.USER_COOKIE);
+		String cookieValue = (String) session.getAttribute(CookieConstant.USER_COOKIE);
 
-		if (userAccountByCookie != null) {
+		System.out.println("cookieValue:" + cookieValue);
+		if (cookieValue != null) {
+			// session中存在，已登录
 			return true;
 		}
 
 		// 从cookie中取值
 		Cookie remember = CookieUtil.getCookie(request, CookieConstant.REMEMBER_ME);
+		System.out.println("remember:" + remember);
 		if (remember != null) {
-
 			CookieInfoParser parser = new CookieInfoParser();
 			parser.parse(remember); // 解析cookie数据
 
@@ -106,7 +107,8 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 								authService.modifyUserPersistent(userPersistent);
 
 								// 将用户加到session中，不退出浏览器时就只需判断session即可
-								session.setAttribute(CookieConstant.USER_COOKIE, userAccount);
+								cookieValue = CookieInfoParser.cookieEncrypt(userAccount);
+								session.setAttribute(CookieConstant.USER_COOKIE, cookieValue);
 
 								return true; // 校验成功，此次拦截操作完成
 							} else {
@@ -123,6 +125,12 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 				}
 			}
 		}
+
+		if (!isNeedValid(request)) {
+			// 不需要登录校验
+			return true;
+		}
+
 		// 将来源地址存放在session中，登录成功之后跳回原地址
 		String callback = request.getRequestURL().toString();
 		session.setAttribute("callback", callback);

@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <script>
-	var _cookie = '${sessionScope["ymfeed-cookie"].email}';
+	var _cookie = '${sessionScope["ymfeed-cookie"]}';
 	function _hasCookie() {
-		return !(typeof (_cookie) == "undefined");
+		return (typeof (_cookie) != "undefined") && (_cookie != null) && (_cookie != "");
 	}
+	var v = '${sessionScope["JSESSIONID"]}' + " - " + '${sessionScope["ymfeed-remember-me"]}' + " - "
+			+ '${sessionScope["ymfeed-cookie"]}';
+	//alert(v);
 </script>
 <meta name="save" content="history">
 <meta charset="utf-8">

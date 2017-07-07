@@ -86,8 +86,9 @@ public class CookieUtil {
 
 		if (cookies != null && !StringUtils.isEmpty(cookieName)) {
 			for (Cookie c : cookies) {
-				if (c.getName().equals(cookieName))
+				if (c.getName().equals(cookieName)) {
 					return (Cookie) c;
+				}
 			}
 		}
 		return null;

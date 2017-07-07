@@ -16,6 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.sc.ymfeed.common.cookie.CookieConstant;
+import com.sc.ymfeed.common.cookie.CookieInfo;
+import com.sc.ymfeed.common.cookie.CookieInfoParser;
+import com.sc.ymfeed.common.cookie.CookieUtil;
 import com.sc.ymfeed.controller.MAPPING;
 import com.sc.ymfeed.controller.Messages;
 import com.sc.ymfeed.mybatis.dto.UserAccount;
@@ -57,7 +60,13 @@ public class SignInController extends SignController {
 				if (userAccount.getActive()) {
 					// 帐号已激活
 					if (remember) {
-						authService.remeberMe(userAccount, response);
+						CookieInfo cookieInfo = new CookieInfo(userAccount);
+						int result = authService.remeberMe(userAccount, cookieInfo);
+						if (result == 1) {
+							// 保存cookie
+							CookieUtil.addCookie(response, CookieConstant.REMEMBER_ME, cookieInfo.getCookieValue(),
+									null);
+						}
 					}
 
 					HttpSession session = request.getSession();
@@ -82,7 +91,8 @@ public class SignInController extends SignController {
 						mAndView = new ModelAndView("redirect:/index");
 					}
 
-					session.setAttribute(CookieConstant.USER_COOKIE, userAccount); // 登录成功之后加入session中
+					String cookieValue = CookieInfoParser.cookieEncrypt(userAccount);
+					session.setAttribute(CookieConstant.USER_COOKIE, cookieValue); // 登录成功之后加入session中
 					redirectAttributes.addFlashAttribute(CookieConstant.USER_COOKIE, userAccount);
 
 					return mAndView;

@@ -24,15 +24,9 @@ public class FeedListController extends FeedController {
 
 	@RequestMapping(value = MAPPING.NP.DATA_FEED_LIST, method = { RequestMethod.GET })
 	public @ResponseBody List<FeedInfo> feedList(HttpServletRequest request, @RequestParam("param") String param) {
-		System.out.println("param:" + param);
+
 		List<FeedInfo> info = this.feedService.getFeedInfos();
-		
-		for(FeedInfo i:info){
-			System.out.println("info:"+i.getContent());
-		}
 		info.addAll(ExampleData.getExample());
-		
-		
 
 		return info;
 	}

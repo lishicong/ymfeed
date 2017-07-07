@@ -1,4 +1,4 @@
-package com.sc.ymfeed.util;
+package com.sc.ymfeed.common.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

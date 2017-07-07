@@ -1,8 +1,6 @@
 package com.sc.ymfeed.service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.sc.ymfeed.common.cookie.CookieInfo;
 import com.sc.ymfeed.mybatis.dto.UserAccount;
 import com.sc.ymfeed.mybatis.dto.UserPersistent;
 
@@ -66,7 +64,8 @@ public interface AuthService {
 	/**
 	 * 发送激活邮件
 	 * 
-	 * @param userAccount
+	 * @param nickname
+	 * @param email
 	 * @param activeUrl
 	 * @return
 	 */
@@ -84,18 +83,17 @@ public interface AuthService {
 	 * 记住我
 	 * 
 	 * @param userAccount
-	 * @param response
+	 * @param cookieInfo
 	 * @return
 	 */
-	public int remeberMe(UserAccount userAccount, HttpServletResponse response);
+	public int remeberMe(UserAccount userAccount, CookieInfo cookieInfo);
 
 	/**
 	 * 忘记我
 	 * 
-	 * @param request
-	 * @param response
+	 * @param userAccountId
 	 * @return
 	 */
-	public int forgetMe(HttpServletRequest request, HttpServletResponse response);
+	public int forgetMe(String userAccountId);
 
 }

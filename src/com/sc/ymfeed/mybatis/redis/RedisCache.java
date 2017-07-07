@@ -9,7 +9,7 @@ import org.apache.ibatis.cache.Cache;
 import org.apache.log4j.Logger;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
-import com.sc.ymfeed.util.SerializeUtil;
+import com.sc.ymfeed.common.util.SerializeUtil;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;

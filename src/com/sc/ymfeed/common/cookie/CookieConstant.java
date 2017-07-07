@@ -17,6 +17,29 @@ public class CookieConstant {
 	 */
 	public final static String REMEMBER_ME = "ymfeed-remember-me";
 
+	/**
+	 * 用户Cookie
+	 */
 	public final static String USER_COOKIE = "ymfeed-cookie";
+
+	/**
+	 * AES key
+	 */
+	public static final String AES_KEY_COOKIE = "1234567890123456";
+
+	/**
+	 * Cookie安全验证码
+	 */
+	public static final String COOKIE_SECRET_CODE = "0123456789abcdef";
+
+	/**
+	 * 分割符
+	 */
+	public static final String COOKIE_DIVIDER = "|$|";
+
+	/**
+	 * 分割符正则
+	 */
+	public static final String COOKIE_REGULAR = "\\|\\$\\|";
 
 }

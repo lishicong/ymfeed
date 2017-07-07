@@ -117,6 +117,19 @@
 
 <script type="text/javascript">
 	/**
+	 * 退出登录
+	 */
+	function singOut() {
+		$.ajax({
+			type : "post",
+			url : "data/sign/out",
+			dataType : "json",
+			success : function(data) {
+				alert(data);
+			}
+		});
+	}
+	/**
 	 * 写笔记
 	 */
 	function headerWriterFunc() {
@@ -126,7 +139,7 @@
 	 * 打开用户菜单
 	 */
 	function openUserMenu() {
-
+		singOut();
 	}
 	/**
 	 * 导航栏推荐点击事件

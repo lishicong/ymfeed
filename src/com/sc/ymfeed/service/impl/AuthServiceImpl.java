@@ -5,16 +5,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sc.ymfeed.common.cookie.CookieConstant;
 import com.sc.ymfeed.common.cookie.CookieInfo;
-import com.sc.ymfeed.common.cookie.CookieUtil;
 import com.sc.ymfeed.common.cookie.EncryptionUtil;
 import com.sc.ymfeed.common.email.MailActive;
 import com.sc.ymfeed.common.email.MailFactory;
@@ -175,9 +171,7 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public int remeberMe(UserAccount userAccount, HttpServletResponse response) {
-
-		CookieInfo cookieInfo = new CookieInfo(userAccount);
+	public int remeberMe(UserAccount userAccount, CookieInfo cookieInfo) {
 
 		UserPersistent userPersistent = getUserPersistentByUserAccountId(userAccount);
 
@@ -201,22 +195,14 @@ public class AuthServiceImpl implements AuthService {
 			result = userPersistentMapper.updateByPrimaryKeySelective(userPersistent);
 		}
 
-		// 保存cookie
-		CookieUtil.addCookie(response, CookieConstant.REMEMBER_ME, cookieInfo.getCookieValue(), null);
-
 		return result;
 	}
 
 	@Override
-	public int forgetMe(HttpServletRequest request, HttpServletResponse response) {
-		// 从session中获取用户帐号
-		UserAccount userAccount = (UserAccount) request.getSession().getAttribute(CookieConstant.USER_COOKIE);
-		int result = removeUserPersistentByUserAccountId(userAccount);
-
-		// 清除session和用于自动登录的cookie
-		request.getSession().removeAttribute(CookieConstant.USER_COOKIE);
-		CookieUtil.removeCookie(request, response, CookieConstant.REMEMBER_ME);
-		return result;
+	public int forgetMe(String userAccountId) {
+		UserPersistentExample example = new UserPersistentExample();
+		example.createCriteria().andUserAccountIdEqualTo(userAccountId);
+		return userPersistentMapper.deleteByExample(example);
 	}
 
 	/**
@@ -250,18 +236,6 @@ public class AuthServiceImpl implements AuthService {
 			return list.get(0);
 		}
 		return null;
-	}
-
-	/**
-	 * 根据用户帐号ID删除cookie信息
-	 * 
-	 * @param userAccount
-	 * @return
-	 */
-	private int removeUserPersistentByUserAccountId(UserAccount userAccount) {
-		UserPersistentExample example = new UserPersistentExample();
-		example.createCriteria().andUserAccountIdEqualTo(userAccount.getId());
-		return userPersistentMapper.deleteByExample(example);
 	}
 
 }

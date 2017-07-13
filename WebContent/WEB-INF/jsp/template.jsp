@@ -1,122 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<style type="text/css">
+.mt-5 {
+	margin-top: 8rem !important;
+}
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+@media ( max-width : 767px) {
+	.mt-5 {
+		margin-top: 3rem !important;
+	}
+}
 
-<title>薅羊毛 | 薅！我喜欢</title>
+.blockquote {
+	font-size: 1rem;
+}
+</style>
+<div class="col-sm-2">
+	<!-- 左侧占位 -->
+</div>
 
-<!-- Common CSS/JS -->
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/raptor-basic.js"></script>
-<!-- Custom CSS -->
-<link href="${pageContext.request.contextPath}/css/ymfeed.u.home.css"
-	rel="stylesheet">
-</head>
+<!-- Post Content Column -->
+<div class="col-sm-8">
 
-<body>
+	<!-- Title -->
+	<p class="mt-5" style="color: #444444; font-size: 1.0rem;">
+		<span class="text-primary"><strong>${nickname}</strong></span>
+		，已发送验证邮件到 <span class="text-primary">${email}</span>
+		，请立即点击验证链接激活账号，激活后您可以正常登录网站
+	</p>
+	<hr>
 
-	<jsp:include page="common.header.jsp" flush="true" />
+	<blockquote class="blockquote">
+		<p>&nbsp;</p>
+		<p class="mb-0 text-muted" style="font-size: 0.8rem;">验证邮件24小时内有效，请尽快登录您的邮箱点击验证链接完成验证。若未收到邮件请先确认是否在垃圾邮件中，如果一直未收到验证邮件您可以通过ymfeed#126.com(#请替换成@）反馈我们。</p>
+		<p>&nbsp;</p>
+		<footer class="blockquote-footer">
+			<input id="resend" type="submit" class="btn btn-sm btn-danger"
+				style="width: 120px;" onclick="javascript:sendMail();return;"
+				value="重新发送" /> <span id="send_message" class="text-muted"
+				style="font-size: 0.8rem; margin-left: 8px;"></span>
+		</footer>
+	</blockquote>
 
-	<!-- Page Content -->
-	<div class="container ym-container">
-		<div class="row ym-home-row">
+	<input type="hidden" id="nickname" value="${nickname}" /> <input
+		type="hidden" id="email" value="${email}" />
+</div>
 
-			<div class="col-sm-8">
+<script type="text/javascript">
+	var sec = 30; // 停留时间，单位秒
+	var s = 0;
+	function showTime() {
+		$('#resend').attr("disabled", true);
+		if (s > sec - 1) {
+			$("#send_message").html("");
+			$('#resend').val("重新发送");
+			$('#resend').attr("disabled", false);
+			return;
+		}
+		$('#resend').val((sec - s) + "秒后重新发送");
+		s = s + 1;
+	}
 
-				<div class="mb-4 feed-item">
+	/**
+	 * 发送激活邮件
+	 */
+	function sendMail() {
 
-					<image
-						src="https://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42a98226cffc1e17e769296a4e90f603728de993.jpg"
-						class="feed-img rounded" />
+		// 每次发送前初使化数据
+		s = 0;
 
-					<image
-						src="https://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42a98226cffc1e17e769296a4e90f603728de993.jpg"
-						class="feed-user-header rounded-circle" />
+		setInterval('showTime()', 1000);
 
-					<span class="feed-user-name">思聪</span><span class="feed-datetime">昨天
-						15:10</span>
-
-					<div class="feed-title">SONY 索尼 UDA-1 USB解码功放器，索尼入门功放SONY 索尼 UDA-1 USB解码功放器，索尼入门功放SONY 索尼 UDA-1 USB解码功放器，索尼入门功放</div>
-					<div class="feed-content">索尼入门功放，拼单好价。此产品是此产品是此产品是 SONY
-						近年PC高清音频战略的一环，主打USB接口索尼入门功放，拼单好价。此产品是此产品是此产品是 SONY
-						近年PC高清音频战略的一环，主打USB接口</div>
-
-					<div class="feed-tools">
-						<span class="">信息标签</span><img class="feed-content-img"
-							src="${pageContext.request.contextPath}/images/ic_feed_browse.png">
-						344<img class="feed-content-img"
-							src="${pageContext.request.contextPath}/images/ic_feed_comment.png">
-						222<img class="feed-content-img"
-							src="${pageContext.request.contextPath}/images/ic_feed_like.png">
-						44
-					</div>
-
-				</div>
-				<div class="clearfix"></div>
-				<hr />
-				<div class="mb-4 ym-home-row-item">
-					<div class="ym-home-row-l">
-						<image
-							src="http://tp-y.zdmimg.com/201703/29/58db1ba79e6c67334.jpg_d250.jpg" />
-					</div>
-					<div class="ym-home-row-r">
-						<div class="ym-home-row-r-title">
-							SONY 索尼 UDA-1 USB解码功放器，索尼入门功放<span
-								class="ym-home-row-r-hot hidden-sm-down">5098元包邮（折合2549元/台)</span>
-						</div>
-						<span class="ym-home-row-r-hot-mobile hidden-md-up">5098元包邮（折合2549元/台)</span>
-						<div class="ym-home-row-r-outline hidden-sm-down">索尼入门功放，拼单好价。此产品是此产品是此产品是
-							SONY 近年PC高清音频战略的一环，主打USB接口，...阅读全文</div>
-						<div class="ym-home-row-item ym-home-row-r-b">
-							<span class="ym-home-row-b-l">京东 | 16-12-30</span><span
-								class="ym-home-row-b-comment"><image
-									src="${pageContext.request.contextPath}/images/ic_feed_like.png"
-									class="ym-home-row-b-comment-img"> 23</span> <span
-								class="ym-home-row-b-like">薅 100%</span> <span
-								class="ym-home-row-b-r hidden-sm-down">查看详情</span>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<hr />
-				<div class="mb-4 ym-home-row-item">
-					<div class="ym-home-row-l">
-						<image
-							src="http://tp-y.zdmimg.com/201703/29/58db1ba79e6c67334.jpg_d250.jpg" />
-					</div>
-					<div class="ym-home-row-r">
-						<div class="ym-home-row-r-title">
-							SONY 索尼 UDA-1 USB解码功放器索尼入门功放<span
-								class="ym-home-row-r-hot hidden-sm-down">5098元包邮（折合2549元/台)</span>
-						</div>
-						<span class="ym-home-row-r-hot-mobile hidden-md-up">5098元包邮（折合2549元/台)</span>
-						<div class="ym-home-row-r-outline hidden-sm-down">索尼入门功放，拼单好价。此产品是此产品是此产品是
-							SONY 近年PC高清音频战略的一环，主打USB接口，...阅读全文</div>
-						<div class="ym-home-row-item ym-home-row-r-b">
-							<span class="ym-home-row-b-l">京东 | 16-12-30</span><span
-								class="ym-home-row-b-comment"><image
-									src="${pageContext.request.contextPath}/images/ic_feed_like.png"
-									class="ym-home-row-b-comment-img"> 23</span> <span
-								class="ym-home-row-b-like">薅 100%</span> <span
-								class="ym-home-row-b-r hidden-sm-down">查看详情</span>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<hr />
-			</div>
-		</div>
-	</div>
-
-	<jsp:include page="common.footer.jsp" flush="true" />
-
-</body>
-</html>
+		$.ajax({
+			type : "post",
+			url : "data/sign/reactive",
+			data : {
+				"nickname" : $("#nickname").val(),
+				"email" : $("#email").val()
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data.code == 1001) {
+					$("#send_message").html("激活邮件已发送");
+				} else {
+					$("#send_message").html(data.msg);
+				}
+			}
+		});
+	}
+	/**
+	 * 页面加载完成后加载
+	 */
+	$(function() {
+		sendMail();
+	});
+</script>

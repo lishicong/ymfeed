@@ -53,7 +53,6 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		String cookieValue = (String) session.getAttribute(CookieConstant.USER_COOKIE);
 
-		System.out.println("cookieValue:" + cookieValue);
 		if (cookieValue != null) {
 			// session中存在，已登录
 			return true;
@@ -61,7 +60,6 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 
 		// 从cookie中取值
 		Cookie remember = CookieUtil.getCookie(request, CookieConstant.REMEMBER_ME);
-		System.out.println("remember:" + remember);
 		if (remember != null) {
 			CookieInfoParser parser = new CookieInfoParser();
 			parser.parse(remember); // 解析cookie数据

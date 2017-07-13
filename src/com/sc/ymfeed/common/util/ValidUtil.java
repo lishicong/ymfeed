@@ -63,4 +63,24 @@ public class ValidUtil {
 		return (nickname != null && nickname.length() >= 2 && nickname.length() <= 16);
 	}
 
+	/**
+	 * 重置密码-检查验证码长度
+	 * 
+	 * @param validate
+	 * @return
+	 */
+	public static final boolean isValidateLength(String validate) {
+		return (validate != null && validate.length() == 4);
+	}
+
+	/**
+	 * 重置密码手成四位随机数（1000〜9999）
+	 * 
+	 * @return
+	 */
+	public static final String generateLostCode() {
+		String code = String.valueOf(RandomUtil.getRandom(1000, 9999));
+		return code;
+	}
+
 }

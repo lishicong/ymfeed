@@ -99,7 +99,7 @@
 					<div class="checkbox">
 						<label> <input class="form-remember" name="remember"
 							type="checkbox" <c:if test="${remember==true}">checked</c:if>>记住我
-						</label><a href="#" style="float: right;">忘记密码？</a>
+						</label><a href="signlost" style="float: right;">忘记密码？</a>
 					</div>
 					<c:if test="${code == 1002}">
 						<div id="error-msg" class="alert alert-danger">${message}</div>

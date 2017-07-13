@@ -72,6 +72,14 @@ public interface AuthService {
 	public int sendActiveEmail(String nickname, String email, String activeUrl);
 
 	/**
+	 * 发送激活邮件
+	 * 
+	 * @param userAccount
+	 * @return
+	 */
+	public int sendLostEmail(UserAccount userAccount);
+
+	/**
 	 * 激活帐号
 	 * 
 	 * @param activeCode

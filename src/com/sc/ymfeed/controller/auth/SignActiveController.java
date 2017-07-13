@@ -39,7 +39,7 @@ public class SignActiveController extends SignController {
 			model.addAttribute(Messages.PARAM_EMAIL, email);
 		}
 
-		return "view.sign.active" + MAPPING.TEMPLATE.TEMPLATE_B;
+		return "widget.sign.active" + MAPPING.TEMPLATE.TEMPLATE_B;
 	}
 
 	@RequestMapping(value = MAPPING.NP.DATA_SIGN_REACTIVE, method = {
@@ -71,7 +71,7 @@ public class SignActiveController extends SignController {
 		} else {
 			model.addAttribute(Messages.CODE, Messages.CODE_FAILURE);
 		}
-		return "view.sign.actived" + MAPPING.TEMPLATE.TEMPLATE_B;
+		return "widget.sign.actived" + MAPPING.TEMPLATE.TEMPLATE_B;
 	}
 
 }

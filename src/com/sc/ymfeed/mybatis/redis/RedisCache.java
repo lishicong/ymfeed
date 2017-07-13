@@ -18,6 +18,8 @@ public class RedisCache implements Cache {
 
 	private static Logger logger = Logger.getLogger(RedisCache.class);
 
+	private static final boolean USER_REDIS = false;
+
 	private static final boolean IS_CLUSTER_CACHE = true;
 
 	private static JedisConnectionFactory jedisConnectionFactory;
@@ -49,6 +51,9 @@ public class RedisCache implements Cache {
 
 	@Override
 	public int getSize() {
+		if (!USER_REDIS) {
+			return 0;
+		}
 		try {
 			if (IS_CLUSTER_CACHE) {
 				return keys.size();
@@ -66,6 +71,9 @@ public class RedisCache implements Cache {
 
 	@Override
 	public void putObject(Object key, Object value) {
+		if (!USER_REDIS) {
+			return;
+		}
 		try {
 			if (IS_CLUSTER_CACHE) {
 				JedisCluster jc = getJedisCluster();
@@ -89,6 +97,9 @@ public class RedisCache implements Cache {
 
 	@Override
 	public Object getObject(Object key) {
+		if (!USER_REDIS) {
+			return null;
+		}
 		byte[] bytes = null;
 		try {
 			if (IS_CLUSTER_CACHE) {
@@ -118,6 +129,9 @@ public class RedisCache implements Cache {
 
 	@Override
 	public Object removeObject(Object key) {
+		if (!USER_REDIS) {
+			return null;
+		}
 		try {
 			if (IS_CLUSTER_CACHE) {
 				keys.remove(key.toString());
@@ -139,6 +153,9 @@ public class RedisCache implements Cache {
 
 	@Override
 	public void clear() {
+		if (!USER_REDIS) {
+			return;
+		}
 		try {
 			if (IS_CLUSTER_CACHE) {
 				JedisCluster jc = getJedisCluster();

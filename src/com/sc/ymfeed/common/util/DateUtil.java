@@ -40,6 +40,20 @@ public class DateUtil {
 	}
 
 	/**
+	 * 重置密码验证码是否过期
+	 * 
+	 * @param sendCodeTime
+	 * @return
+	 */
+	public static boolean isResetPasswordExpired(Date sendCodeTime) {
+		Date date = getPointDate(new Date(), Calendar.MINUTE, -10); // 十分钟以前
+		if (sendCodeTime.before(date)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * 发送邮件的间隔时间比较
 	 * 
 	 * @param d

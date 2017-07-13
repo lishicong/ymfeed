@@ -14,10 +14,12 @@ import com.sc.ymfeed.common.cookie.CookieInfo;
 import com.sc.ymfeed.common.cookie.EncryptionUtil;
 import com.sc.ymfeed.common.email.MailActive;
 import com.sc.ymfeed.common.email.MailFactory;
+import com.sc.ymfeed.common.email.MailPassword;
 import com.sc.ymfeed.common.email.MailType;
 import com.sc.ymfeed.common.email.Mailer;
 import com.sc.ymfeed.common.util.DateUtil;
 import com.sc.ymfeed.common.util.UUIDUtil;
+import com.sc.ymfeed.common.util.ValidUtil;
 import com.sc.ymfeed.mybatis.dao.UserAccountMapper;
 import com.sc.ymfeed.mybatis.dao.UserInfoMapper;
 import com.sc.ymfeed.mybatis.dao.UserPersistentMapper;
@@ -119,6 +121,40 @@ public class AuthServiceImpl implements AuthService {
 						mailer.setMailTo(email);
 						mailer.setNickname(nickname);
 						((MailActive) mailer).setActiveUrl(activeUrl + "/" + activeCode);
+						try {
+							mailer.send();
+						} catch (MessagingException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public int sendLostEmail(UserAccount userAccount) {
+
+		String validateCode = ValidUtil.generateLostCode();
+		userAccount.setResetPasswordCode(validateCode);
+		userAccount.setResetPasswordCodeTime(new Date());
+
+		UserAccountExample example = new UserAccountExample();
+		example.createCriteria().andEmailEqualTo(userAccount.getEmail());
+
+		int result = userAccountMapper.updateByExampleSelective(userAccount, example);
+		if (result == 1) {
+			// 更新帐户重置密码激活码后发送验证码邮件
+			try {
+				taskExecutor.execute(new Runnable() {
+					public void run() {
+						Mailer mailer = MailFactory.createMailer(MailType.MAIL_PASSWORD);
+						mailer.setMailTo(userAccount.getEmail());
+						mailer.setNickname(userAccount.getNickname());
+						((MailPassword) mailer).setValideCode(validateCode);
 						try {
 							mailer.send();
 						} catch (MessagingException e) {

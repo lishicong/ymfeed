@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.sc.ymfeed.mybatis.dao.FeedInfoMapper;
 import com.sc.ymfeed.mybatis.dto.FeedInfo;
-import com.sc.ymfeed.mybatis.dto.FeedInfoExample;
 import com.sc.ymfeed.service.SampleService;
 
 /**
@@ -24,7 +23,6 @@ public class SampleServiceImpl implements SampleService {
 
 	@Override
 	public List<FeedInfo> getSampleData() {
-		FeedInfoExample example = new FeedInfoExample();
-		return mapper.selectByExample(example);
+		return mapper.select();
 	}
 }

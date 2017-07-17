@@ -65,11 +65,18 @@ public class SignActiveController extends SignController {
 
 	@RequestMapping(value = MAPPING.NP.DIRECT_SIGN_ACTIVED + "/{rest}", method = { RequestMethod.GET })
 	public String signactived(HttpServletRequest request, Model model, @PathVariable(value = "rest") String rest) {
-		int result = authService.activeUserAccount(rest);
+		UserAccount userAccount = authService.getUserAccountByUserActiveCode(rest);
+		int result = authService.activeUserAccount(userAccount, rest);
 		if (result == 1) {
 			model.addAttribute(Messages.CODE, Messages.CODE_SUCCESS);
-		} else {
+			model.addAttribute(Messages.PARAM_NICKNAME, userAccount.getNickname());
+			model.addAttribute(Messages.PARAM_EMAIL, userAccount.getEmail());
+		} else if (result == -1 || result == -2) {
 			model.addAttribute(Messages.CODE, Messages.CODE_FAILURE);
+			model.addAttribute(Messages.CODE_MSG, Messages.SIGNACTIVE_CODE);
+		} else if (result == -3) {
+			model.addAttribute(Messages.CODE, Messages.CODE_FAILURE);
+			model.addAttribute(Messages.CODE_MSG, Messages.SIGNACTIVE_CODE_OVERDUE);
 		}
 		return "widget.sign.actived" + MAPPING.TEMPLATE.TEMPLATE_B;
 	}

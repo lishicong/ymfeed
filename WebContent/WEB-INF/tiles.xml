@@ -13,11 +13,11 @@
 		<put-attribute name="footer" value="/WEB-INF/jsp/home.footer.jsp" />
 	</definition>
 
-	<!-- 登录/注册 -->
+	<!-- 登录/注册/重置密码 -->
 	<definition name="*.bbb" template="/WEB-INF/jsp/layout.sign.jsp">
 		<put-attribute name="meta" value="/WEB-INF/jsp/home.meta.jsp" />
 		<put-attribute name="title" value="薅羊毛 | 帐号" />
-		<put-attribute name="header" value="/WEB-INF/jsp/home.header.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/widget.header.jsp" />
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
 	</definition>
 

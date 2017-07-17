@@ -82,10 +82,19 @@ public interface AuthService {
 	/**
 	 * 激活帐号
 	 * 
+	 * @param userAccount
 	 * @param activeCode
 	 * @return
 	 */
-	public int activeUserAccount(String activeCode);
+	public int activeUserAccount(UserAccount userAccount, String activeCode);
+
+	/**
+	 * 通过注册的邮箱激活码获取用户帐号
+	 * 
+	 * @param activeCode
+	 * @return
+	 */
+	public UserAccount getUserAccountByUserActiveCode(String activeCode);
 
 	/**
 	 * 记住我

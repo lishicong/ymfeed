@@ -6,14 +6,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.ymfeed.common.cookie.CookieConstant;
 import com.sc.ymfeed.common.cookie.CookieInfoParser;
 import com.sc.ymfeed.common.cookie.CookieUtil;
-import com.sc.ymfeed.common.util.GsonUtil;
 import com.sc.ymfeed.controller.MAPPING;
-import com.sc.ymfeed.controller.Messages;
 import com.sc.ymfeed.mybatis.dto.UserAccount;
 
 /**
@@ -25,8 +23,8 @@ import com.sc.ymfeed.mybatis.dto.UserAccount;
 @Controller
 public class SignOutController extends SignController {
 
-	@RequestMapping(value = MAPPING.NP.DATA_SIGN_OUT, method = { RequestMethod.POST })
-	public @ResponseBody String logout(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = MAPPING.NP.DIRECT_SIGN_OUT, method = { RequestMethod.GET })
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
 		// 从session中获取用户帐号
 		String cookieValue = (String) request.getSession().getAttribute(CookieConstant.USER_COOKIE);
 
@@ -37,7 +35,7 @@ public class SignOutController extends SignController {
 		request.getSession().removeAttribute(CookieConstant.USER_COOKIE);
 		CookieUtil.removeCookie(request, response, CookieConstant.REMEMBER_ME);
 
-		return GsonUtil.toJSONSimple(Messages.CODE_SUCCESS, Messages.CODE_MSG);
+		return new ModelAndView("redirect:/index");
 	}
 
 }

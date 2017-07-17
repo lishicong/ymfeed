@@ -1,7 +1,6 @@
 package com.sc.ymfeed.service.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
@@ -14,8 +13,8 @@ import com.sc.ymfeed.common.cookie.CookieInfo;
 import com.sc.ymfeed.common.cookie.EncryptionUtil;
 import com.sc.ymfeed.common.email.MailActive;
 import com.sc.ymfeed.common.email.MailFactory;
-import com.sc.ymfeed.common.email.MailPassword;
 import com.sc.ymfeed.common.email.MailType;
+import com.sc.ymfeed.common.email.MailValidateCode;
 import com.sc.ymfeed.common.email.Mailer;
 import com.sc.ymfeed.common.util.DateUtil;
 import com.sc.ymfeed.common.util.UUIDUtil;
@@ -24,9 +23,7 @@ import com.sc.ymfeed.mybatis.dao.UserAccountMapper;
 import com.sc.ymfeed.mybatis.dao.UserInfoMapper;
 import com.sc.ymfeed.mybatis.dao.UserPersistentMapper;
 import com.sc.ymfeed.mybatis.dto.UserAccount;
-import com.sc.ymfeed.mybatis.dto.UserAccountExample;
 import com.sc.ymfeed.mybatis.dto.UserPersistent;
-import com.sc.ymfeed.mybatis.dto.UserPersistentExample;
 import com.sc.ymfeed.service.AuthService;
 
 @Transactional("transactionManager")
@@ -44,35 +41,20 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public UserAccount getUserAccountByEmail(String email) {
-		UserAccountExample example = new UserAccountExample();
-		example.createCriteria().andEmailEqualTo(email);
-		List<UserAccount> list = userAccountMapper.selectByExample(example);
-		if (list != null && list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
+		UserAccount userAccount = userAccountMapper.selectByEmail(email);
+		return userAccount;
 	}
 
 	@Override
 	public UserPersistent getUserPersistentByEmailAndSeries(String email, String series) {
-		UserPersistentExample userPersistentExample = new UserPersistentExample();
-		userPersistentExample.createCriteria().andEmailEqualTo(email).andSeriesEqualTo(series);
-		List<UserPersistent> list = userPersistentMapper.selectByExample(userPersistentExample);
-		if (list != null && list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
+		UserPersistent userPersistent = userPersistentMapper.selectByEmailAndSeries(email, series);
+		return userPersistent;
 	}
 
 	@Override
 	public UserAccount getUserAccountByNickname(String nickname) {
-		UserAccountExample example = new UserAccountExample();
-		example.createCriteria().andNicknameEqualTo(nickname);
-		List<UserAccount> list = userAccountMapper.selectByExample(example);
-		if (list != null && list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
+		UserAccount userAccount = userAccountMapper.selectByNickname(nickname);
+		return userAccount;
 	}
 
 	@Override
@@ -104,14 +86,11 @@ public class AuthServiceImpl implements AuthService {
 		String sourceCode = email + ":" + date.getTime();
 		String activeCode = EncryptionUtil.base64Encode(sourceCode);
 
-		UserAccount userAccount = new UserAccount();
+		UserAccount userAccount = userAccountMapper.selectByEmail(email);
 		userAccount.setActiveCode(activeCode);
 		userAccount.setActiveCodeTime(date);
 
-		UserAccountExample example = new UserAccountExample();
-		example.createCriteria().andEmailEqualTo(email);
-
-		int result = userAccountMapper.updateByExampleSelective(userAccount, example);
+		int result = userAccountMapper.updateByPrimaryKeySelective(userAccount);
 		if (result == 1) {
 			// 更新帐户激活后发送激活邮件
 			try {
@@ -142,10 +121,7 @@ public class AuthServiceImpl implements AuthService {
 		userAccount.setResetPasswordCode(validateCode);
 		userAccount.setResetPasswordCodeTime(new Date());
 
-		UserAccountExample example = new UserAccountExample();
-		example.createCriteria().andEmailEqualTo(userAccount.getEmail());
-
-		int result = userAccountMapper.updateByExampleSelective(userAccount, example);
+		int result = userAccountMapper.updateByPrimaryKeySelective(userAccount);
 		if (result == 1) {
 			// 更新帐户重置密码激活码后发送验证码邮件
 			try {
@@ -154,7 +130,7 @@ public class AuthServiceImpl implements AuthService {
 						Mailer mailer = MailFactory.createMailer(MailType.MAIL_PASSWORD);
 						mailer.setMailTo(userAccount.getEmail());
 						mailer.setNickname(userAccount.getNickname());
-						((MailPassword) mailer).setValideCode(validateCode);
+						((MailValidateCode) mailer).setValidateCode(validateCode);
 						try {
 							mailer.send();
 						} catch (MessagingException e) {
@@ -170,11 +146,9 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public int activeUserAccount(String activeCode) {
+	public int activeUserAccount(UserAccount userAccount, String activeCode) {
 
 		int result = 0;
-
-		UserAccount userAccount = getUserAccountByUserActiveCode(activeCode);
 
 		if (userAccount == null) {
 			return -1; // 激活码不存在或已失效
@@ -207,6 +181,12 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
+	public UserAccount getUserAccountByUserActiveCode(String activeCode) {
+		UserAccount userAccount = userAccountMapper.selectByActiveCodeAndActive(activeCode, false);
+		return userAccount;
+	}
+
+	@Override
 	public int remeberMe(UserAccount userAccount, CookieInfo cookieInfo) {
 
 		UserPersistent userPersistent = getUserPersistentByUserAccountId(userAccount);
@@ -236,26 +216,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public int forgetMe(String userAccountId) {
-		UserPersistentExample example = new UserPersistentExample();
-		example.createCriteria().andUserAccountIdEqualTo(userAccountId);
-		return userPersistentMapper.deleteByExample(example);
-	}
-
-	/**
-	 * 根据激活码获取帐户信息
-	 * 
-	 * @param email
-	 * @param activeCode
-	 * @return
-	 */
-	private UserAccount getUserAccountByUserActiveCode(String activeCode) {
-		UserAccountExample example = new UserAccountExample();
-		example.createCriteria().andActiveCodeEqualTo(activeCode).andActiveEqualTo(false);
-		List<UserAccount> list = userAccountMapper.selectByExample(example);
-		if (list != null && list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
+		return userPersistentMapper.deleteByUserAccountId(userAccountId);
 	}
 
 	/**
@@ -265,13 +226,8 @@ public class AuthServiceImpl implements AuthService {
 	 * @return
 	 */
 	private UserPersistent getUserPersistentByUserAccountId(UserAccount userAccount) {
-		UserPersistentExample userPersistentExample = new UserPersistentExample();
-		userPersistentExample.createCriteria().andUserAccountIdEqualTo(userAccount.getId());
-		List<UserPersistent> list = userPersistentMapper.selectByExample(userPersistentExample);
-		if (list != null && list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
+		UserPersistent userPersistent = userPersistentMapper.selectByUserAccountId(userAccount.getId());
+		return userPersistent;
 	}
 
 }

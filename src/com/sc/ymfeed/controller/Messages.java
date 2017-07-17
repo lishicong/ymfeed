@@ -27,6 +27,9 @@ public class Messages {
 	public static final String SIGNIN_EMAIL = "输入的邮箱错误";
 	public static final String SIGNIN_PASSWORD = "输入的密码错误";
 
+	public static final String SIGNACTIVE_CODE = "激活码错误，请重新发送激活码";
+	public static final String SIGNACTIVE_CODE_OVERDUE = "激活码已过期，请重新发送激活码";
+
 	public static final String PARAM_USER_ACCOUNT = "userAccount";
 	public static final String PARAM_NICKNAME = "nickname";
 	public static final String PARAM_EMAIL = "email";

@@ -24,7 +24,9 @@
 
 		<!-- tables -->
 		<table schema="user_account" tableName="user_account"
-			domainObjectName="UserAccount">
+			domainObjectName="UserAccount" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
 			<columnOverride column="GAG" property="gag" javaType="Boolean"
 				jdbcType="TINYINT" />
 			<columnOverride column="BLOCKED" property="blocked"
@@ -33,14 +35,20 @@
 				javaType="Boolean" jdbcType="TINYINT" />
 		</table>
 		<table schema="user_persistent" tableName="user_persistent"
-			domainObjectName="UserPersistent">
+			domainObjectName="UserPersistent" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
 		<table schema="user_info" tableName="user_info"
-			domainObjectName="UserInfo">
+			domainObjectName="UserInfo" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
 
 		<table schema="feed_info" tableName="feed_info"
-			domainObjectName="FeedInfo">
+			domainObjectName="FeedInfo" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
 			<columnOverride column="CONTENT" property="content"
 				javaType="String" jdbcType="VARCHAR" />
 		</table>

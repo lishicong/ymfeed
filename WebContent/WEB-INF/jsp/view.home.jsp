@@ -140,7 +140,7 @@
 	function getFeedListFunc() {
 		$.ajax({
 			type : "get",
-			url : "data/feed/list?param=1",
+			url : "data/feed/home?param=1",
 			dataType : "json",
 			success : function(data) {
 				createFeedHtml(data);

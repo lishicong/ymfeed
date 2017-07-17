@@ -30,6 +30,28 @@
 .carousel-item.active, .carousel-item-next, .carousel-item-prev {
 	display: block;
 }
+
+.carousel-caption {
+	color: #000;
+}
+
+.carousel-indicators li {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-indicators .active {
+	background-color: #000;
+}
+
+.carousel-control-prev-icon {
+	background-image:
+		url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000000' viewBox='0 0 8 8'%3E%3Cpath d='M4 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-next-icon {
+	background-image:
+		url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000000' viewBox='0 0 8 8'%3E%3Cpath d='M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
 </style>
 <div class="col-sm-10">
 	<div id="carouselExampleIndicators" class="carousel slide"

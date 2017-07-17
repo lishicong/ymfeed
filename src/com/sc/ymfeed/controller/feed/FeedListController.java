@@ -22,8 +22,8 @@ import com.sc.ymfeed.mybatis.dto.FeedInfo;
 @Controller
 public class FeedListController extends FeedController {
 
-	@RequestMapping(value = MAPPING.NP.DATA_FEED_LIST, method = { RequestMethod.GET })
-	public @ResponseBody List<FeedInfo> feedList(HttpServletRequest request, @RequestParam("param") String param) {
+	@RequestMapping(value = MAPPING.NP.DATA_FEED_HOME, method = { RequestMethod.GET })
+	public @ResponseBody List<FeedInfo> feedHome(HttpServletRequest request, @RequestParam("param") String param) {
 
 		List<FeedInfo> info = this.feedService.getFeedInfos();
 		info.addAll(ExampleData.getExample());

@@ -91,6 +91,7 @@ public class SignLostController extends SignController {
 						redirectAttributes.addFlashAttribute(Messages.CODE, Messages.CODE_FAILURE);
 						redirectAttributes.addFlashAttribute(Messages.CODE_MSG, Messages.SIGNLOST_CODE_OVERDUE);
 					} else {
+						redirectAttributes.addFlashAttribute(Messages.PARAM_NICKNAME, userAccount.getNickname());
 						return new ModelAndView("redirect:" + MAPPING.NP.DIRECT_SIGN_RESET);
 					}
 				}
@@ -127,6 +128,11 @@ public class SignLostController extends SignController {
 	@RequestMapping(value = MAPPING.NP.DIRECT_SIGN_RESET, method = { RequestMethod.GET })
 	public String signreset(HttpServletRequest request, Model model) {
 
+		Map<String, ?> map = RequestContextUtils.getInputFlashMap(request);
+
+		if (map != null && map.size() > 0) {
+			model.addAttribute(Messages.PARAM_NICKNAME, map.get(Messages.PARAM_NICKNAME));
+		}
 		return "widget.sign.reset" + MAPPING.TEMPLATE.TEMPLATE_B;
 	}
 

@@ -10,7 +10,7 @@ public class MailFactory {
 		case MAIL_ACTIVE:
 			return new MailActive();
 		case MAIL_PASSWORD:
-			return new MailPassword();
+			return new MailValidateCode();
 		default:
 			return null;
 		}

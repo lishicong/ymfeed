@@ -63,8 +63,8 @@
 
 @media ( max-width : 767px) {
 	.nav-item {
-		margin-top: 0.4em;
-		margin-bottom: 0.4em;
+		margin-top: 0.3em;
+		margin-bottom: 0.3em;
 		margin-left: 2.5em;
 	}
 }
@@ -98,7 +98,7 @@
 
 	<!-- logo -->
 	<div class="ym_logo">
-		<img src="images/ic_logo.png" class="ym_logo_ic"> <a
+		<img src="images/logo_200x200.png" class="ym_logo_ic"> <a
 			class="ym_logo_title" href="index">薅羊毛</a>
 	</div>
 
@@ -163,18 +163,41 @@
 		alert("message");
 	}
 	$(function() {
+
+		var tabHtml = '<div class="dropdown-divider hidden-lg-up"></div>';
+		var loginHtml = '<div class="dropdown-divider hidden-lg-up"></div>';
+
 		if (_hasCookie()) {
-			var tabHtml = '<li id="nav_recommend" class="nav-item active"><a class="nav-link" href="javascript:navRecommendTabClick();">推荐</a></li>';
-			tabHtml += '<li id="nav_follow" class="nav-item"><a class="nav-link" href="javascript:navFollowTabClick();">关注</a></li>';
-			tabHtml += '<li id="nav_message" class="nav-item"><a class="nav-link" href="javascript:navMessageTabClick();">消息</a></li>';
-			$('#navbar_tab').append(tabHtml);
-			var loginHtml = '<li class="nav-item"><a class="nav-link" href="javascript:openUserMenu();">我的</a></li>';
-			$('#navbar_login').append(loginHtml);
+
+			tabHtml += '<li id="nav_recommend" class="nav-item active">';
+			tabHtml += '<a class="nav-link" href="javascript:navRecommendTabClick();">推荐</a>';
+			tabHtml += '</li>';
+			tabHtml += '<div class="dropdown-divider hidden-lg-up"></div>';
+
+			tabHtml += '<li id="nav_follow" class="nav-item">';
+			tabHtml += '<a class="nav-link" href="javascript:navFollowTabClick();">关注</a>';
+			tabHtml += '</li>';
+			tabHtml += '<div class="dropdown-divider hidden-lg-up"></div>';
+
+			tabHtml += '<li id="nav_message" class="nav-item">';
+			tabHtml += '<a class="nav-link" href="javascript:navMessageTabClick();">';
+			tabHtml += '消息&nbsp;<span class="badge badge-pill badge-danger" style="font-size: 0.7rem;vertical-align: middle; margin-bottom:5px;">2</span>';
+			tabHtml += '</a>';
+			tabHtml += '</li>';
+
+			loginHtml += '<li class="nav-item"><a class="nav-link" href="#">个人中心</a></li>';
+			loginHtml += '<div class="dropdown-divider hidden-lg-up"></div>';
+			loginHtml += '<li class="nav-item"><a class="nav-link" href="signout">退出</a></li>';
 		} else {
-			var tabHtml = '<li class="nav-item active"><a class="nav-link" href="#">首页</a></li>';
-			$('#navbar_tab').append(tabHtml);
-			var loginHtml = '<li class="nav-item"><a class="nav-link" href="javascript:ymSignInWin();">登录/注册</a></li>';
-			$('#navbar_login').append(loginHtml);
+			tabHtml += '<li class="nav-item active"><a class="nav-link" href="#">首页</a></li>';
+
+			loginHtml += '<li class="nav-item"><a class="nav-link" href="javascript:ymSignInWin();">登录/注册</a></li>';
 		}
+
+		loginHtml += '<div class="dropdown-divider hidden-lg-up"></div>';
+		loginHtml += '<a href="" class="btn btn-lg btn-info hidden-lg-up">下载手机APP</a>';
+
+		$('#navbar_tab').append(tabHtml);
+		$('#navbar_login').append(loginHtml);
 	});
 </script>

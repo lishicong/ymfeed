@@ -2,7 +2,14 @@
 	pageEncoding="UTF-8"%>
 
 <div class="col-md-3">
-	<!-- Search Widget -->
+
+	<div class="my-4">
+		<!-- 最新 -->
+		<img src="images/home_menu_new.png" class="btn-block">
+		<!-- 一周 -->
+		<img src="images/home_menu_week.png" class="btn-block">
+	</div>
+
 	<div class="card my-4 ">
 		<h6 class="card-header">最新笔记</h6>
 		<div class="card-block">

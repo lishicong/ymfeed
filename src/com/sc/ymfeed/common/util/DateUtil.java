@@ -32,7 +32,7 @@ public class DateUtil {
 		long lTime = Long.valueOf(activeTime);
 		Date activeDate = new Date(lTime);
 
-		Date expiredDate = getPointDate(new Date(), Calendar.DAY_OF_MONTH, -2);
+		Date expiredDate = getPointDate(new Date(), Calendar.DAY_OF_MONTH, -1);
 		if (activeDate.before(expiredDate)) {
 			return true;
 		}

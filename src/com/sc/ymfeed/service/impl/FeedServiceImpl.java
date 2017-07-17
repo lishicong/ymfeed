@@ -12,7 +12,6 @@ import com.sc.ymfeed.common.enums.FeedInfoStateEnum;
 import com.sc.ymfeed.common.util.UUIDUtil;
 import com.sc.ymfeed.mybatis.dao.FeedInfoMapper;
 import com.sc.ymfeed.mybatis.dto.FeedInfo;
-import com.sc.ymfeed.mybatis.dto.FeedInfoExample;
 import com.sc.ymfeed.service.FeedService;
 
 @Service("feedService")
@@ -24,8 +23,7 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public List<FeedInfo> getFeedInfos() {
 
-		FeedInfoExample example = new FeedInfoExample();
-		return mapper.selectByExample(example);
+		return mapper.select();
 	}
 
 	@Override

@@ -2,15 +2,16 @@ package com.sc.ymfeed.service;
 
 import java.util.List;
 
-import com.sc.ymfeed.common.enums.FeedInfoSaveEnum;
 import com.sc.ymfeed.mybatis.dto.FeedInfo;
 
 public interface FeedService {
 
-	public List<FeedInfo> getFeedInfos();
+	public List<FeedInfo> getFeedHomeByLimit(int start, int offset);
 
-	public long addFeedInfo(String userInfoId, String title, String content, FeedInfoSaveEnum save);
+	public FeedInfo getFeedInfoById(String feedId);
 
-	public long modifyFeedInfoById(String id, String title, String content, FeedInfoSaveEnum save);
+	public int addFeedInfo(FeedInfo feedInfo);
+
+	public int modifyFeedInfoById(FeedInfo feedInfo);
 
 }

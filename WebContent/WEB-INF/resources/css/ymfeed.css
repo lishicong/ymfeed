@@ -6,6 +6,7 @@
 /** Generic configuration begin **/
 body {
 	padding-top: 54px;
+	color: #333333;
 }
 
 @media ( max-width : 767px) {
@@ -16,10 +17,10 @@ body {
 
 /* 重写bootstrap样式 */
 hr {
-	margin-top: 0.7rem;
-	margin-bottom: 0.7rem;
+	margin-top: 0rem;
+	margin-bottom: 0rem;
 	border: 0;
-	border-top: 1px dashed rgba(0, 0, 0, 0.1);
+	border-top: 1px solid #f0f0f0;
 }
 
 a, a:hover {
@@ -30,10 +31,12 @@ a, a:hover {
 	cursor: pointer;
 }
 
+/* 大标题 */
 .ym-title-big {
 	
 }
 
+/* 中标题 */
 .ym-title-middle {
 	color: #333333;
 	font-size: 1.3rem;
@@ -50,22 +53,51 @@ a, a:hover {
 	}
 }
 
+/* 小标题 */
 .ym-title-small {
 	
 }
 
+/* 正文 */
 .ym-text {
-	font-size: 0.95rem;
+	font-size: 0.9rem;
 	color: #333333;
-	line-height: 1.6;
+	line-height: 1.8;
 }
 
 @media ( max-width : 767px) {
 	.ym-text {
 		font-size: 0.85rem;
+		line-height: 1.4;
 	}
 }
 
+/* 头像 */
+.ym-feed-user-avator {
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
+}
+
+@media ( max-width : 767px) {
+	.ym-feed-user-avator {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+/* 用户昵称 */
+.ym-feed-user-name {
+	font-size: 0.9rem;
+}
+
+@media ( max-width : 767px) {
+	.ym-feed-user-name {
+		font-size: 0.8rem;
+	}
+}
+
+/* 发布时间 */
 .ym-text-minor {
 	font-size: 0.95rem;
 	color: #b4b4b4;
@@ -77,6 +109,7 @@ a, a:hover {
 	}
 }
 
+/* 工具栏 */
 .ym-text-minor-small {
 	font-size: 0.8rem;
 	color: #b4b4b4;

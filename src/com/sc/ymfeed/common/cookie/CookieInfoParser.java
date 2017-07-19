@@ -47,7 +47,6 @@ public class CookieInfoParser {
 				+ MD5Util.GetMD5Code(CookieConstant.COOKIE_SECRET_CODE);
 		String cookie = source;
 		try {
-			System.out.println("cookie d:" + source);
 			cookie = AESUtil.encrypt(source, CookieConstant.AES_KEY_COOKIE);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,7 +64,6 @@ public class CookieInfoParser {
 		UserAccount userAccount = new UserAccount();
 		try {
 			String source = AESUtil.decrypt(cookie, CookieConstant.AES_KEY_COOKIE);
-			System.out.println("cookie d:" + source);
 			String[] s = source.split(CookieConstant.COOKIE_REGULAR);
 			if (s != null && s.length == 3) {
 				userAccount.setId(s[0]);
@@ -85,13 +83,9 @@ public class CookieInfoParser {
 	 */
 	public static boolean isRightCookie(String cookie) {
 		if (cookie != null && cookie.length() > 0) {
-			System.out.println(cookie);
 			String[] source = cookie.split(CookieConstant.COOKIE_REGULAR);
-			System.out.println(source.length);
 			if (source != null && source.length == 3) {
 				String secret = source[2];
-				System.out.println(secret);
-				System.out.println(MD5Util.GetMD5Code(CookieConstant.COOKIE_SECRET_CODE));
 				if (secret.equals(MD5Util.GetMD5Code(CookieConstant.COOKIE_SECRET_CODE))) {
 					return true;
 				}

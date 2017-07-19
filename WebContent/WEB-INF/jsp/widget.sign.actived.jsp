@@ -16,7 +16,7 @@
 			<h3 class="panel-title">激活</h3>
 		</div>
 		<div class="panel-body">
-			<c:if test="${code != 1001}">
+			<c:if test="${code == 1001}">
 				<p class="mt-1" style="color: #444444; font-size: 0.9rem;">
 					<span class="text-primary"><strong>${nickname}</strong></span>
 					，帐号已成功激活，现在可以使用帐号 <span class="text-primary">${email}</span> 登录了。

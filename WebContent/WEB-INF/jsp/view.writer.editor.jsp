@@ -36,16 +36,36 @@
 <div class="input-group">
 	<input type="text" class="form-control" id="writer_title"
 		placeholder="请输入文章标题"> <span class="input-group-addon"
-		onclick="writerPublish();">发布</span>
+		onclick="writerPublish(1);">发布</span>
 </div>
 
 <div id="editor-container" class="ym-writer-content">
 	<div id="editor-trigger"></div>
 </div>
 
+<span id="auto-save-text" class="ym-text"></span>
+
 <script type="text/javascript">
+	var isChanged = false; // 是否修改内容
+	var feedId = null;
+	/**
+	 * 页面加载完成后加载
+	 */
+	$(function() {
+		setInterval('autoSave()', 30 * 1000);
+	});
+	/**
+	 *自动保存
+	 */
+	function autoSave() {
+		if (isChanged) {
+			$("#auto-save-text").text("保存中");
+			writerPublish(0);
+		}
+		isChanged = false;
+	}
 	//发布文章
-	function writerPublish() {
+	function writerPublish(saveMode) {
 		var title = $("#writer_title").val();
 		var content = $("#editor-trigger").html();
 
@@ -53,12 +73,20 @@
 			type : "post",
 			url : "p/data/feed/add",
 			data : {
+				"feedId" : feedId,
 				"title" : title,
-				"content" : content
+				"content" : content,
+				"saveMode" : saveMode
 			},
 			dataType : "json",
 			success : function(data) {
-				alert(data);
+				if (data.code == 1001) {
+					feedId = data.feedId;
+					$("#auto-save-text").text(data.saveTime + " 保存");
+				}
+			},
+			error : function(e) {
+				alert(e);
 			}
 		});
 	}
@@ -175,6 +203,7 @@
 
 	//onchange 事件
 	editor.onchange = function() {
+		isChanged = true;
 		//console.log(this.$txt.html());
 	};
 	editor.create();

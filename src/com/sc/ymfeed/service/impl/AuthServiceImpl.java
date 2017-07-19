@@ -20,7 +20,6 @@ import com.sc.ymfeed.common.util.DateUtil;
 import com.sc.ymfeed.common.util.UUIDUtil;
 import com.sc.ymfeed.common.util.ValidUtil;
 import com.sc.ymfeed.mybatis.dao.UserAccountMapper;
-import com.sc.ymfeed.mybatis.dao.UserInfoMapper;
 import com.sc.ymfeed.mybatis.dao.UserPersistentMapper;
 import com.sc.ymfeed.mybatis.dto.UserAccount;
 import com.sc.ymfeed.mybatis.dto.UserPersistent;
@@ -34,8 +33,6 @@ public class AuthServiceImpl implements AuthService {
 	private TaskExecutor taskExecutor;
 	@Resource
 	private UserAccountMapper userAccountMapper;
-	@Resource
-	private UserInfoMapper userInfoMapper;
 	@Resource
 	private UserPersistentMapper userPersistentMapper;
 

@@ -11,6 +11,10 @@
 			connectionURL="jdbc:mysql://localhost:3306/ymfeed_db?useUnicode=true&amp;characterEncoding=utf-8"
 			userId="root" password="123456" />
 
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
 		<javaModelGenerator targetPackage="com.sc.ymfeed.mybatis.dto"
 			targetProject="ymfeed">
 			<property name="rootClass" value="com.sc.ymfeed.mybatis.support.BaseObject" />
@@ -27,8 +31,8 @@
 			domainObjectName="UserAccount" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
-			<columnOverride column="GAG" property="gag" javaType="Boolean"
-				jdbcType="TINYINT" />
+			<columnOverride column="DISABLED" property="disabled"
+				javaType="Boolean" jdbcType="TINYINT" />
 			<columnOverride column="BLOCKED" property="blocked"
 				javaType="Boolean" jdbcType="TINYINT" />
 			<columnOverride column="ACTIVE" property="active"
@@ -39,12 +43,6 @@
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
-		<table schema="user_info" tableName="user_info"
-			domainObjectName="UserInfo" enableCountByExample="false"
-			enableUpdateByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" selectByExampleQueryId="false">
-		</table>
-
 		<table schema="feed_info" tableName="feed_info"
 			domainObjectName="FeedInfo" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"

@@ -31,7 +31,8 @@ import com.sc.ymfeed.mybatis.support.Constants;
 @Controller
 public class FeedAddController extends FeedController {
 
-	@RequestMapping(value = MAPPING.P.DATA_FEED_ADD, method = { RequestMethod.POST })
+	@RequestMapping(value = MAPPING.P.DATA_FEED_ADD, method = {
+			RequestMethod.POST }, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String feedAdd(@RequestParam("feedId") String feedId, @RequestParam("title") String title,
 			@RequestParam("content") String content, @RequestParam("saveMode") int saveMode,
 			HttpServletRequest request) {
@@ -43,7 +44,7 @@ public class FeedAddController extends FeedController {
 			FeedInfo feedInfo = createFeedInfo(title, content, saveMode);
 			int result = feedService.addFeedInfo(feedInfo);
 			if (result == 1) {
-				String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_STANDARD);
+				String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_HHMM_CN);
 				return GsonUtil.toJSONObject(new FeedAdd(Messages.CODE_SUCCESS, feedInfo.getId(), saveTime));
 			}
 		} else {
@@ -53,7 +54,7 @@ public class FeedAddController extends FeedController {
 				feedInfo = createFeedInfo(title, content, saveMode);
 				int result = feedService.addFeedInfo(feedInfo);
 				if (result == 1) {
-					String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_STANDARD);
+					String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_HHMM_CN);
 					return GsonUtil.toJSONObject(new FeedAdd(Messages.CODE_SUCCESS, feedInfo.getId(), saveTime));
 				}
 			} else if (feedInfo.getUserAccountId().equals(userAccountByCookie.getId())) {
@@ -61,7 +62,7 @@ public class FeedAddController extends FeedController {
 				feedInfo = setFeedInfo(feedInfo, title, content, saveMode);
 				int result = feedService.modifyFeedInfoById(feedInfo);
 				if (result == 1) {
-					String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_STANDARD);
+					String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_HHMM_CN);
 					return GsonUtil.toJSONObject(new FeedAdd(Messages.CODE_SUCCESS, feedInfo.getId(), saveTime));
 				}
 			}

@@ -15,6 +15,7 @@ public class DateUtil {
 	public static final String DATE_FORMAT_MMDDHHMMSS = "MMddHHmmss";
 	public static final String DATE_FORMAT_YYYYMMDD = "yyyy-MM-dd";
 	public static final String DATE_FORMAT_HHMMSS = "HH:mm:ss";
+	public static final String DATE_FORMAT_HHMM_CN = "HH点mm分";
 	public static final String DATE_FORMAT_HHMM = "HH:mm";
 	public static final String DATE_FORMAT_CHINESE_SHORT = "yyyy年M月d日";
 

@@ -31,6 +31,15 @@
 .ym-writer-content {
 	margin-top: 24px;
 }
+
+.ym-writer-tip {
+	margin: 12px;
+	color: #b4b4b4;
+}
+
+.ym-writer-error-tip {
+	color: #d9534f;
+}
 </style>
 
 <div class="input-group">
@@ -43,7 +52,10 @@
 	<div id="editor-trigger"></div>
 </div>
 
-<span id="auto-save-text" class="ym-text"></span>
+<!-- 自动保存时间 -->
+<span id="auto-save-text" class="ym-text ym-writer-tip"></span>
+<!-- 自动保存错误提示 -->
+<span id="auto-save-error-text" class="ym-text ym-writer-error-tip"></span>
 
 <script type="text/javascript">
 	var isChanged = false; // 是否修改内容
@@ -52,14 +64,13 @@
 	 * 页面加载完成后加载
 	 */
 	$(function() {
-		setInterval('autoSave()', 30 * 1000);
+		setInterval('autoSave()', 30 * 1000); // 30秒自动保存一次
 	});
 	/**
 	 *自动保存
 	 */
 	function autoSave() {
 		if (isChanged) {
-			$("#auto-save-text").text("保存中");
 			writerPublish(0);
 		}
 		isChanged = false;
@@ -82,11 +93,14 @@
 			success : function(data) {
 				if (data.code == 1001) {
 					feedId = data.feedId;
-					$("#auto-save-text").text(data.saveTime + " 保存");
+					$("#auto-save-text").text("最后自动保存时间 " + data.saveTime);
+					$("#auto-save-error-text").text("");
+				} else {
+					$("#auto-save-error-text").text("保存失败，请检查网络和备份，避免数据丢失");
 				}
 			},
 			error : function(e) {
-				alert(e);
+				$("#auto-save-error-text").text("保存失败，请检查网络和备份，避免数据丢失");
 			}
 		});
 	}

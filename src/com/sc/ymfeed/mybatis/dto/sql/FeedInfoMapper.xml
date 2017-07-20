@@ -261,7 +261,7 @@
 		from feed_info f left join
 		user_account u on
 		f.user_account_id = u.id
-		and f.state = #{state}
+		<!-- and f.state = #{state} -->
 		order
 		by f.publish_time desc
 		limit

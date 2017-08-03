@@ -45,7 +45,7 @@ public class SignInController extends SignController {
 			model.addAttribute(Messages.PARAM_REMEMBER, map.get(Messages.PARAM_REMEMBER));
 		}
 
-		return "view.sign.in" + MAPPING.TEMPLATE.TEMPLATE_B;
+		return "view.sign.in" + MAPPING.TEMPLATE.TEMPLATE_A;
 	}
 
 	@RequestMapping(value = MAPPING.NP.DATA_SIGN_IN, method = { RequestMethod.POST })

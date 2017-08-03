@@ -17,6 +17,7 @@ public class MAPPING {
 		public static final String DIRECT_SIGN_RESET = "/signreset"; // 找回密码页面
 		public static final String DIRECT_SIGN_ACTIVE = "/active"; // 激活页面
 		public static final String DIRECT_SIGN_ACTIVED = "/actived"; // 已激活页面
+		public static final String DIRECT_FEED_DETAIL = "/f"; // 已激活页面
 
 		public static final String DATA_FEED_HOME = "/data/feed/home"; // feed流
 		public static final String DATA_SIGN_IN = "/data/sign/in"; // 登录数据
@@ -42,9 +43,10 @@ public class MAPPING {
 	 * 对应tiles的模板
 	 */
 	public static class TEMPLATE {
-		public static final String TEMPLATE_A = ".aaa"; // 首页布局
-		public static final String TEMPLATE_B = ".bbb"; // 登录注册
-		public static final String TEMPLATE_C = ".ccc"; // 编辑
+		public static final String TEMPLATE_A = ".aaa"; // 登录注册
+		public static final String TEMPLATE_B = ".bbb"; // 编辑
+		public static final String TEMPLATE_C = ".ccc"; // 首页
+		public static final String TEMPLATE_D = ".ddd"; // 详情
 	}
 
 }

@@ -44,7 +44,7 @@ public class SignLostController extends SignController {
 			model.addAttribute(Messages.PARAM_VALIDATE, map.get(Messages.PARAM_VALIDATE));
 			model.addAttribute(Messages.PARAM_PASSWORD, map.get(Messages.PARAM_PASSWORD));
 		}
-		return "view.sign.lost" + MAPPING.TEMPLATE.TEMPLATE_B;
+		return "view.sign.lost" + MAPPING.TEMPLATE.TEMPLATE_A;
 	}
 
 	@RequestMapping(value = MAPPING.NP.DATA_SIGN_LOST, method = { RequestMethod.POST })
@@ -133,7 +133,7 @@ public class SignLostController extends SignController {
 		if (map != null && map.size() > 0) {
 			model.addAttribute(Messages.PARAM_NICKNAME, map.get(Messages.PARAM_NICKNAME));
 		}
-		return "widget.sign.reset" + MAPPING.TEMPLATE.TEMPLATE_B;
+		return "widget.sign.reset" + MAPPING.TEMPLATE.TEMPLATE_A;
 	}
 
 }

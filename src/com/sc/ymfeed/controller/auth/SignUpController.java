@@ -40,7 +40,7 @@ public class SignUpController extends SignController {
 			model.addAttribute(Messages.PARAM_EMAIL, map.get(Messages.PARAM_EMAIL));
 			model.addAttribute(Messages.PARAM_PASSWORD, map.get(Messages.PARAM_PASSWORD));
 		}
-		return "view.sign.up" + MAPPING.TEMPLATE.TEMPLATE_B;
+		return "view.sign.up" + MAPPING.TEMPLATE.TEMPLATE_A;
 	}
 
 	@RequestMapping(value = MAPPING.NP.DATA_SIGN_UP, method = { RequestMethod.POST })

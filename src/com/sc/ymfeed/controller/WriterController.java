@@ -12,7 +12,7 @@ public class WriterController {
 
 	@RequestMapping(value = MAPPING.P.DIRECT_WRITER, method = { RequestMethod.GET })
 	public String home(HttpServletRequest request, Model model) {
-		return "view.writer.editor" + MAPPING.TEMPLATE.TEMPLATE_C;
+		return "view.writer.editor" + MAPPING.TEMPLATE.TEMPLATE_B;
 	}
 
 }

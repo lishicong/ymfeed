@@ -95,6 +95,10 @@
 					feedId = data.feedId;
 					$("#auto-save-text").text("最后自动保存时间 " + data.saveTime);
 					$("#auto-save-error-text").text("");
+				} else if (data.code == 1003) {
+					feedId = data.feedId;
+					$("#auto-save-text").text("最后自动保存时间 " + data.saveTime);
+					$("#auto-save-error-text").text("当前文章超出长度限度，没有保存完整，请分篇书写");
 				} else {
 					$("#auto-save-error-text").text("保存失败，请检查网络和备份，避免数据丢失");
 				}

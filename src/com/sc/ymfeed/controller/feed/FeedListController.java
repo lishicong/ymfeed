@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sc.ymfeed.common.Constants;
 import com.sc.ymfeed.controller.MAPPING;
 import com.sc.ymfeed.mybatis.dto.FeedInfo;
-import com.sc.ymfeed.mybatis.support.Constants;
 
 /**
  * 查询Feed列表

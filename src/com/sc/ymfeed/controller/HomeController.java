@@ -18,7 +18,7 @@ public class HomeController {
 
 	@RequestMapping(value = MAPPING.NP.DIRECT_HOME, method = { RequestMethod.GET })
 	public String home(HttpServletRequest request, Model model) {
-		return "view.home" + MAPPING.TEMPLATE.TEMPLATE_A;
+		return "view.home" + MAPPING.TEMPLATE.TEMPLATE_C;
 	}
 
 }

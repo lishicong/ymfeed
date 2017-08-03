@@ -10,7 +10,7 @@
 
 <head>
 <base href="<%=basePath%>">
-<jsp:include page="../jsp/home.meta.jsp" flush="true" />
+<jsp:include page="../jsp/common/home.meta.jsp" flush="true" />
 <title>薅羊毛 | 404</title>
 
 <!-- Common CSS/JS -->

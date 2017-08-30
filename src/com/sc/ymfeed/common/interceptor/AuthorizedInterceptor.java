@@ -129,6 +129,11 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 			return true;
 		}
 
+		if (isAjaxRequest(request)) {
+			response.setHeader("session", "null");
+			return false;
+		}
+
 		// 将来源地址存放在session中，登录成功之后跳回原地址
 		String callback = request.getRequestURL().toString();
 		session.setAttribute("callback", callback);
@@ -157,6 +162,11 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 		}
 
 		return false;
+	}
+
+	public boolean isAjaxRequest(HttpServletRequest request) {
+		String headerX = request.getHeader("X-Requested-With");
+		return headerX != null && headerX.equalsIgnoreCase("XMLHttpRequest");
 	}
 
 }

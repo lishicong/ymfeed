@@ -50,6 +50,15 @@
 			<columnOverride column="CONTENT" property="content"
 				javaType="String" jdbcType="VARCHAR" />
 		</table>
-
+		<table schema="feed_comment" tableName="feed_comment"
+			domainObjectName="FeedComment" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+		</table>
+		<table schema="comment_reply" tableName="comment_reply"
+			domainObjectName="CommentReply" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+		</table>
 	</context>
 </generatorConfiguration>

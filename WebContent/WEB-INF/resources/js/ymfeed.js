@@ -104,3 +104,14 @@ function ymSignInWin() {
 function ymSignInSelf() {
 	openSelf('signin');
 }
+
+/**
+ * Java date格式化
+ * 
+ * @param date
+ * @returns
+ */
+function getLocalTime(date) {
+	var now = new Date(date), y = now.getFullYear(), m = now.getMonth() + 1, d = now.getDate();
+	return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
+}

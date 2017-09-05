@@ -231,7 +231,7 @@
 	 */
 	function createFeedCreateTime(data) {
 		var span = document.createElement("span");
-		span.innerHTML = data;
+		span.innerHTML = getLocalTime(data);
 		span.className = "feed-datetime ym-text-minor";
 		return span;
 	}

@@ -17,8 +17,8 @@ public class ReplyServiceImpl implements ReplyService {
 	@Resource
 	private CommentReplyMapper mapper;
 
-	public List<CommentReply> getCommentReply(String feedId, int start, int offset) {
-		return mapper.selectCommentReplyByLimit(feedId, FeedCommentReplyState.STATE_1, start, offset);
+	public List<CommentReply> getCommentReplyByLimit(List<String> commentIds, int start, int offset) {
+		return mapper.selectCommentReplyByLimit(commentIds, FeedCommentReplyState.STATE_1, start, offset);
 	}
 
 	public int addCommentReply(CommentReply commentReply) {

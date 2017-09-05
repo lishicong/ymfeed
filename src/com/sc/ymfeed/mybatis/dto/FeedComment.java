@@ -1,7 +1,6 @@
 package com.sc.ymfeed.mybatis.dto;
 
 import java.util.Date;
-import java.util.List;
 
 import com.sc.ymfeed.mybatis.support.BaseObject;
 
@@ -256,16 +255,6 @@ public class FeedComment extends BaseObject {
 
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
-	}
-
-	private List<CommentReply> commentReply;
-
-	public List<CommentReply> getCommentReply() {
-		return commentReply;
-	}
-
-	public void setCommentReply(List<CommentReply> commentReply) {
-		this.commentReply = commentReply;
 	}
 
 }

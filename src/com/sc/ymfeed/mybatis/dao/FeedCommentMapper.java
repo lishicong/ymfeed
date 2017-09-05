@@ -56,6 +56,8 @@ public interface FeedCommentMapper {
 	 */
 	int updateByPrimaryKey(FeedComment record);
 
+	FeedComment selectFeedCommentById(@Param("commentId") String commentId);
+
 	List<FeedComment> selectFeedCommentByLimit(@Param("feedId") String feedId, @Param("state") int state,
 			@Param("start") int start, @Param("offset") int offset);
 }

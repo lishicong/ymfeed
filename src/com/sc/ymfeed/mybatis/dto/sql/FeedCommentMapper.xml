@@ -176,36 +176,40 @@
 			<result column="email" jdbcType="VARCHAR" property="email" />
 			<result column="nickname" jdbcType="VARCHAR" property="nickname" />
 		</association>
-		<collection property="commentReply"
-			ofType="com.sc.ymfeed.mybatis.dto.CommentReply">
-			<result column="reply" jdbcType="VARCHAR" property="reply" />
-			<result column="c_nickname" jdbcType="VARCHAR" property="nickname" />
-			<result column="c_create_time" jdbcType="TIMESTAMP" property="createTime" />
-		</collection>
+		<!-- <collection property="commentReply" ofType="com.sc.ymfeed.mybatis.dto.CommentReply"> 
+			<result column="reply" jdbcType="VARCHAR" property="reply" /> <result column="c_nickname" 
+			jdbcType="VARCHAR" property="nickname" /> <result column="c_create_time" 
+			jdbcType="TIMESTAMP" property="createTime" /> </collection> -->
 	</resultMap>
-	<select id="selectFeedCommentByLimit" resultMap="CommentAndUserResultMap">
+	<select id="selectFeedCommentById" resultMap="CommentAndUserResultMap">
 		<!-- 查询Feed -->
 		select
 		f.id, f.comment, f.like_count, f.user_account_id,
-		f.feed_info_id, f.create_time, u.nickname, r.reply, r.create_time as
-		c_create_time, u2.nickname as c_nickname
+		f.feed_info_id, f.create_time, u.nickname
 		from
 		feed_comment f
 		left join
 		user_account u on
 		f.user_account_id = u.id
-		left
-		join
-		comment_reply r on
-		f.id =
-		r.feed_comment_id
-		left outer join
-		user_account u2 on
-		r.user_account_id =
-		u2.id
+		where f.id =
+		#{commentId,jdbcType=VARCHAR}
+		<!-- and f.state = #{state} -->
+	</select>
+	<select id="selectFeedCommentByLimit" resultMap="CommentAndUserResultMap">
+		<!-- 查询Feed -->
+		select
+		f.id, f.comment, f.like_count, f.user_account_id,
+		f.feed_info_id, f.create_time, u.nickname
+		from
+		feed_comment f
+		left join
+		user_account u on
+		f.user_account_id = u.id
+		where f.feed_info_id =
+		#{feedId,jdbcType=VARCHAR}
 		<!-- and f.state = #{state} -->
 		order
-		by f.create_time desc, r.create_time desc
+		by f.create_time desc
 		limit
 		#{start},
 		#{offset}

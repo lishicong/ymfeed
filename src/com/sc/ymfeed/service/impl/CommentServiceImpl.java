@@ -18,8 +18,13 @@ public class CommentServiceImpl implements CommentService {
 	private FeedCommentMapper mapper;
 
 	@Override
-	public List<FeedComment> getFeedCommentByLimit(String feedId, int start, int offset) {
+	public FeedComment getFeedCommentById(String commentId) {
 
+		return mapper.selectFeedCommentById(commentId);
+	}
+
+	@Override
+	public List<FeedComment> getFeedCommentByLimit(String feedId, int start, int offset) {
 		return mapper.selectFeedCommentByLimit(feedId, FeedCommentReplyState.STATE_1, start, offset);
 	}
 

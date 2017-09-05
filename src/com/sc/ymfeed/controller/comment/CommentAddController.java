@@ -41,6 +41,7 @@ public class CommentAddController extends CommentController {
 
 		if (result == 1) {
 			// 评论成功
+			feedComment = this.commentService.getFeedCommentById(feedComment.getId());
 			return feedComment;
 		}
 		return null;

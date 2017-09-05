@@ -354,4 +354,14 @@ public class CommentReply extends BaseObject {
 		this.nickname = nickname;
 	}
 
+	private UserAccount userAccount;
+
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
+
 }

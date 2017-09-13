@@ -55,6 +55,8 @@ public interface CommentReplyMapper {
 	 */
 	int updateByPrimaryKey(CommentReply record);
 
+	CommentReply selectCommentReplyById(@Param("commentId") String commentId, @Param("state") int state);
+
 	List<CommentReply> selectCommentReplyByLimit(@Param("commentIds") List<String> commentIds,
 			@Param("state") int state, @Param("start") int start, @Param("offset") int offset);
 }

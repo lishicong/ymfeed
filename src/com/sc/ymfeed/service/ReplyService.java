@@ -8,6 +8,8 @@ public interface ReplyService {
 
 	public List<CommentReply> getCommentReplyByLimit(List<String> commentIds, int start, int offset);
 
+	public CommentReply getCommentReplyById(String commentId);
+
 	public int addCommentReply(CommentReply commentReply);
 
 }

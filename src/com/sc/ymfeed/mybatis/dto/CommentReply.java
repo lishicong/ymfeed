@@ -344,16 +344,9 @@ public class CommentReply extends BaseObject {
 		this.updateTime = updateTime;
 	}
 
-	private String nickname;
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
+	/**
+	 * 回复者帐号
+	 */
 	private UserAccount userAccount;
 
 	public UserAccount getUserAccount() {
@@ -362,6 +355,19 @@ public class CommentReply extends BaseObject {
 
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
+	}
+
+	/**
+	 * 被回复者帐号
+	 */
+	private UserAccount replyToUserAccount;
+
+	public UserAccount getReplyToUserAccount() {
+		return replyToUserAccount;
+	}
+
+	public void setReplyToUserAccount(UserAccount replyToUserAccount) {
+		this.replyToUserAccount = replyToUserAccount;
 	}
 
 }

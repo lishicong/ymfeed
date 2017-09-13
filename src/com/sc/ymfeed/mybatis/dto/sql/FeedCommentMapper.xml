@@ -170,6 +170,7 @@
 		<result column="feed_info_id" jdbcType="VARCHAR" property="feedInfoId" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+
 		<association javaType="com.sc.ymfeed.mybatis.dto.UserAccount"
 			property="userAccount">
 			<id column="id" jdbcType="VARCHAR" property="id" />

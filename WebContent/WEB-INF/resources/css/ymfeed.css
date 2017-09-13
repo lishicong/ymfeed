@@ -23,6 +23,20 @@ hr {
 	border-top: 1px solid #f0f0f0;
 }
 
+.hr-dashed {
+	margin-top: 1.0rem;
+	margin-bottom: 1.0rem;
+	border: 0;
+	border-top: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+@media ( max-width : 767px) {
+	.hr-dashed {
+		margin-top: 0.6rem;
+		margin-bottom: 0.6rem;
+	}
+}
+
 a, a:hover {
 	color: #3194d0
 }

@@ -1,47 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <style type="text/css">
-.navbar-toggler {
-	z-index: 1;
-}
-
-@media ( max-width : 767px) {
-	nav>.container {
-		width: 100%;
-	}
-}
-
-.ym_logo {
-	width: 146px;
+.h-d-navi {
+	font-size: 1.2rem;
+	padding-left: 9rem;
+	padding-right: 3rem;
 }
 
 .ym_logo_ic {
-	width: 36px;
-	height: 36px;
-	margin-left: 12px;
+	width: 32px;
+	height: 32px;
 }
 
-@media ( max-width : 767px) {
-	.ym_logo_ic {
-		margin-left: 0px;
-	}
+.h-d-menu-home {
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
 }
 
-.ym_logo_title {
-	font-weight: bold;
-	font-size: 1.2rem;
-	color: #000000;
-	vertical-align: middle;
+.h-d-menu-item {
+	padding: 6px;
+	cursor: pointer;
+	color: #999999;
+	margin-left: 1rem;
+	margin-right: 1rem;
 }
 
-.ym_logo_title:focus, .ym_logo_title:hover {
+.h-d-menu-item:hover {
+	color: #f17c67;
 	text-decoration: none;
-	color: #000000;
 }
 
-.navbar-toggler {
-	padding: 0.16rem 0.75rem;
+.h-d-menu-item-active {
+	color: #f17c67;
 }
 
 .ym_header_write {
@@ -51,67 +42,49 @@
 	text-align: center;
 	border-color: #f05858;
 	border-radius: 3px;
-	padding-top: 4px;
+	padding: 4px;
 	width: 120px;
 	float: right;
 	margin-left: 30px;
-}
-
-.nav-item {
-	margin-right: 2em;
-}
-
-@media ( max-width : 767px) {
-	.nav-item {
-		margin-top: 0.3em;
-		margin-bottom: 0.3em;
-		margin-left: 2.5em;
-	}
-}
-
-.nav-link {
-	font-weight: 500;
-	font-size: 1.2rem;
-	padding: 0.2em 0em 0em 0em;
-}
-
-.navbar-inverse .navbar-nav .nav-link {
-	color: rgba(255, 255, 255, 0.75);
-}
-
-.navbar-inverse .navbar-nav .nav-link:focus, .navbar-inverse .navbar-nav .nav-link:hover
-	{
-	color: rgba(255, 255, 255, 0.1);
+	margin-right: 30px;
 }
 </style>
 
 <!-- Navigation -->
-<nav class="navbar fixed-top navbar-toggleable-md navbar-light bg-faded">
+<nav class="navbar d-inline fixed-top bg-light">
 
-	<!-- header -->
-	<button class="navbar-toggler navbar-toggler-right" type="button"
-		data-toggle="collapse" data-target="#navbarExample"
-		aria-controls="navbarExample" aria-expanded="false"
-		aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+	<a class="d-inline" href="#"> <img src="images/logo_200x200.png"
+		class="ym_logo_ic" alt="">
+	</a>
 
-	<!-- logo -->
-	<div class="ym_logo">
-		<img src="images/logo_200x200.png" class="ym_logo_ic"> <a
-			class="ym_logo_title" href="index">薅羊毛</a>
-	</div>
-
-	<!-- menu -->
-	<div class="container">
-		<div class="collapse navbar-collapse" id="navbarExample">
-			<ul class="nav navbar-nav" id="navbar_tab">
-			</ul>
-			<ul class="nav navbar-nav ml-auto" id="navbar_login">
-			</ul>
-			<span class="ym_header_write hidden-sm-down"
-				onclick="javascript:headerWriterFunc();">写文章</span>
+	<div class="h-d-navi d-none d-md-inline">
+		<div id="h-d-menu-id" class="d-inline h-d-menu-home">
+			<!-- tab1 -->
+			<span class="h-d-menu-item h-d-menu-item-active"
+				onclick="ymHeadMenu.tabClick(this);">推荐</span>
+			<!-- tab2 -->
+			<span id="h-d-menu-like" class="d-none h-d-menu-item"
+				onclick="ymHeadMenu.tabClick(this);">关注</span>
+			<!-- tab3 -->
+			<span id="h-d-menu-msg" class="d-none h-d-menu-item"
+				onclick="ymHeadMenu.tabClick(this);">消息&nbsp;<span
+				class="badge badge-pill badge-danger"
+				style="font-size: 0.7rem; vertical-align: middle; margin-bottom: 5px;">2</span></span>
 		</div>
+
+		<!-- 写文章 -->
+		<span class="ym_header_write float-right"
+			onclick="javascript:headerWriterFunc();">写文章</span>
+
+		<!-- 登录 -->
+		<span id="h-d-menu-login" class="d-none h-d-menu-item float-right"
+			onclick="javascript:ymSignInWin();">登录/注册</span>
+		<!-- 退出 -->
+		<a id="h-d-menu-logout" class="d-none h-d-menu-item float-right"
+			href="signout">退出</a>
+		<!-- 个人中心 -->
+		<span id="h-d-menu-account" class="d-none h-d-menu-item float-right"
+			onclick="ymHeadMenu.accountClick();">个人中心</span>
 	</div>
 </nav>
 
@@ -141,63 +114,49 @@
 	function openUserMenu() {
 		singOut();
 	}
-	/**
-	 * 导航栏推荐点击事件
-	 */
-	function navRecommendTabClick(obj) {
-		document.getElementById("nav_recommend").className = "nav-item active";
-		document.getElementById("nav_follow").className = "nav-item";
-		document.getElementById("nav_message").className = "nav-item";
-		alert("recommend");
-	}
-	function navFollowTabClick() {
-		document.getElementById("nav_recommend").className = "nav-item";
-		document.getElementById("nav_follow").className = "nav-item active";
-		document.getElementById("nav_message").className = "nav-item";
-		alert("follow");
-	}
-	function navMessageTabClick() {
-		document.getElementById("nav_recommend").className = "nav-item";
-		document.getElementById("nav_follow").className = "nav-item";
-		document.getElementById("nav_message").className = "nav-item active";
-		alert("message");
-	}
-	$(function() {
 
-		var tabHtml = '<div class="dropdown-divider hidden-lg-up"></div>';
-		var loginHtml = '<div class="dropdown-divider hidden-lg-up"></div>';
+	var YmHeadMenu = function() {
+		var me = this;
 
-		if (_hasCookie()) {
-
-			tabHtml += '<li id="nav_recommend" class="nav-item active">';
-			tabHtml += '<a class="nav-link" href="javascript:navRecommendTabClick();">推荐</a>';
-			tabHtml += '</li>';
-			tabHtml += '<div class="dropdown-divider hidden-lg-up"></div>';
-
-			tabHtml += '<li id="nav_follow" class="nav-item">';
-			tabHtml += '<a class="nav-link" href="javascript:navFollowTabClick();">关注</a>';
-			tabHtml += '</li>';
-			tabHtml += '<div class="dropdown-divider hidden-lg-up"></div>';
-
-			tabHtml += '<li id="nav_message" class="nav-item">';
-			tabHtml += '<a class="nav-link" href="javascript:navMessageTabClick();">';
-			tabHtml += '消息&nbsp;<span class="badge badge-pill badge-danger" style="font-size: 0.7rem;vertical-align: middle; margin-bottom:5px;">2</span>';
-			tabHtml += '</a>';
-			tabHtml += '</li>';
-
-			loginHtml += '<li class="nav-item"><a class="nav-link" href="#">个人中心</a></li>';
-			loginHtml += '<div class="dropdown-divider hidden-lg-up"></div>';
-			loginHtml += '<li class="nav-item"><a class="nav-link" href="signout">退出</a></li>';
-		} else {
-			tabHtml += '<li class="nav-item active"><a class="nav-link" href="#">首页</a></li>';
-
-			loginHtml += '<li class="nav-item"><a class="nav-link" href="javascript:ymSignInWin();">登录/注册</a></li>';
+		me.init = function() {
 		}
 
-		loginHtml += '<div class="dropdown-divider hidden-lg-up"></div>';
-		loginHtml += '<a href="" class="btn btn-lg btn-info hidden-lg-up">下载手机APP</a>';
+		me.tabClick = function(span) {
+			$("div#h-d-menu-id span").each(function() {
+				$(this).removeClass("h-d-menu-item-active");
+			});
+			$(span).addClass("h-d-menu-item-active");
+		}
 
-		$('#navbar_tab').append(tabHtml);
-		$('#navbar_login').append(loginHtml);
+		me.nologin = function() {
+			$("#h-d-menu-login").removeClass("d-none");
+			$("#h-d-menu-login").addClass("d-inline");
+		}
+
+		me.logon = function() {
+			$("#h-d-menu-like").removeClass("d-none");
+			$("#h-d-menu-msg").removeClass("d-none");
+			$("#h-d-menu-account").removeClass("d-none");
+			$("#h-d-menu-logout").removeClass("d-none");
+
+			$("#h-d-menu-like").addClass("d-inline");
+			$("#h-d-menu-msg").addClass("d-inline");
+			$("#h-d-menu-account").addClass("d-inline");
+			$("#h-d-menu-logout").addClass("d-inline");
+		}
+
+		me.init();
+		return me;
+	}
+
+	var ymHeadMenu = new YmHeadMenu();
+
+	$(function() {
+		if (_hasCookie()) {
+			ymHeadMenu.logon();
+		} else {
+			ymHeadMenu.nologin();
+		}
 	});
 </script>
+

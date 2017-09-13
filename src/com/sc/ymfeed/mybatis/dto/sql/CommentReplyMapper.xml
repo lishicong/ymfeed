@@ -203,26 +203,54 @@
 		<result column="feed_comment_id" jdbcType="VARCHAR" property="feedCommentId" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+
 		<association javaType="com.sc.ymfeed.mybatis.dto.UserAccount"
 			property="userAccount">
-			<id column="id" jdbcType="VARCHAR" property="id" />
-			<result column="email" jdbcType="VARCHAR" property="email" />
-			<result column="nickname" jdbcType="VARCHAR" property="nickname" />
+			<id column="uid" jdbcType="VARCHAR" property="id" />
+			<result column="unickname" jdbcType="VARCHAR" property="nickname" />
+		</association>
+		<association javaType="com.sc.ymfeed.mybatis.dto.UserAccount"
+			property="replyToUserAccount">
+			<id column="rid" jdbcType="VARCHAR" property="id" />
+			<result column="rnickname" jdbcType="VARCHAR" property="nickname" />
 		</association>
 	</resultMap>
+	<select id="selectCommentReplyById" resultMap="ReplyAndUserResultMap">
+		<!-- 查询Feed -->
+		select
+		r.id, r.reply, r.like_count, r.state, r.user_account_id,
+		r.reply_to_user_account_id, r.feed_info_id,
+		r.feed_comment_id,
+		r.create_time, u.id uid, u.nickname unickname, u2.id rid, u2.nickname
+		rnickname
+		from
+		comment_reply r
+		left join
+		user_account u on
+		r.user_account_id = u.id
+		left join
+		user_account u2 on
+		r.reply_to_user_account_id = u2.id
+		where
+		r.id = #{commentId}
+		<!-- and f.state = #{state} -->
+	</select>
 	<select id="selectCommentReplyByLimit" resultMap="ReplyAndUserResultMap">
 		<!-- 查询Feed -->
 		select
 		r.id, r.reply, r.like_count, r.state, r.user_account_id,
 		r.reply_to_user_account_id, r.feed_info_id,
 		r.feed_comment_id,
-		r.create_time
+		r.create_time, u.id uid, u.nickname unickname, u2.id rid, u2.nickname
+		rnickname
 		from
 		comment_reply r
 		left join
 		user_account u on
 		r.user_account_id = u.id
-		<!-- where r.feed_comment_id in (#{commentId}) -->
+		left join
+		user_account u2 on
+		r.reply_to_user_account_id = u2.id
 		where
 		r.feed_comment_id in
 		<foreach item="item" index="index" collection="commentIds"

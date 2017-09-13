@@ -1,15 +1,104 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style type="text/css">
-.blockquote {
-	margin: 0 0 0 0;
-	padding: 0 0 0 1rem;
+/****************** 通用设置开始 ******************/
+/* 评论图标 */
+.vhd-comment-icon-size {
+	width: 18px;
+	height: 18px;
+	margin-bottom: 2px;
+	cursor: pointer;
+	vertical-align: middle;
+}
+/* 评论图标文案 */
+.vhd-comment-icon-text {
+	font-size: 0.9em;
+	color: #8a8a8a;
+	cursor: pointer;
+	margin-left: 4px;
+	margin-right: 16px;
+}
+/* 回复图标 */
+.vhd-reply-icon-size {
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+	margin-right: 4px;
+	vertical-align: middle;
+}
+/* 回复图标文案 */
+.hvd-reply-icon-text {
+	font-size: 0.68em;
+	color: #8a8a8a;
+	cursor: pointer;
+	margin-right: 16px;
+}
+/* 评论文字大小 */
+.vhd-comment-font-size {
+	font-size: 1.06em;
 }
 
+@media ( max-width : 767px) {
+	.vhd-comment-font-size {
+		font-size: 0.98em;
+	}
+}
+/* 回复文字大小 */
+.vhd-reply-font-size {
+	font-size: 0.78em;
+}
+
+@media ( max-width : 767px) {
+	.vhd-reply-font-size {
+		font-size: 0.74em;
+	}
+}
+/****************** 通用设置结束 ******************/
+/* 文章标题 */
 .h-d-title {
-	
+	margin-top: 3rem !important;
+	margin-bottom: 1rem !important;
 }
 
+@media ( max-width : 767px) {
+	.h-d-title {
+		font-size: 1.4em;
+		font-weight: 800;
+		line-height: 1.2;
+		margin-top: 0.75rem !important;
+		margin-bottom: 0.5rem !important;
+	}
+}
+/* 评论作者、头像、发布时间等 */
+.h-d-comment-author {
+	margin-top: 0rem !important;
+	margin-bottom: 3rem !important;
+}
+
+.h-d-comment-author-left, .h-d-author-center, .h-d-author-right {
+	float: left;
+	height: 42px;
+	margin-right: 12px !important;
+}
+
+.h-d-comment-author-left {
+	width: 42px;
+	line-height: 42px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.h-d-comment-tool {
+	padding-left: 8px;
+}
+
+@media ( max-width : 767px) {
+	.h-d-comment-author-left {
+		width: 36px;
+	}
+}
+/* 文章作者、头像、发布时间等 */
 .h-d-author {
 	margin-top: 2rem !important;
 	margin-bottom: 7rem !important;
@@ -59,33 +148,13 @@
 }
 
 @media ( max-width : 767px) {
-	.h-d-title {
-		font-size: 1.4em;
-		font-weight: 800;
-		line-height: 1.2;
-		margin-top: 0.75rem !important;
-		margin-bottom: 0.5rem !important;
-	}
 	.h-d-content p {
 		font-size: 1.0rem;
 		line-height: 1.6;
 		padding: 0.0rem 0.0rem !important;
 	}
 }
-
-.h-d-advert {
-	width: 100%;
-	height: 120px;
-	object-fit: cover; /* 图片居中截剪*/
-}
-
-@media ( max-width : 767px) {
-	.h-d-advert {
-		height: 80px;
-	}
-}
-
-/*实现左中右布局*/
+/* 实现左中右布局 */
 .h-d-author-left, .h-d-author-center, .h-d-author-right {
 	float: left;
 	height: 48px;
@@ -140,106 +209,142 @@
 	line-height: 48px;
 	float: right;
 }
-
-.h-d-comment-btn {
-	cursor: pointer;
+/* 推广 */
+.h-d-advert {
+	width: 100%;
+	height: 120px;
+	object-fit: cover; /* 图片居中截剪*/
 }
 
-.h-d-comment-ta {
+@media ( max-width : 767px) {
+	.h-d-advert {
+		height: 80px;
+	}
+}
+/* 评论和取消评论 */
+.vhd-comment-textarea {
 	height: 80px;
 	background: #f8f8f8;
 	color: #8a8a8a;
 }
 
-.h-d-comment-cancel {
-	margin-top: 6px;
-	margin-right: 42px;
-	color: #8a8a8a;
-	font-size: 1.1rem;
-	cursor: pointer;
-}
-
-.h-d-comment-avator {
+.vhd-comment-avator {
 	width: 42px;
 	height: 42px;
 }
 
-.h-d-comment-nickname {
+.vhd-comment-btn {
+	cursor: pointer;
+}
+
+.vhd-comment-cancel-btn {
+	margin-top: 6px;
+	color: #8a8a8a;
+	font-size: 1.1rem;
+	cursor: pointer;
+	margin-right: 38px;
+}
+/** 评论列表 **/
+.vhd-comment-body {
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+@media ( max-width : 767px) {
+	.vhd-comment-body {
+		margin-top: 8px;
+		margin-bottom: 8px;
+	}
+}
+
+.vhd-comment-nickname {
 	color: #000000;
 	margin-top: 4px;
 	font-size: 1.0rem;
 	font-weight: 400;
 }
 
-.h-d-comment-content {
+.vhd-comment-content {
 	margin-top: 1rem;
+	margin-bottom: 1rem;
+	line-height: 1.8rem;
+	padding-left: 8px;
 }
 
-.h-d-comment-tool {
-	margin-top: 1rem;
-	float: left;
-	font-size: 0.9em;
+@media ( max-width : 767px) {
+	.vhd-comment-content {
+		padding-top: 8px;
+		margin-bottom: 0.2rem;
+	}
 }
 
-.h-d-comment-icon {
-	width: 18px;
-	height: 18px;
-	margin-bottom: 4px;
-	cursor: pointer;
-	vertical-align: middle;
-}
-
-.h-d-comment-tool-txt {
-	margin-left: 1px;
-	margin-right: 12px;
-	cursor: pointer;
-}
-
-.h-d-comment-like {
-	color: #8a8a8a;
-}
-
-.h-d-comment-unlike {
-	color: #8a8a8a;
-}
-
-.h-d-comment-reply {
-	color: #8a8a8a;
-}
-
-.h-d-comment-unreply {
-	color: #8a8a8a;
-}
-
-.h-d-comment-reply-nickname {
-	font-size: 0.75em;
+/** 回复列表 **/
+.vhd-reply-nickname {
 	color: #3194d0;
 }
 
-.h-d-comment-reply-content {
+.vhd-reply-content {
+	line-height: 1.6rem;
+}
+
+.hvd-reply-tool {
+	line-height: 1.4rem;
+}
+
+@media ( max-width : 767px) {
+	.hvd-reply-tool {
+		line-height: 1.4rem;
+	}
+}
+
+.blockquote {
+	margin: 1.4rem 0 1.6rem 0.6rem;
+	padding: 0 0 0 16px;
+	border-left: 2px #ddd solid;
+}
+
+@media ( max-width : 767px) {
+	.blockquote {
+		margin: 1rem 0 1rem 0;
+	}
+}
+/** 回复 **/
+.vhd-comment-add {
+	margin: 0 0 12px 0;
+}
+
+.vhd-comment-write {
 	font-size: 0.75em;
-}
-
-.h-d-comment-reply-time {
-	color: #969696;
-	font-size: 0.85rem;
-}
-
-.h-d-comment-reply-icon {
-	margin-left: 12px;
-	margin-right: 2px;
-	width: 16px;
-	height: 16px;
-	margin-bottom: 3px;
+	color: #8a8a8a;
 	cursor: pointer;
-	vertical-align: middle;
+	margin-left: 4px;
+}
+
+.vhd-reply-textarea {
+	height: 80px;
+	background: #f8f8f8;
+	color: #8a8a8a;
+}
+
+.vhd-reply-btn {
+	margin-top: 16px;
+	margin-bottom: 16px;
+	margin-right: 8px;
+}
+
+.vhd-reply-cancel-btn {
+	margin-top: 22px;
+	margin-right: 38px;
+	color: #8a8a8a;
+	font-size: 1.1rem;
+	cursor: pointer;
 }
 </style>
 <!-- Post Content Column -->
 <div class="col-lg-8">
 
 	<!-- Title -->
-	<h1 class="mt-5 mb-3 h-d-title">${feedInfo.title}</h1>
+	<h1 class="h-d-title">${feedInfo.title}</h1>
 
 	<!-- Author -->
 	<div class="h-d-author">
@@ -266,19 +371,29 @@
 
 	<!-- Comments Form -->
 	<div class="media my-5">
-		<img class="d-flex mt-1 mr-3 rounded-circle h-d-comment-avator"
+
+		<!-- 用户头像 -->
+		<img class="d-flex mt-1 mr-3 rounded-circle vhd-comment-avator"
 			src="http://placehold.it/50x50" alt="">
+
 		<div class="media-body">
 			<div class="form-group">
+
+				<!-- 评论输入框 -->
 				<textarea id="h-d-comment-textarea-id"
-					class="form-control h-d-comment-ta"
+					class="form-control vhd-comment-textarea"
 					onfocus="if(value=='写下你的评论...'){value=''}"
 					onblur="if(value==''){value='写下你的评论...'}">写下你的评论...</textarea>
+
 			</div>
-			<div id="h-d-comment-btn">
-				<span class="btn btn-danger float-right h-d-comment-btn"
-					onclick="javascript:writerCommentFunc();">发送</span> <span
-					class="h-d-comment-cancel float-right">取消</span>
+			<div>
+				<!-- 发送评论按钮 -->
+				<span class="btn btn-danger float-right vhd-comment-btn"
+					onclick="javascript:writerCommentFunc();">发送</span>
+
+				<!-- 取消评论按钮 -->
+				<span class="float-right vhd-comment-cancel-btn"
+					onclick="javascript:document.getElementById('h-d-comment-textarea-id').value = '写下你的评论...'">取消</span>
 			</div>
 		</div>
 	</div>
@@ -289,6 +404,8 @@
 	<div id="v-h-d-comment">
 		<!-- comment -->
 	</div>
+
+	<jsp:include page="include/pagination.jsp" flush="true" />
 </div>
 
 <script>
@@ -300,11 +417,13 @@
 		var me = this;
 
 		var commentBody;
+		var commentHeader;
 
 		var imageCommentAvatar; // 评论者头像
 		var divCommentNickname; // 评论者昵称
 		var divCommentCreateTime; // 评论时间
-		var divCommentContent; // 评论时间
+
+		var divCommentContent; // 评论内容
 
 		var divCommentTool; // 评论工具
 		var imageLike; // 评论点赞图片
@@ -316,11 +435,6 @@
 
 		me.init = function() {
 
-			// 创建feed评论头像
-			imageCommentAvatar = document.createElement("img");
-			imageCommentAvatar.src = comment.avatar;
-			imageCommentAvatar.className = "d-flex mt-1 mr-3 rounded-circle h-d-comment-avator";
-
 			var commentContent = document.createElement("div");
 			commentContent.className = "media-body";
 
@@ -328,65 +442,87 @@
 			me.initCommentTool();
 			me.initReply();
 
-			commentContent.appendChild(divCommentNickname);
-			commentContent.appendChild(divCommentCreateTime);
+			commentContent.appendChild(commentHeader);
+			commentContent.appendChild(me.clearFix());
+
 			commentContent.appendChild(divCommentContent);
 			commentContent.appendChild(divCommentTool);
-
-			commentContent.appendChild(me.clearFix());
 			commentContent.appendChild(blockquoteReply);
 
 			commentBody = document.createElement("div");
-			commentBody.className = "media panel my-3";
-			commentBody.appendChild(imageCommentAvatar);
+			commentBody.style.display = "none";
+			commentBody.className = "media panel vhd-comment-body";
 			commentBody.appendChild(commentContent);
 		}
 
 		me.initComment = function() {
+
+			// 创建feed评论头像
+			imageCommentAvatar = document.createElement("img");
+			imageCommentAvatar.src = comment.avatar;
+			imageCommentAvatar.src = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1762973822,121126736&fm=27&gp=0.jpg";
+			imageCommentAvatar.className = "rounded-circle vhd-comment-avator";
+
+			var divHeaderLeft = document.createElement("div");
+			divHeaderLeft.className = "h-d-comment-author-left";
+			divHeaderLeft.appendChild(imageCommentAvatar);
+
 			// 创建feed评论昵称
-			divCommentNickname = document.createElement("div");
-			divCommentNickname.className = "h-d-comment-nickname";
-			divCommentNickname.innerHTML = comment.userAccount.nickname;
+			var divName = document.createElement("div");
+			divName.className = "h-d-author-ctop h-d-nickname";
+			divName.innerHTML = comment.userAccount.nickname;
 			// 创建评论时间
-			divCommentCreateTime = document.createElement("div");
-			divCommentCreateTime.className = "h-d-time";
-			divCommentCreateTime.innerHTML = getLocalTime(comment.createTime);
+			var divTime = document.createElement("div");
+			divTime.className = "h-d-author-cbottom h-d-time";
+			divTime.innerHTML = getLocalTime(comment.createTime);
+
+			var divCenter = document.createElement("div");
+			divCenter.className = "h-d-author-center";
+			divCenter.appendChild(divName);
+			divCenter.appendChild(divTime);
+
+			commentHeader = document.createElement("div");
+			commentHeader.className = "h-d-comment-author";
+			commentHeader.appendChild(divHeaderLeft);
+			commentHeader.appendChild(divCenter);
+
 			// 创建评论内容
 			divCommentContent = document.createElement("div");
-			divCommentContent.className = "h-d-comment-content";
+			divCommentContent.className = "vhd-comment-content vhd-comment-font-size";
 			divCommentContent.innerHTML = comment.comment;
 		}
 
 		me.initCommentTool = function() {
 			// 创建评论工具栏-赞图
 			imageLike = document.createElement("img");
-			imageLike.className = "h-d-comment-icon";
+			imageLike.className = "vhd-comment-icon-size";
 			imageLike.src = "images/ic_comment_like.png";
+			imageLike.onclick = function() {
+				alert("赞");
+			}
 
 			// 创建评论工具栏-赞文本
-			//var likeCount = data.likeCount != null ? data.likeCount : 0;
 			spanLike = document.createElement("span");
 			spanLike.innerHTML = comment.likeCount != null ? comment.likeCount : 0 + "人赞";
-			spanLike.className = "h-d-comment-tool-txt h-d-comment-like";
+			spanLike.className = "vhd-comment-icon-text";
+			spanLike.onclick = function() {
+				alert("赞");
+			}
 
 			// 创建评论工具栏-回复图
 			imageReply = document.createElement("img");
-			imageReply.className = "h-d-comment-icon";
+			imageReply.className = "vhd-comment-icon-size";
 			imageReply.src = "images/ic_comment_reply.png";
 			imageReply.onclick = function() {
 				alert("回复1");
 			}
 
 			// 创建评论工具栏-回复文本
-			aReply = document.createElement("a");
-			aReply.className = "h-d-comment-tool-txt h-d-comment-reply";
-			aReply.innerText = "回复";
+			aReply = document.createElement("span");
+			aReply.className = "vhd-comment-icon-text";
+			aReply.innerHTML = "回复";
 			aReply.onclick = function() {
-				if ($("#comment-reply-input-" + comment.id).css("display") == "none") {
-					$("#comment-reply-input-" + comment.id).fadeIn(300);
-				} else {
-					$("#comment-reply-input-" + comment.id).fadeOut(300);
-				}
+				activeReplyInput(comment.id, comment.userAccountId, comment.userAccount.nickname);
 			}
 
 			divCommentTool = document.createElement("div");
@@ -401,8 +537,37 @@
 			blockquoteReply = document.createElement("blockquote");
 			blockquoteReply.id = "comment-" + comment.id;
 			blockquoteReply.className = "blockquote";
-			var input = new YmfeedInput(comment.id, comment.userAccountId, comment.userAccount.nickname);
+			var input = new YmfeedInput(comment.id);
+			blockquoteReply.appendChild(me.addNewReply());
 			blockquoteReply.appendChild(input);
+		}
+
+		/**
+		 * 在评论后添加新评论文案
+		 */
+		me.addNewReply = function() {
+
+			var imageWrite = document.createElement("img");
+			imageWrite.className = "vhd-comment-icon-size";
+			imageWrite.src = "images/ic_reply_write.png";
+			imageWrite.onclick = function() {
+				activeReplyInput(comment.id, comment.userAccountId, comment.userAccount.nickname);
+			}
+			var spanWirte = document.createElement("span");
+			spanWirte.className = "vhd-comment-write";
+			spanWirte.innerHTML = "添加新评论";
+			spanWirte.onclick = function() {
+				activeReplyInput(comment.id, comment.userAccountId, comment.userAccount.nickname);
+			}
+
+			var addNewReplyBody = document.createElement("div");
+			addNewReplyBody.className = "vhd-comment-add";
+			addNewReplyBody.style.display = "none";
+			addNewReplyBody.id = mCommentReplyControl.getCommentReplyAddId(comment.id);
+			addNewReplyBody.appendChild(imageWrite);
+			addNewReplyBody.appendChild(spanWirte);
+
+			return addNewReplyBody;
 		}
 
 		me.clearFix = function() {
@@ -424,6 +589,7 @@
 
 		var spanReplyNickname; // 评论回复者昵称
 		var spanReplyContent; // 评论回复内容
+		var spanReplyTime; // 评论回复时间
 		var imageReplyIcon; // 评论回复icon
 		var aReplyIconText; // 评论回复icon文本
 		var divReplyTool;
@@ -431,35 +597,52 @@
 		me.init = function() {
 			// 评论回复者昵称
 			spanReplyNickname = document.createElement("span");
-			spanReplyNickname.className = "mr-1 h-d-comment-reply-nickname";
-			spanReplyNickname.innerHTML = reply.nickname;
+			spanReplyNickname.className = "mr-1 vhd-reply-nickname";
+			spanReplyNickname.innerHTML = reply.userAccount.nickname;
 			// 评论回复者内容
-			spanReplyContent = document.createElement("span");
-			spanReplyContent.className = "h-d-comment-reply-content";
-			spanReplyContent.innerHTML = reply.reply;
+			spanReplyContent = document.createElement("div");
+			spanReplyContent.className = "vhd-reply-content vhd-reply-font-size";
 
+			spanReplyContent.append(spanReplyNickname);
+			spanReplyContent.innerHTML += reply.reply;
+
+			// 评论回复时间
+			spanReplyTime = document.createElement("span");
+			spanReplyTime.className = "hvd-reply-icon-text";
+			spanReplyTime.innerHTML = getLocalTime(reply.createTime);
 			// 评论回复ICON
 			imageReplyIcon = document.createElement("img");
-			imageReplyIcon.className = "h-d-comment-reply-icon";
+			imageReplyIcon.className = "vhd-reply-icon-size";
 			imageReplyIcon.src = "images/ic_comment_reply.png";
 			// 评论回复文本
-			aReplyIconText = document.createElement("a");
-			aReplyIconText.className = "h-d-comment-tool-txt h-d-comment-reply";
+			aReplyIconText = document.createElement("span");
+			aReplyIconText.className = "hvd-reply-icon-text";
 			aReplyIconText.dataset.parent = "#v-h-d-comment";
 			aReplyIconText.innerHTML = "回复";
+			aReplyIconText.onclick = function() {
+				activeReplyInput(reply.feedCommentId, reply.userAccountId, reply.userAccount.nickname);
+			}
 
 			divReplyTool = document.createElement("div");
-			divReplyTool.className = "mt-1 h-d-comment-reply-time";
-			divReplyTool.innerHTML = getLocalTime(reply.createTime);
+			divReplyTool.className = "hvd-reply-tool";
 
+			divReplyTool.append(spanReplyTime);
 			divReplyTool.append(imageReplyIcon);
 			divReplyTool.append(aReplyIconText);
 
 			replyBody = document.createElement("div");
-			replyBody.className = "my-3";
-			replyBody.append(spanReplyNickname);
+			replyBody.id = mCommentReplyControl.getCommentReplyId(reply.id);
+			replyBody.style.display = "none";
+			replyBody.className = "my-2";
 			replyBody.append(spanReplyContent);
 			replyBody.append(divReplyTool);
+			replyBody.append(me.dashed());
+		}
+
+		me.dashed = function() {
+			var hrDashed = document.createElement("div");
+			hrDashed.className = "hr-dashed";
+			return hrDashed;
 		}
 
 		me.init();
@@ -468,9 +651,25 @@
 	}
 	// ------------------------------------------- input -------------------------------------------
 	/**
+	 * 激活评论回复输入框
+	 */
+	function activeReplyInput(commentId, replyToUserId, replyToUserNickname) {
+
+		$("#" + mCommentReplyControl.getCommentReplyTextareaId(commentId)).val("@" + replyToUserNickname + " ");
+		$("#" + mCommentReplyControl.getCommentReplyInputId(commentId)).attr("replyToId", replyToUserId);
+		$("#" + mCommentReplyControl.getCommentReplyInputId(commentId)).attr("replyToNickname", replyToUserNickname);
+
+		var replyInput = $("#" + mCommentReplyControl.getCommentReplyInputId(commentId));
+		if (replyInput.css("display") == "none") {
+			replyInput.fadeIn(1000);
+		} else {
+			replyInput.fadeOut(500);
+		}
+	}
+	/**
 	 * 评论回复输入组件
 	 */
-	var YmfeedInput = function(commentId, userAccountId, nickname) {
+	var YmfeedInput = function(commentId) {
 		var me = this;
 
 		var inputBody;
@@ -483,7 +682,8 @@
 
 			// ---------------------------------------------------
 			textareaContent = document.createElement("textarea");
-			textareaContent.className = "form-control h-d-comment-ta";
+			textareaContent.id = mCommentReplyControl.getCommentReplyTextareaId(commentId);
+			textareaContent.className = "form-control vhd-reply-textarea";
 			textareaContent.onfocus = function() {
 				if (this.value == '写下你的评论...') {
 					this.value = ''
@@ -498,21 +698,25 @@
 
 			// ---------------------------------------------------
 			buttonSubmit = document.createElement("button");
-			buttonSubmit.className = "btn btn-danger float-right";
+			buttonSubmit.className = "btn btn-danger float-right vhd-reply-btn";
 			buttonSubmit.onclick = function() {
-				//alert(commentId + "," + userAccountId + "," + nickname);
-				me.createReplyFunc(commentId, userAccountId);
+				me.createReplyFunc(commentId);
 			}
 			buttonSubmit.innerHTML = "发送";
 
 			// ---------------------------------------------------
 			buttonCancel = document.createElement("span");
-			buttonCancel.className = "h-d-comment-cancel float-right";
+			buttonCancel.className = "float-right vhd-reply-cancel-btn";
 			buttonCancel.innerHTML = "取消";
+			buttonCancel.onclick = function() {
+				$(textareaContent).val("");
+				$(inputBody).fadeOut(500);
+			}
 
 			// ---------------------------------------------------
 			inputBody = document.createElement("div");
-			inputBody.id = "comment-reply-input-" + commentId;
+			inputBody.id = mCommentReplyControl.getCommentReplyInputId(commentId);
+			inputBody.className = "h-d-reply-input-body";
 			inputBody.style.display = "none";
 			inputBody.appendChild(textareaContent);
 			inputBody.appendChild(buttonSubmit);
@@ -522,32 +726,31 @@
 		/**
 		 * 写一条评论
 		 */
-		me.createReplyFunc = function(commentId, userAccountId) {
+		me.createReplyFunc = function(commentId) {
 
+			var replyToId = $("#" + mCommentReplyControl.getCommentReplyInputId(commentId)).attr("replyToId");
+			var replyToNickname = $("#" + mCommentReplyControl.getCommentReplyInputId(commentId)).attr(
+					"replyToNickname");
 			var reply = textareaContent.value;
 			var fid = "${feedInfo.id}";
 
-			var w = window.open();
-
 			$.ajax({
 				type : "post",
+				async : false,
 				url : "p/data/reply/add",
 				data : {
 					"reply" : reply,
-					"replyToUserAccountId" : userAccountId,
+					"replyToUserAccountId" : replyToId,
 					"feedInfoId" : fid,
 					"feedCommentId" : commentId
 				},
 				dataType : "json",
 				success : function(data) {
-					alert(data.reply);
-					w.close();
+					mCommentReplyControl.appendCommentReply(data);
 				},
 				error : function(request, textStatus, errorThrown) {
 					if (request.getResponseHeader('session') == "null") {
-						w.location = "signin";
-					} else {
-						w.close();
+						ymSignInWin();
 					}
 				}
 			});
@@ -596,24 +799,32 @@
 		 * 在顶部添加一条评论
 		 */
 		me.prependComment = function(comment) {
+			$("#h-d-comment-textarea-id").val("");
 			var commentDiv = new YmfeedComment(comment);
 			$("#v-h-d-comment").prepend(commentDiv);
+			$(commentDiv).fadeIn(1000);
 		}
 
 		/**
 		 * 在底部添加一条评论
 		 */
 		me.appendComment = function(comment) {
+			$("#" + mCommentReplyControl.getCommentReplyTextareaId(comment.id)).val("");
 			var commentDiv = new YmfeedComment(comment);
 			$("#v-h-d-comment").append(commentDiv);
+			$(commentDiv).fadeIn(1000);
 		}
 
 		/**
 		 * 添加一条评论回复
 		 */
 		me.appendCommentReply = function(reply) {
+			$("#" + mCommentReplyControl.getCommentReplyTextareaId(reply.feedCommentId)).val(""); // 清空输入框
 			var replyDiv = new YmfeedReply(reply);
-			$("#comment-reply-input-" + reply.feedCommentId).before(replyDiv);
+			$("#" + mCommentReplyControl.getCommentReplyAddId(reply.feedCommentId)).before(replyDiv); // 评论添加到"添加新评论"前面
+			$("#" + mCommentReplyControl.getCommentReplyAddId(reply.feedCommentId)).fadeIn(1); // 有评论时显示添加新评论
+			$("#" + mCommentReplyControl.getCommentReplyInputId(reply.feedCommentId)).fadeOut(1); // 添加评论后隐藏输入评论框
+			$(replyDiv).fadeIn(1000); // 显示新评论内容
 		}
 
 		/**
@@ -681,10 +892,9 @@
 			var fid = "${feedInfo.id}";
 			var comment = $("#h-d-comment-textarea-id").val();
 
-			var w = window.open();
-
 			$.ajax({
 				type : "post",
+				async : false,
 				url : "p/data/comment/add",
 				data : {
 					"fid" : fid,
@@ -693,16 +903,41 @@
 				dataType : "json",
 				success : function(data) {
 					me.prependComment(data);
-					w.close();
 				},
 				error : function(request, textStatus, errorThrown) {
 					if (request.getResponseHeader('session') == "null") {
 						w.location = "signin";
-					} else {
-						w.close();
 					}
 				}
 			});
+		}
+
+		/**
+		 * 输入文本框ID
+		 */
+		me.getCommentReplyAddId = function(commentId) {
+			return "comment-reply-add-" + commentId;
+		}
+
+		/**
+		 * 输入文本框ID
+		 */
+		me.getCommentReplyTextareaId = function(commentId) {
+			return "comment-reply-textarea-" + commentId;
+		}
+
+		/**
+		 * 输入区域ID
+		 */
+		me.getCommentReplyInputId = function(commentId) {
+			return "comment-reply-input-" + commentId;
+		}
+
+		/**
+		 * 一条回复ID
+		 */
+		me.getCommentReplyId = function(replyId) {
+			return "comment-reply-" + replyId;
 		}
 
 		return me;

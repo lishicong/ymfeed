@@ -25,8 +25,10 @@ public class ReplyAddController extends ReplyController {
 
 		super.initSession(request);
 
+		String commentId = UUIDUtil.getUUID();
+
 		CommentReply commentReply = new CommentReply();
-		commentReply.setId(UUIDUtil.getUUID());
+		commentReply.setId(commentId);
 		commentReply.setReply(reply);
 		commentReply.setState(FeedCommentReplyState.STATE_0);
 		commentReply.setUserAccountId(userAccountByCookie.getId());
@@ -37,6 +39,7 @@ public class ReplyAddController extends ReplyController {
 
 		int result = this.replyService.addCommentReply(commentReply);
 		if (result == 1) {
+			commentReply = this.replyService.getCommentReplyById(commentId);
 			return commentReply;
 		}
 

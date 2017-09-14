@@ -8,8 +8,10 @@ public interface CommentService {
 
 	public FeedComment getFeedCommentById(String commentId);
 
+	public int getFeedCommentCount(String feedId);
+
 	public List<FeedComment> getFeedCommentByLimit(String feedId, int start, int offset);
 
-	public int addFeedComment(FeedComment feedComment);
+	public FeedComment addFeedComment(FeedComment feedComment);
 
 }

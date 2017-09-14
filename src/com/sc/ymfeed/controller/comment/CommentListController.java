@@ -27,7 +27,6 @@ public class CommentListController extends CommentController {
 	public @ResponseBody List<FeedComment> commentList(HttpServletRequest request, @RequestParam("fid") String fid) {
 
 		List<FeedComment> list = this.commentService.getFeedCommentByLimit(fid, 0, Constants.OFFSET);
-
 		return list;
 	}
 }

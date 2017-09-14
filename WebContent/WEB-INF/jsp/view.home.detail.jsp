@@ -320,6 +320,13 @@
 	margin-left: 4px;
 }
 
+.vhd-comment-expand {
+	font-size: 0.75em;
+	color: #3194d0;
+	cursor: pointer;
+	margin-left: 4px;
+}
+
 .vhd-reply-textarea {
 	height: 80px;
 	background: #f8f8f8;
@@ -398,7 +405,9 @@
 		</div>
 	</div>
 
-	<h5>25条评论</h5>
+	<h5>
+		<span id="vhd-comment-count-id"></span>
+	</h5>
 	<hr class="my-4">
 
 	<div id="v-h-d-comment">
@@ -547,12 +556,15 @@
 		 */
 		me.addNewReply = function() {
 
+			// 添加新评论图标
 			var imageWrite = document.createElement("img");
 			imageWrite.className = "vhd-comment-icon-size";
 			imageWrite.src = "images/ic_reply_write.png";
 			imageWrite.onclick = function() {
 				activeReplyInput(comment.id, comment.userAccountId, comment.userAccount.nickname);
 			}
+
+			// 添加新评论按钮
 			var spanWirte = document.createElement("span");
 			spanWirte.className = "vhd-comment-write";
 			spanWirte.innerHTML = "添加新评论";
@@ -560,12 +572,22 @@
 				activeReplyInput(comment.id, comment.userAccountId, comment.userAccount.nickname);
 			}
 
+			var spanHasMore = document.createElement("span");
+			spanHasMore.className = "vhd-comment-write";
+			spanHasMore.innerHTML = "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;还有条3评论，";
+
+			var spanExpandMore = document.createElement("span");
+			spanExpandMore.className = "vhd-comment-expand link-color";
+			spanExpandMore.innerHTML = "展开查看更多";
+
 			var addNewReplyBody = document.createElement("div");
 			addNewReplyBody.className = "vhd-comment-add";
 			addNewReplyBody.style.display = "none";
 			addNewReplyBody.id = mCommentReplyControl.getCommentReplyAddId(comment.id);
 			addNewReplyBody.appendChild(imageWrite);
 			addNewReplyBody.appendChild(spanWirte);
+			addNewReplyBody.appendChild(spanHasMore);
+			addNewReplyBody.appendChild(spanExpandMore);
 
 			return addNewReplyBody;
 		}
@@ -767,6 +789,7 @@
 		var me = this;
 
 		var ymfeedReply; // 回复数据
+
 		var ymfeedComment; // 评论数据
 		var ymfeedCommentIds;
 
@@ -854,7 +877,7 @@
 		}
 
 		/**
-		 * 获取feed评论回复列表
+		 * 第一次获取feed评论回复列表，最多返回3条
 		 */
 		me.getFeedReplyListFunc = function(commentIds) {
 			$.ajax({
@@ -869,13 +892,28 @@
 		}
 
 		/**
+		 * 获取feed评论回复列表，分页返回添加
+		 */
+		me.getFeedReplyListMoreFunc = function(commentId) {
+			$.ajax({
+				type : "get",
+				url : "data/reply/listmore?cid=" + commentId + "&start=" + 3,
+				dataType : "json",
+				success : function(data) {
+					me.setReply(data);
+					me.refreshReplyView();
+				}
+			});
+		}
+
+		/**
 		 * 获取feed评论列表
 		 */
-		me.getFeedCommentListFunc = function() {
+		me.getFeedCommentListFunc = function(isPage) {
 			var fid = "${feedInfo.id}";
 			$.ajax({
 				type : "get",
-				url : "data/comment/list?fid=" + fid,
+				url : "data/comment/list?fid=" + fid + "&isPage" + isPage,
 				dataType : "json",
 				success : function(data) {
 					me.setComment(data);
@@ -970,7 +1008,7 @@
 	 * 页面加载完成后执行
 	 */
 	$(function() {
-		mCommentReplyControl.getFeedCommentListFunc();
+		mCommentReplyControl.getFeedCommentListFunc(true);
 	});
 
 	/**

@@ -28,9 +28,18 @@ public class ReplyListController extends ReplyController {
 	public @ResponseBody List<CommentReply> replyList(HttpServletRequest request, @RequestParam("cids") String cids) {
 
 		List<String> commentIds = Arrays.asList(cids.split(","));
-		List<CommentReply> list = this.replyService.getCommentReplyByLimit(commentIds, 0, Constants.OFFSET);
+		List<CommentReply> replys = this.replyService.getCommentReplyByLimit3(commentIds);
 
-		return list;
+		return replys;
+	}
+
+	@RequestMapping(value = MAPPING.NP.DATA_REPLY_LISTMORE, method = { RequestMethod.GET })
+	public @ResponseBody List<CommentReply> replyListMore(HttpServletRequest request, @RequestParam("cids") String cids,
+			@RequestParam("start") int start) {
+
+		List<CommentReply> replys = this.replyService.getCommentReplyByLimit(cids, start, Constants.OFFSET);
+
+		return replys;
 	}
 
 }

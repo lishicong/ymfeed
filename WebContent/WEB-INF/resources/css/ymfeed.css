@@ -45,6 +45,10 @@ a, a:hover {
 	cursor: pointer;
 }
 
+.link-color {
+	color: #3194d0;
+}
+
 /* 大标题 */
 .ym-title-big {
 	

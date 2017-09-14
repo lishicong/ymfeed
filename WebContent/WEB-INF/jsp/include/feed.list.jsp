@@ -278,10 +278,11 @@
 		var span = document.createElement("span");
 		span.className = "ym-tools-info";
 
-		var browseCount = feedinfo.browseCount != null ? browseCount : 0;
-		var commentCount = feedinfo.commentCount != null ? commentCount : 0;
-		var likeCount = feedinfo.likeCount != null ? likeCount : 0;
-		span.innerHTML = browseCount + " 浏览 · " + commentCount + " 评论 · " + likeCount + " 喜欢";
+		var browseCount = feedinfo.browseCount != null ? feedinfo.browseCount : 0;
+		var commentCount = feedinfo.commentCount != null ? feedinfo.commentCount : 0;
+		var replyCount = feedinfo.replyCount != null ? feedinfo.replyCount : 0;
+		var likeCount = feedinfo.likeCount != null ? feedinfo.likeCount : 0;
+		span.innerHTML = browseCount + " 浏览 · " + (commentCount + replyCount) + " 评论 · " + likeCount + " 喜欢";
 
 		div.appendChild(spanLabel);
 		div.appendChild(span);

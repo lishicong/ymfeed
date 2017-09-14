@@ -21,7 +21,8 @@ public class MAPPING {
 
 		public static final String DATA_FEED_HOME = "/data/feed/home"; // feed流
 		public static final String DATA_COMMENT_LIST = "/data/comment/list"; // 评论列表
-		public static final String DATA_REPLY_LIST = "/data/reply/list"; // 评论回复列表
+		public static final String DATA_REPLY_LIST = "/data/reply/list"; // 评论回复列表-3条
+		public static final String DATA_REPLY_LISTMORE = "/data/reply/listmore"; // 评论回复列表
 		public static final String DATA_SIGN_IN = "/data/sign/in"; // 登录数据
 		public static final String DATA_SIGN_UP = "/data/sign/up"; // 注册数据
 		public static final String DATA_SIGN_LOST = "/data/sign/lost"; // 找回密码数据

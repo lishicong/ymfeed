@@ -6,10 +6,10 @@ import com.sc.ymfeed.mybatis.dto.CommentReply;
 
 public interface ReplyService {
 
-	public List<CommentReply> getCommentReplyByLimit(List<String> commentIds, int start, int offset);
+	public List<CommentReply> getCommentReplyByLimit3(List<String> commentIds);
 
-	public CommentReply getCommentReplyById(String commentId);
+	public List<CommentReply> getCommentReplyByLimit(String commentId, int start, int offset);
 
-	public int addCommentReply(CommentReply commentReply);
+	public CommentReply addCommentReply(CommentReply commentReply);
 
 }

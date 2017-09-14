@@ -37,13 +37,7 @@ public class ReplyAddController extends ReplyController {
 		commentReply.setFeedCommentId(feedCommentId);
 		commentReply.setCreateTime(new Date());
 
-		int result = this.replyService.addCommentReply(commentReply);
-		if (result == 1) {
-			commentReply = this.replyService.getCommentReplyById(commentId);
-			return commentReply;
-		}
-
-		return null;
+		return this.replyService.addCommentReply(commentReply);
 	}
 
 }

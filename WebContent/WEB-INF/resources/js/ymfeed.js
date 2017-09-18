@@ -20,6 +20,16 @@ function isPC() {
 	}
 	return flag;
 }
+
+String.prototype.startWith = function(str) {
+	var reg = new RegExp("^" + str);
+	return reg.test(this);
+}
+
+String.prototype.endWith = function(str) {
+	var reg = new RegExp(str + "$");
+	return reg.test(this);
+}
 // --------------------------------------------------------------------------------
 /**
  * 以指定方式打开链接

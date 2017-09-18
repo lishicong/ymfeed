@@ -23,10 +23,20 @@ import com.sc.ymfeed.mybatis.dto.FeedComment;
 @Controller
 public class CommentListController extends CommentController {
 
-	@RequestMapping(value = MAPPING.NP.DATA_COMMENT_LIST, method = { RequestMethod.GET })
-	public @ResponseBody List<FeedComment> commentList(HttpServletRequest request, @RequestParam("fid") String fid) {
+	@RequestMapping(value = MAPPING.NP.DATA_COMMENT_LISTCOUNT, method = { RequestMethod.GET })
+	public @ResponseBody int commentListCount(HttpServletRequest request, @RequestParam("fid") String fid) {
 
-		List<FeedComment> list = this.commentService.getFeedCommentByLimit(fid, 0, Constants.OFFSET);
+		int count = this.commentService.getFeedCommentCount(fid);
+		return count;
+	}
+
+	@RequestMapping(value = MAPPING.NP.DATA_COMMENT_LIST, method = { RequestMethod.GET })
+	public @ResponseBody List<FeedComment> commentList(HttpServletRequest request, @RequestParam("fid") String fid,
+			@RequestParam("page") int page) {
+
+		int start = page > 0 ? (page - 1) * Constants.OFFSET : 0;
+		List<FeedComment> list = this.commentService.getFeedCommentByLimit(fid, start, Constants.OFFSET);
 		return list;
 	}
+
 }

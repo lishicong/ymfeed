@@ -37,7 +37,7 @@ public class CommentAddController extends CommentController {
 		feedComment.setState(FeedCommentReplyState.STATE_0);
 		feedComment.setFeedInfoId(feedInfoId);
 		feedComment.setCreateTime(new Date());
-
+System.out.println("add");
 		return this.commentService.addFeedComment(feedComment);
 	}
 }

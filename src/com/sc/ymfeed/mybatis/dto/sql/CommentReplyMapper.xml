@@ -268,7 +268,7 @@
 		user_account u2 on
 		r.reply_to_user_account_id = u2.id
 		where
-		r.feed_comment_id = 'commentId'
+		r.feed_comment_id = #{commentId}
 		order
 		by r.create_time asc
 		limit

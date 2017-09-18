@@ -45,12 +45,15 @@
 			MyBatis Generator, do not modify. This element was generated on Thu Sep 14 
 			23:56:43 CST 2017. -->
 		insert into feed_comment (id, comment, reply_count,
-		like_count, state, user_account_id,
+		like_count, state,
+		user_account_id,
 		feed_info_id, create_time, update_time
 		)
-		values (#{id,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR},
+		values
+		(#{id,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR},
 		#{replyCount,jdbcType=INTEGER},
-		#{likeCount,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{userAccountId,jdbcType=VARCHAR},
+		#{likeCount,jdbcType=INTEGER},
+		#{state,jdbcType=INTEGER}, #{userAccountId,jdbcType=VARCHAR},
 		#{feedInfoId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
 		#{updateTime,jdbcType=TIMESTAMP}
 		)
@@ -159,18 +162,23 @@
 		update feed_comment
 		set comment = #{comment,jdbcType=VARCHAR},
 		reply_count = #{replyCount,jdbcType=INTEGER},
-		like_count = #{likeCount,jdbcType=INTEGER},
+		like_count =
+		#{likeCount,jdbcType=INTEGER},
 		state = #{state,jdbcType=INTEGER},
 		user_account_id = #{userAccountId,jdbcType=VARCHAR},
-		feed_info_id = #{feedInfoId,jdbcType=VARCHAR},
-		create_time = #{createTime,jdbcType=TIMESTAMP},
-		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		feed_info_id =
+		#{feedInfoId,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP}
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	<cache eviction="LRU" type="com.sc.ymfeed.mybatis.redis.RedisCache" />
 	<resultMap id="CommentAndUserResultMap" type="com.sc.ymfeed.mybatis.dto.FeedComment">
 		<id column="id" jdbcType="VARCHAR" property="id" />
 		<result column="comment" jdbcType="VARCHAR" property="comment" />
+		<result column="reply_count" jdbcType="INTEGER" property="replyCount" />
 		<result column="like_count" jdbcType="INTEGER" property="likeCount" />
 		<result column="state" jdbcType="INTEGER" property="state" />
 		<result column="user_account_id" jdbcType="VARCHAR" property="userAccountId" />
@@ -192,7 +200,7 @@
 	<select id="selectFeedCommentById" resultMap="CommentAndUserResultMap">
 		<!-- 查询一条评论 -->
 		select
-		f.id, f.comment, f.like_count, f.user_account_id,
+		f.id, f.comment, f.reply_count, f.like_count, f.user_account_id,
 		f.feed_info_id, f.create_time, u.nickname
 		from
 		feed_comment f
@@ -202,7 +210,7 @@
 		where f.id =
 		#{commentId,jdbcType=VARCHAR}
 	</select>
-	<select id="selectFeedCommentCountById" resultMap="CommentAndUserResultMap">
+	<select id="selectFeedCommentCountById" resultType="java.lang.Integer">
 		<!-- 查询一条Feed的评论数量 -->
 		select
 		count(*)
@@ -214,7 +222,7 @@
 	<select id="selectFeedCommentByLimit" resultMap="CommentAndUserResultMap">
 		<!-- 分页查询Feed的评论 -->
 		select
-		f.id, f.comment, f.like_count, f.user_account_id,
+		f.id, f.comment, f.reply_count, f.like_count, f.user_account_id,
 		f.feed_info_id, f.create_time, u.nickname
 		from
 		feed_comment f

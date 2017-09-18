@@ -5,7 +5,7 @@ public class Constants {
 	/**
 	 * 每页数据
 	 */
-	public static final int OFFSET = 20;
+	public static final int OFFSET = 3;
 
 	/**
 	 * 内容预览长度

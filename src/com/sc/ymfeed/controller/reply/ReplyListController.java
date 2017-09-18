@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sc.ymfeed.common.Constants;
 import com.sc.ymfeed.controller.MAPPING;
 import com.sc.ymfeed.mybatis.dto.CommentReply;
 
@@ -34,10 +33,9 @@ public class ReplyListController extends ReplyController {
 	}
 
 	@RequestMapping(value = MAPPING.NP.DATA_REPLY_LISTMORE, method = { RequestMethod.GET })
-	public @ResponseBody List<CommentReply> replyListMore(HttpServletRequest request, @RequestParam("cids") String cids,
-			@RequestParam("start") int start) {
+	public @ResponseBody List<CommentReply> replyListMore(HttpServletRequest request, @RequestParam("cid") String cid) {
 
-		List<CommentReply> replys = this.replyService.getCommentReplyByLimit(cids, start, Constants.OFFSET);
+		List<CommentReply> replys = this.replyService.getCommentReplyByLimit(cid, 3, 100); // 最多取100条
 
 		return replys;
 	}

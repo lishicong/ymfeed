@@ -25,7 +25,8 @@
 	cursor: pointer;
 	background: #f05858;
 	color: #ffffff;
-	width: 100px;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 
 .ym-writer-content {

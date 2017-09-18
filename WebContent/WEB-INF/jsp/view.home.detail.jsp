@@ -312,11 +312,18 @@
 .vhd-comment-add {
 	margin: 0 0 12px 0;
 }
-
+/* 添加新评论 */
 .vhd-comment-write {
 	font-size: 0.75em;
 	color: #8a8a8a;
 	cursor: pointer;
+	margin-left: 4px;
+}
+
+/* 还有X条评论 */
+.vhd-comment-more {
+	font-size: 0.75em;
+	color: #8a8a8a;
 	margin-left: 4px;
 }
 
@@ -361,8 +368,14 @@
 				class="h-d-avator rounded-circle">
 		</div>
 		<div class="h-d-author-center">
-			<div class="h-d-author-ctop h-d-nickname">思聪</div>
-			<div class="h-d-author-cbottom h-d-time">2017.08.02 22:11* 字数</div>
+			<div class="h-d-author-ctop h-d-nickname">${feedInfo.userAccount.nickname}</div>
+			<div id="vhd-publish-time-id" class="h-d-author-cbottom h-d-time"></div>
+			<script>
+				$(function() {
+					var publishTime = "${feedInfo.publishTime}";
+					$("#vhd-publish-time-id").text(getLocalTime(publishTime));
+				});
+			</script>
 		</div>
 		<div class="h-d-author-right">关注</div>
 	</div>
@@ -544,7 +557,7 @@
 
 		me.initReply = function() {
 			blockquoteReply = document.createElement("blockquote");
-			blockquoteReply.id = "comment-" + comment.id;
+			blockquoteReply.id = mCommentReplyControl.getCommentId(comment.id);
 			blockquoteReply.className = "blockquote";
 			var input = new YmfeedInput(comment.id);
 			blockquoteReply.appendChild(me.addNewReply());
@@ -573,12 +586,17 @@
 			}
 
 			var spanHasMore = document.createElement("span");
-			spanHasMore.className = "vhd-comment-write";
-			spanHasMore.innerHTML = "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;还有条3评论，";
+			spanHasMore.className = "vhd-comment-more";
+			spanHasMore.id = mCommentReplyControl.getCommentReplyMoreId(comment.id);
 
 			var spanExpandMore = document.createElement("span");
 			spanExpandMore.className = "vhd-comment-expand link-color";
-			spanExpandMore.innerHTML = "展开查看更多";
+			spanExpandMore.style.display = "none";
+			spanExpandMore.innerHTML = "全部展开";
+			spanExpandMore.id = mCommentReplyControl.getCommentReplyExpandId(comment.id);
+			spanExpandMore.onclick = function() {
+				mCommentReplyControl.getFeedReplyListMoreFunc(comment.id);
+			}
 
 			var addNewReplyBody = document.createElement("div");
 			addNewReplyBody.className = "vhd-comment-add";
@@ -620,13 +638,20 @@
 			// 评论回复者昵称
 			spanReplyNickname = document.createElement("span");
 			spanReplyNickname.className = "mr-1 vhd-reply-nickname";
-			spanReplyNickname.innerHTML = reply.userAccount.nickname;
+			spanReplyNickname.innerHTML = reply.userAccount.nickname + "：@" + reply.replyToUserAccount.nickname;
 			// 评论回复者内容
 			spanReplyContent = document.createElement("div");
 			spanReplyContent.className = "vhd-reply-content vhd-reply-font-size";
 
 			spanReplyContent.append(spanReplyNickname);
-			spanReplyContent.innerHTML += reply.reply;
+
+			if (reply.reply != null) {
+				var _reply = reply.reply;
+				if (_reply.startWith("@" + reply.replyToUserAccount.nickname)) {
+					_reply = reply.reply.replace("@" + reply.replyToUserAccount.nickname, "");
+				}
+				spanReplyContent.innerHTML += _reply;
+			}
 
 			// 评论回复时间
 			spanReplyTime = document.createElement("span");
@@ -656,6 +681,7 @@
 			replyBody.id = mCommentReplyControl.getCommentReplyId(reply.id);
 			replyBody.style.display = "none";
 			replyBody.className = "my-2";
+			replyBody.append(document.createElement("replynum"));
 			replyBody.append(spanReplyContent);
 			replyBody.append(divReplyTool);
 			replyBody.append(me.dashed());
@@ -684,6 +710,11 @@
 		var replyInput = $("#" + mCommentReplyControl.getCommentReplyInputId(commentId));
 		if (replyInput.css("display") == "none") {
 			replyInput.fadeIn(1000);
+			// 滚动至输入框
+			$("html,body").animate({
+				//scrollTop : replyInput.offset().top
+				scrollTop : (replyInput.offset().top * 2 / 3)
+			}, 1000);
 		} else {
 			replyInput.fadeOut(500);
 		}
@@ -803,6 +834,21 @@
 		}
 
 		/**
+		 * 根据回复查找评论 
+		 */
+		me.getCommentByReply = function(reply) {
+			if (ymfeedComment != null && ymfeedComment.length > 0 && reply != null) {
+				for (var i = 0; i < ymfeedComment.length; i++) {
+					var comment = ymfeedComment[i];
+					if (comment.id == reply.feedCommentId) {
+						return comment;
+					}
+				}
+			}
+			return null;
+		}
+
+		/**
 		 * 生成评论ids
 		 */
 		me.createCommentIds = function() {
@@ -832,7 +878,7 @@
 		 * 在底部添加一条评论
 		 */
 		me.appendComment = function(comment) {
-			$("#" + mCommentReplyControl.getCommentReplyTextareaId(comment.id)).val("");
+			$("#" + me.getCommentReplyTextareaId(comment.id)).val("");
 			var commentDiv = new YmfeedComment(comment);
 			$("#v-h-d-comment").append(commentDiv);
 			$(commentDiv).fadeIn(1000);
@@ -842,11 +888,11 @@
 		 * 添加一条评论回复
 		 */
 		me.appendCommentReply = function(reply) {
-			$("#" + mCommentReplyControl.getCommentReplyTextareaId(reply.feedCommentId)).val(""); // 清空输入框
+			$("#" + me.getCommentReplyTextareaId(reply.feedCommentId)).val(""); // 清空输入框
 			var replyDiv = new YmfeedReply(reply);
-			$("#" + mCommentReplyControl.getCommentReplyAddId(reply.feedCommentId)).before(replyDiv); // 评论添加到"添加新评论"前面
-			$("#" + mCommentReplyControl.getCommentReplyAddId(reply.feedCommentId)).fadeIn(1); // 有评论时显示添加新评论
-			$("#" + mCommentReplyControl.getCommentReplyInputId(reply.feedCommentId)).fadeOut(1); // 添加评论后隐藏输入评论框
+			$("#" + me.getCommentReplyAddId(reply.feedCommentId)).before(replyDiv); // 评论添加到"添加新评论"前面
+			$("#" + me.getCommentReplyAddId(reply.feedCommentId)).fadeIn(1); // 有评论时显示添加新评论
+			$("#" + me.getCommentReplyInputId(reply.feedCommentId)).fadeOut(1); // 添加评论后隐藏输入评论框
 			$(replyDiv).fadeIn(1000); // 显示新评论内容
 		}
 
@@ -854,6 +900,9 @@
 		 * 更新评论
 		 */
 		me.refreshCommentView = function() {
+
+			$("#v-h-d-comment").empty(); // 先清除
+
 			if (ymfeedComment != null && ymfeedComment.length > 0) {
 				for (var i = 0; i < ymfeedComment.length; i++) {
 					var comment = ymfeedComment[i];
@@ -868,6 +917,41 @@
 		 * 更新评论回复
 		 */
 		me.refreshReplyView = function() {
+			if (ymfeedReply != null && ymfeedReply.length > 0) {
+				for (var i = 0; i < ymfeedReply.length; i++) {
+					var reply = ymfeedReply[i];
+					me.appendCommentReply(reply);
+				}
+
+				// 是否需要展开更多
+				for (var i = 0; i < ymfeedComment.length; i++) {
+					var comment = ymfeedComment[i];
+					var showReplyCount = $("#" + me.getCommentId(comment.id)).children("div").children("replynum").length;
+
+					if (comment.replyCount > showReplyCount) {
+						$("#" + me.getCommentReplyMoreId(comment.id)).text(
+								" | 还有条 " + (comment.replyCount - showReplyCount) + " 评论，");
+						$("#" + me.getCommentReplyExpandId(comment.id)).fadeIn(1);
+					}
+				}
+			}
+		}
+
+		/**
+		 * 获取更多评论后
+		 */
+		me.refreshReplyViewMore = function() {
+			// 删除前3条以外的数据
+			if (ymfeedReply != null && ymfeedReply.length > 0) {
+				var old3Reply = $("#" + me.getCommentId(ymfeedReply[0].feedCommentId)).children("div").children(
+						"replynum");
+				for (var i = 3; i < old3Reply.length; i++) {
+					old3Reply.eq(i).parent().remove();
+				}
+				$("#" + me.getCommentReplyMoreId(ymfeedReply[0].feedCommentId)).fadeOut(1);
+				$("#" + me.getCommentReplyExpandId(ymfeedReply[0].feedCommentId)).fadeOut(1);
+			}
+			// 添加新评论数据
 			if (ymfeedReply != null && ymfeedReply.length > 0) {
 				for (var i = 0; i < ymfeedReply.length; i++) {
 					var reply = ymfeedReply[i];
@@ -897,11 +981,11 @@
 		me.getFeedReplyListMoreFunc = function(commentId) {
 			$.ajax({
 				type : "get",
-				url : "data/reply/listmore?cid=" + commentId + "&start=" + 3,
+				url : "data/reply/listmore?cid=" + commentId,
 				dataType : "json",
 				success : function(data) {
 					me.setReply(data);
-					me.refreshReplyView();
+					me.refreshReplyViewMore();
 				}
 			});
 		}
@@ -909,15 +993,30 @@
 		/**
 		 * 获取feed评论列表
 		 */
-		me.getFeedCommentListFunc = function(isPage) {
+		me.getFeedCommentListFunc = function(page) {
 			var fid = "${feedInfo.id}";
 			$.ajax({
 				type : "get",
-				url : "data/comment/list?fid=" + fid + "&isPage" + isPage,
+				url : "data/comment/list?fid=" + fid + "&page=" + page,
 				dataType : "json",
 				success : function(data) {
 					me.setComment(data);
 					me.refreshCommentView();
+				}
+			});
+		}
+
+		/**
+		 * 获取feed评论列表总数
+		 */
+		me.getFeedCommentListCountFunc = function(page) {
+			var fid = "${feedInfo.id}";
+			$.ajax({
+				type : "get",
+				url : "data/comment/listcount?fid=" + fid,
+				dataType : "json",
+				success : function(data) {
+					ymPaginator.init(data);
 				}
 			});
 		}
@@ -944,14 +1043,28 @@
 				},
 				error : function(request, textStatus, errorThrown) {
 					if (request.getResponseHeader('session') == "null") {
-						w.location = "signin";
+						ymSignInWin();
 					}
 				}
 			});
 		}
 
 		/**
-		 * 输入文本框ID
+		 * 展开更多ID
+		 */
+		me.getCommentReplyMoreId = function(commentId) {
+			return "comment-reply-more-" + commentId;
+		}
+
+		/**
+		 * 展开回复ID
+		 */
+		me.getCommentReplyExpandId = function(commentId) {
+			return "comment-reply-expand-" + commentId;
+		}
+
+		/**
+		 * 添加新评论-ID
 		 */
 		me.getCommentReplyAddId = function(commentId) {
 			return "comment-reply-add-" + commentId;
@@ -976,6 +1089,13 @@
 		 */
 		me.getCommentReplyId = function(replyId) {
 			return "comment-reply-" + replyId;
+		}
+
+		/**
+		 * 一条评论ID
+		 */
+		me.getCommentId = function(commentId) {
+			return "comment-" + commentId;
 		}
 
 		return me;
@@ -1005,10 +1125,17 @@
 	}
 
 	/**
+	 * 分页
+	 */
+	function ymChangePage(page) {
+		mCommentReplyControl.getFeedCommentListFunc(page);
+	}
+
+	/**
 	 * 页面加载完成后执行
 	 */
 	$(function() {
-		mCommentReplyControl.getFeedCommentListFunc(true);
+		mCommentReplyControl.getFeedCommentListCountFunc(0);
 	});
 
 	/**

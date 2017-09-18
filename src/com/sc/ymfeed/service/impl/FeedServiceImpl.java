@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.sc.ymfeed.common.enums.FeedInfoState;
 import com.sc.ymfeed.mybatis.dao.FeedInfoMapper;
 import com.sc.ymfeed.mybatis.dto.FeedInfo;
 import com.sc.ymfeed.service.FeedService;
@@ -20,12 +19,12 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public List<FeedInfo> getFeedHomeByLimit(int start, int offset) {
 
-		return mapper.selectFeedHomeByLimit(FeedInfoState.STATE_2, start, offset);
+		return mapper.selectFeedHomeByLimit(start, offset);
 	}
 
 	@Override
 	public FeedInfo getFeedInfoById(String feedId) {
-		return mapper.selectByPrimaryKey(feedId);
+		return mapper.selectFeedById(feedId);
 	}
 
 	@Override

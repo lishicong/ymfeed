@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style type="text/css">
+.pagination {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
 .paginator-active {
 	background: #e9ecef;
 }

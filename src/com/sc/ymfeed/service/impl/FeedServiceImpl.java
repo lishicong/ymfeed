@@ -17,8 +17,12 @@ public class FeedServiceImpl implements FeedService {
 	private FeedInfoMapper mapper;
 
 	@Override
-	public List<FeedInfo> getFeedHomeByLimit(int start, int offset) {
+	public int getFeedCount() {
+		return mapper.selectFeedCount();
+	}
 
+	@Override
+	public List<FeedInfo> getFeedHomeByLimit(int start, int offset) {
 		return mapper.selectFeedHomeByLimit(start, offset);
 	}
 

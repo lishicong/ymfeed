@@ -6,6 +6,8 @@ import com.sc.ymfeed.mybatis.dto.FeedInfo;
 
 public interface FeedService {
 
+	public int getFeedCount();
+
 	public List<FeedInfo> getFeedHomeByLimit(int start, int offset);
 
 	public FeedInfo getFeedInfoById(String feedId);

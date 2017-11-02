@@ -6,13 +6,12 @@ public class FeedAdd extends BaseModel {
 
 	public String feedId;
 	public String saveTime;
+	public int saveMode;
 
-	public FeedAdd(int code) {
+	public FeedAdd(int code, String feedId, String saveTime, int saveMode) {
 		this.code = code;
-	}
-
-	public FeedAdd(String feedId, String saveTime) {
 		this.feedId = feedId;
 		this.saveTime = saveTime;
+		this.saveMode = saveMode;
 	}
 }

@@ -22,7 +22,6 @@ public class FeedDetailController extends FeedController {
 
 	@RequestMapping(value = MAPPING.NP.DIRECT_FEED_DETAIL + "/{feedId}", method = { RequestMethod.GET })
 	public String f(HttpServletRequest request, Model model, @PathVariable(value = "feedId") String feedId) {
-		System.out.println("feedId:" + feedId);
 		FeedInfo feedInfo = feedService.getFeedInfoById(feedId);
 		model.addAttribute("feedInfo", feedInfo);
 		return "view.home.detail" + MAPPING.TEMPLATE.TEMPLATE_D;

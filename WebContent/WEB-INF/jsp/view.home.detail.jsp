@@ -1009,7 +1009,7 @@
 		/**
 		 * 获取feed评论列表总数
 		 */
-		me.getFeedCommentListCountFunc = function(page) {
+		me.getFeedCommentListCountFunc = function() {
 			var fid = "${feedInfo.id}";
 			$.ajax({
 				type : "get",
@@ -1135,7 +1135,7 @@
 	 * 页面加载完成后执行
 	 */
 	$(function() {
-		mCommentReplyControl.getFeedCommentListCountFunc(0);
+		mCommentReplyControl.getFeedCommentListCountFunc();
 	});
 
 	/**

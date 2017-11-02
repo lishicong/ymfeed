@@ -26,7 +26,8 @@
 			23:56:43 CST 2017. -->
 		id, user_account_id, title, content, preview_content, preview_img,
 		state, comment_count,
-		reply_count, browse_count, like_count, publish_time, create_time, update_time
+		reply_count, browse_count, like_count,
+		publish_time, create_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
@@ -50,16 +51,19 @@
 			MyBatis Generator, do not modify. This element was generated on Thu Sep 14 
 			23:56:43 CST 2017. -->
 		insert into feed_info (id, user_account_id, title,
-		content, preview_content, preview_img,
+		content,
+		preview_content, preview_img,
 		state, comment_count, reply_count,
 		browse_count, like_count, publish_time,
 		create_time, update_time)
 		values (#{id,jdbcType=VARCHAR}, #{userAccountId,jdbcType=VARCHAR},
 		#{title,jdbcType=VARCHAR},
-		#{content,jdbcType=VARCHAR}, #{previewContent,jdbcType=VARCHAR}, #{previewImg,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR},
+		#{previewContent,jdbcType=VARCHAR}, #{previewImg,jdbcType=VARCHAR},
 		#{state,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER},
 		#{replyCount,jdbcType=INTEGER},
-		#{browseCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{publishTime,jdbcType=TIMESTAMP},
+		#{browseCount,jdbcType=INTEGER},
+		#{likeCount,jdbcType=INTEGER}, #{publishTime,jdbcType=TIMESTAMP},
 		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
 	</insert>
 	<insert id="insertSelective" parameterType="com.sc.ymfeed.mybatis.dto.FeedInfo">
@@ -209,19 +213,28 @@
 			MyBatis Generator, do not modify. This element was generated on Thu Sep 14 
 			23:56:43 CST 2017. -->
 		update feed_info
-		set user_account_id = #{userAccountId,jdbcType=VARCHAR},
+		set user_account_id =
+		#{userAccountId,jdbcType=VARCHAR},
 		title = #{title,jdbcType=VARCHAR},
 		content = #{content,jdbcType=VARCHAR},
-		preview_content = #{previewContent,jdbcType=VARCHAR},
-		preview_img = #{previewImg,jdbcType=VARCHAR},
+		preview_content =
+		#{previewContent,jdbcType=VARCHAR},
+		preview_img =
+		#{previewImg,jdbcType=VARCHAR},
 		state = #{state,jdbcType=INTEGER},
 		comment_count = #{commentCount,jdbcType=INTEGER},
-		reply_count = #{replyCount,jdbcType=INTEGER},
-		browse_count = #{browseCount,jdbcType=INTEGER},
-		like_count = #{likeCount,jdbcType=INTEGER},
-		publish_time = #{publishTime,jdbcType=TIMESTAMP},
-		create_time = #{createTime,jdbcType=TIMESTAMP},
-		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		reply_count =
+		#{replyCount,jdbcType=INTEGER},
+		browse_count =
+		#{browseCount,jdbcType=INTEGER},
+		like_count =
+		#{likeCount,jdbcType=INTEGER},
+		publish_time =
+		#{publishTime,jdbcType=TIMESTAMP},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP}
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	<cache eviction="LRU" type="com.sc.ymfeed.mybatis.redis.RedisCache" />
@@ -248,7 +261,7 @@
 		</association>
 	</resultMap>
 	<select id="selectFeedById" resultMap="FeedAndUserResultMap">
-		<!-- 查询Feed -->
+		<!-- 通过ID查询Feed -->
 		select
 		f.id, f.user_account_id, f.title, f.content, f.preview_img,
 		f.preview_content,
@@ -264,8 +277,15 @@
 		f.user_account_id = u.id
 		where f.id = #{feedId}
 	</select>
+	<select id="selectFeedCount" resultType="java.lang.Integer">
+		<!-- 查询Feed的总数量 -->
+		select
+		count(*)
+		from
+		feed_info f
+	</select>
 	<select id="selectFeedHomeByLimit" resultMap="FeedAndUserResultMap">
-		<!-- 查询Feed -->
+		<!-- 分页查询首页Feed列表 -->
 		select
 		f.id, f.user_account_id, f.title, f.content, f.preview_img,
 		f.preview_content,

@@ -56,6 +56,8 @@ public interface FeedInfoMapper {
 	 */
 	int updateByPrimaryKey(FeedInfo record);
 
+	int selectFeedCount();
+
 	FeedInfo selectFeedById(@Param("feedId") String feedId);
 
 	List<FeedInfo> selectFeedHomeByLimit(@Param("start") int start, @Param("offset") int offset);

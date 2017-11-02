@@ -81,6 +81,13 @@
 		var title = $("#writer_title").val();
 		var content = $("#editor-trigger").html();
 
+		if ($.trim(title).length == 0 && saveMode == 1) {
+			toastr.warning("", "请填写标题和内容", {
+				positionClass : 'toast-top-center',
+				timeOut : 2000
+			});
+		}
+
 		$.ajax({
 			type : "post",
 			url : "p/data/feed/add",
@@ -96,16 +103,30 @@
 					feedId = data.feedId;
 					$("#auto-save-text").text("最后自动保存时间 " + data.saveTime);
 					$("#auto-save-error-text").text("");
+					if (data.saveMode == 1) {
+						$("#writer_title").val("");
+						$("#editor-trigger").html("");
+						toastr.success("", "发布成功", {
+							positionClass : 'toast-top-center',
+							timeOut : 1000
+						});
+					}
 				} else if (data.code == 1003) {
 					feedId = data.feedId;
 					$("#auto-save-text").text("最后自动保存时间 " + data.saveTime);
 					$("#auto-save-error-text").text("当前文章超出长度限度，没有保存完整，请分篇书写");
-				} else {
+				} else if (data.code == 1002) {
 					$("#auto-save-error-text").text("保存失败，请检查网络和备份，避免数据丢失");
+				} else if (data.code == 1004) {
+					// 标题为空
 				}
 			},
 			error : function(e) {
 				$("#auto-save-error-text").text("保存失败，请检查网络和备份，避免数据丢失");
+				toastr.error("", "保存失败", {
+					positionClass : 'toast-top-center',
+					timeOut : 2000
+				});
 			}
 		});
 	}

@@ -39,6 +39,10 @@ public class FeedAddController extends FeedController {
 
 		super.initSession(request);
 
+		if (title == null || title.trim().length() == 0) {
+			return GsonUtil.toJSONObject(new FeedAdd(1004, feedId, "", saveMode));
+		}
+
 		if (feedId == null || feedId.trim().length() == 0) {
 			// feedId为空，创建新的feed
 			FeedInfo feedInfo = createFeedInfo(title, content, saveMode);
@@ -47,14 +51,7 @@ public class FeedAddController extends FeedController {
 
 			int result = feedService.addFeedInfo(feedInfo);
 			if (result == 1) {
-				String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_HHMM_CN);
-				FeedAdd feedAdd = new FeedAdd(feedInfo.getId(), saveTime);
-				if (!isTooLarge) {
-					feedAdd.code = Messages.CODE_SUCCESS;
-				} else {
-					feedAdd.code = 1003;
-				}
-				return GsonUtil.toJSONObject(feedAdd);
+				return getJson(feedInfo, isTooLarge, saveMode);
 			}
 		} else {
 			FeedInfo feedInfo = feedService.getFeedInfoById(feedId);
@@ -66,14 +63,7 @@ public class FeedAddController extends FeedController {
 
 				int result = feedService.addFeedInfo(feedInfo);
 				if (result == 1) {
-					String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_HHMM_CN);
-					FeedAdd feedAdd = new FeedAdd(feedInfo.getId(), saveTime);
-					if (!isTooLarge) {
-						feedAdd.code = Messages.CODE_SUCCESS;
-					} else {
-						feedAdd.code = 1003;
-					}
-					return GsonUtil.toJSONObject(feedAdd);
+					return getJson(feedInfo, isTooLarge, saveMode);
 				}
 			} else if (feedInfo.getUserAccountId().equals(userAccountByCookie.getId())) {
 				// 找到feed，并且用户id匹配，更新
@@ -83,20 +73,32 @@ public class FeedAddController extends FeedController {
 
 				int result = feedService.modifyFeedInfoById(feedInfo);
 				if (result == 1) {
-					String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_HHMM_CN);
-					FeedAdd feedAdd = new FeedAdd(feedInfo.getId(), saveTime);
-					if (!isTooLarge) {
-						feedAdd.code = Messages.CODE_SUCCESS;
-					} else {
-						feedAdd.code = 1003;
-					}
-					return GsonUtil.toJSONObject(feedAdd);
+					return getJson(feedInfo, isTooLarge, saveMode);
 				}
 			}
 		}
-		return GsonUtil.toJSONObject(new FeedAdd(Messages.CODE_FAILURE));
+		return GsonUtil.toJSONObject(new FeedAdd(Messages.CODE_FAILURE, feedId, "", saveMode));
 	}
 
+	private String getJson(FeedInfo feedInfo, boolean isTooLarge, int saveMode) {
+		String saveTime = DateUtil.formatter(feedInfo.getUpdateTime(), DateUtil.DATE_FORMAT_HHMM_CN);
+		FeedAdd feedAdd = null;
+		if (!isTooLarge) {
+			feedAdd = new FeedAdd(Messages.CODE_SUCCESS, feedInfo.getId(), saveTime, saveMode);
+		} else {
+			feedAdd = new FeedAdd(1003, feedInfo.getId(), saveTime, saveMode);
+		}
+		return GsonUtil.toJSONObject(feedAdd);
+	}
+
+	/**
+	 * 创建feed
+	 * 
+	 * @param title
+	 * @param content
+	 * @param saveMode
+	 * @return
+	 */
 	private FeedInfo createFeedInfo(String title, String content, int saveMode) {
 		FeedInfo feedInfo = new FeedInfo();
 		feedInfo.setId(UUIDUtil.getUUID());
@@ -115,6 +117,15 @@ public class FeedAddController extends FeedController {
 		return setFeedInfo(feedInfo, title, content, saveMode);
 	}
 
+	/**
+	 * 封装数据
+	 * 
+	 * @param feedInfo
+	 * @param title
+	 * @param content
+	 * @param saveMode
+	 * @return
+	 */
 	private FeedInfo setFeedInfo(FeedInfo feedInfo, String title, String content, int saveMode) {
 		feedInfo.setTitle(title); // 标题
 		feedInfo.setContent(content); // 内容
@@ -131,6 +142,12 @@ public class FeedAddController extends FeedController {
 		return feedInfo;
 	}
 
+	/**
+	 * 内容超出长度限制
+	 * 
+	 * @param feedInfo
+	 * @return
+	 */
 	private boolean isContentTooLarge(FeedInfo feedInfo) {
 		String content = feedInfo.getContent();
 		if (content.length() <= Constants.FEED_ADD_CONTENT_MAX) {

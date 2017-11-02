@@ -24,10 +24,11 @@ import com.sc.ymfeed.mybatis.dto.FeedInfo;
 public class FeedListController extends FeedController {
 
 	@RequestMapping(value = MAPPING.NP.DATA_FEED_HOME, method = { RequestMethod.GET })
-	public @ResponseBody List<FeedInfo> feedHome(HttpServletRequest request, @RequestParam("param") String param) {
+	public @ResponseBody List<FeedInfo> feedHome(HttpServletRequest request, @RequestParam("label") String label,
+			@RequestParam("page") int page) {
 
-		List<FeedInfo> info = this.feedService.getFeedHomeByLimit(0, Constants.OFFSET);
-		info.addAll(ExampleData.getExample());
+		int start = page > 0 ? (page - 1) * Constants.OFFSET : 0;
+		List<FeedInfo> info = this.feedService.getFeedHomeByLimit(start, Constants.OFFSET);
 
 		return info;
 	}

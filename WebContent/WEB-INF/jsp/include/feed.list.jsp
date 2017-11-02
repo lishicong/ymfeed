@@ -126,7 +126,7 @@
 }
 </style>
 
-<div id="u-home-feed-list" class="col-sm-7 ym-home-row">
+<div id="u-home-feed-list" class="ym-home-row">
 	<!-- feed流 -->
 </div>
 
